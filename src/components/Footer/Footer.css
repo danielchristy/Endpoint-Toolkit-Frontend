@@ -1,0 +1,52 @@
+@import '../../styles/variables.css';
+
+.footer-container {
+  background-color: var(--bcca-primary-blue);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  margin-top: 1rem;
+}
+
+.logos-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 0 0 375px;
+}
+
+.small-logo {
+  width: 5em;
+  height: auto;
+}
+
+.wwg-logo {
+  width: auto;
+  height: auto;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+.bcca-details {
+  color: var(--plain-white);
+  font-family: var(--font-body);
+  /* font-weight: 700; */
+  font-size: .8rem;
+  margin: 0;
+}
+
+.project-details {
+  color: var(--plain-white);
+  font-family: var(--font-body);
+  font-size: .8rem;
+  /* font-style: italic; */
+  margin: 0;
+}

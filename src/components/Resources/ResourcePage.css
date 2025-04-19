@@ -1,0 +1,73 @@
+/* ResourcePage.css */
+.resource-page {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: var(--bcca-text-color);
+  }
+  
+  .resource-page h2 {
+    font-family: var(--font-heading);
+    color: var(--bcca-text-accent-color);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .resource-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .resource-controls input,
+  .resource-controls select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+  }
+  
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .resource-card {
+    background-color: var(--bcca-card-bg-color);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px #00165a;
+    color: var(--bcca-text-color);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .resource-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .resource-card h3 a {
+    color: var(--bcca-text-accent-color);
+    text-decoration: none;
+  }
+  
+  .resource-card h3 a:hover {
+    text-decoration: underline;
+  }
+  
+  .resource-category {
+    font-size: 0.85rem;
+    color: var(--bcca-text-secondary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .resource-desc {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    color: var(--bcca-text-muted-color);
+  }
+  

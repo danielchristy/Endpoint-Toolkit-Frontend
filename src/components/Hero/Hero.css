@@ -1,0 +1,13 @@
+@import '../../styles/variables.css';
+
+.hero-container {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.hero-container p {
+  max-width: 600px;
+  margin: 0 auto;
+  /* font-size: 1.1rem;
+  line-height: 1.6; */
+}

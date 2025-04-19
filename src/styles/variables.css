@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+  /* GLOBAL STYLES */
+  --plain-white: #fff;
+  --plain-black: #1b1b1b;;
+
+  --color-background: #f5f0e8;
+  --color-text: #333333;
+  --color-heading: #222222;
+
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Playfair Display', serif;
+
+  /* BCCA THEMES */
+  --bcca-font: 'Barlow', Helvetica, Arial, Lucida, sans-serif;
+
+  --bcca-primary-blue: #00165a;
+  --bcca-secondary-blue: #9cd4e4;
+  --bcca-brown: #52361e;
+
+  /* WHEREWEGO THEMES */
+  --wwg-font: 'Inter tight', sans-serif;
+
+  --wwg-green: #2caa85;
+  --wwg-dark-green: #1f8769;
+  --wwg-light-biege: #F9F0E1;
+  --wwg-dark-biege: #E4D1AF;
+  --wwg-orange: #e07645;
+  --wwg-yellow: #ffe549;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--bcca-primary-blue);
+  margin: 1rem 0;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--bcca-secondary-blue);
+  margin: 1rem 0;
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--plain-black);
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+/* :root {
+    --color-background: #9CD4E4;
+    --color-accent: #00a37f;
+    --color-text: #333333;
+    --color-heading: #222222;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Playfair Display', serif;
+  
+    --color-card-1: #2a8c6b; 
+    --color-card-2: #2f4d8c; 
+    --color-card-3: #c25e26; 
+  } */

@@ -1,0 +1,145 @@
+@import '../../styles/variables.css';
+
+/* :root {
+  --bcca-bg-color: #ffffff;
+  --bcca-card-bg-color: #4b4a4a;
+  --bcca-text-color: #ffffff;
+  --bcca-text-muted-color: #aaaaaa;
+  --bcca-text-accent-color: #6c63ff;
+  --bcca-text-secondary-color: #9cd4e4;
+  --bcca-progress-bg: #333333;
+  --bcca-progress-fill: #002699;
+} */
+
+/* Container */
+.cert-cards-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--bcca-bg-color);
+  color: var(--bcca-text-color);
+}
+
+/* Individual Card */
+.bcca-card {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bcca-card-bg-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px #9cd4e4;
+  padding: 1.5rem;
+  max-width: 300px;
+  min-height: 200px;
+}
+
+/* Gradient corner accent */
+.bcca-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #5C3D1C, #0072ff);
+  border-bottom-left-radius: 100px;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.bcca-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Date, Title, Subtitle */
+.cert-date {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--bcca-text-muted-color);
+}
+
+.cert-title {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: var(--bcca-text-accent-color);
+}
+
+.cert-subtitle {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--bcca-text-secondary-color);
+}
+
+/* Progress */
+.progress-wrapper {
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #999999;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: var(--bcca-progress-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fg {
+  height: 6px;
+  background: var(--bcca-progress-fill);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Time left */
+.time-left {
+  font-size: 0.85rem;
+  color: var(--bcca-text-muted-color);
+}
+
+/* Button Styles */
+.btn {
+  background-color: #6c63ff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #5b55cc;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #000000;
+}
+
+/* Card Actions: Spacing for Update and Delete buttons */
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.completed-badge {
+  padding: 4px 8px;
+  background-color: #e0f7fa;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+

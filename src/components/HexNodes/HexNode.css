@@ -1,0 +1,31 @@
+@import "../../styles/variables.css";
+
+.hex-node {
+  position: relative;
+  width: 150px;
+  /* height: 173.2px; */
+  /* margin: 1rem; */
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  fill: var(--bcca-secondary-blue);
+  transition: transform 0.5s ease;
+  z-index: 1;
+  user-select: none;
+}
+
+.hex-node:hover {
+  fill: var(--bcca-primary-blue);
+  transform: scale(1.1);
+  z-index: 2;
+}
+
+.hex-node.center {
+  fill: var(--bcca-primary-blue);
+  transform: scale(1.2);
+  z-index: 3;
+}
+
+/* removed responsive styling for now - will add later */

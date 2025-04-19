@@ -1,0 +1,63 @@
+/* src/components/UserPage/UserPage.css */
+@import "../../styles/variables.css"; /* Import your theme variables */
+
+.user-page {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing);
+}
+
+.user-title {
+  font-size: var(--heading-font-size);
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+.user-info {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: var(--spacing);
+  border-radius: 8px;
+  margin-bottom: var(--spacing);
+}
+
+.user-info p {
+  font-size: var(--body-font-size);
+  margin: 0.5em 0;
+}
+
+.user-actions {
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: var(--body-font-size);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background-color: #092b6a; /* A slightly darker shade for hover */
+}
+
+.settings-btn {
+  background-color: var(--secondary-color);
+  color: #000;
+}
+
+.settings-btn:hover {
+  background-color: #e6c02c; /* A slight variation for hover */
+}

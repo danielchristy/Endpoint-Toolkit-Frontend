@@ -1,0 +1,105 @@
+@import '../../styles/variables.css';
+
+.header-container {
+  text-align: center;
+  background-color: var(--bcca-primary-blue);
+  padding: 0.5rem;
+}
+
+.logo-container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* width: 100%; */
+  height: auto;
+}
+
+.logo-image {
+  width: 20vw;
+  min-width: 12em;
+  height: auto;
+  
+}
+
+.tagline {
+  font-style: italic;
+  font-size: 1.10rem;
+  color: var(--wwg-green);
+  font-family: var(--font-heading);
+}
+
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+.site-header {
+  width: 100%;
+  border-top: 4px solid var(--color-primary);
+  margin-bottom: 1rem; 
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-primary);
+  padding: 0.75rem 2rem;
+}
+
+.top-nav .nav-left a {
+  color: var(--color-text);
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 500;
+}
+
+.top-nav .nav-left a:hover {
+  text-decoration: underline;
+}
+
+.top-nav .nav-right button {
+  background-color: var(--color-accent);
+  border: none;
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.top-nav .nav-right button:hover {
+  opacity: 0.8;
+}
+
+.brand-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-primary);
+  padding: 0.75rem 2rem;
+  color: var(--color-text);
+}
+
+.brand-bar .tagline {
+  background-color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  font-style: italic;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.brand-bar .brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: bold;
+} */

@@ -1,0 +1,18 @@
+h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--wwg-green);
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: .05rem;
+  margin-bottom: 1rem;
+}
+
+div > div {
+  background-color: #f5f0e8;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+}

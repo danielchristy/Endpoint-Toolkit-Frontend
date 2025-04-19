@@ -1,0 +1,11 @@
+/* in your global CSS or tailwind.config.js */
+.input {
+    @apply border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400;
+  }
+  .btn {
+    @apply bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition;
+  }
+  .btn-primary {
+    @apply bg-green-600 hover:bg-green-700;
+  }
+  

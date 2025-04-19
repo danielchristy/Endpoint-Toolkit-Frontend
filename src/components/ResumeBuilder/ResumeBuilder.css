@@ -1,0 +1,127 @@
+@import url('../../styles/variables.css');
+
+/* Global Styles */
+/* body {
+  margin: 0;
+  background-color: var(--color-background); Theme background color
+  color: var(--color-text);                   Theme text color
+  font-family: var(--font-body);
+  padding: 1rem;
+} */
+
+h1, h2, h3, .heading {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  margin-top: 0;
+}
+
+/* Resume Builder Container (Card Style) */
+.resume-builder-container {
+  background-color: #fdfaf5; /* Off-white or subtle neutral */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Section Headings */
+.resume-builder-container h2 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0;
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+}
+
+/* Skill List (Using CSS Grid for Tag-like Pills) */
+.skill-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+/* Skill Tag Styling */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-tag:hover {
+  background-color: #f0f0f0;
+}
+
+.skill-tag input[type="checkbox"] {
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+/* Resume Preview Styling */
+.resume-preview {
+  background-color: var(--color-background);
+  padding: 1.5rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.resume-preview h3 {
+  text-align: center;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Resume Upload Area */
+.resume-upload-area {
+  background-color: #fff;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.resume-upload-area:hover {
+  border-color: var(--color-accent);
+}
+
+/* Download Button */
+.download-button {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin: 0 auto;
+  display: block;
+}
+
+.download-button:hover {
+  background-color: #008f64; /* Adjust this darker shade as needed */
+  transform: translateY(-2px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 500px) {
+  .resume-builder-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+}

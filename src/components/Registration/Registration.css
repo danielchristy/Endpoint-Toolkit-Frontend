@@ -1,0 +1,84 @@
+@import '../../styles/variables.css';
+
+/* :root {
+    --color-background: #ffffff;  
+    --color-text: #333333;        
+    --color-heading: #2f4d8c;     
+    --color-accent: #00a37f;      
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Playfair Display', serif;
+  } */
+  
+  /* body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+  } */
+  
+  /* h1, h2, h3, .heading {
+    color: var(--color-heading);
+    font-family: var(--font-heading);
+    margin-top: 0;
+  } */
+  
+  /* Registration container styling */
+  .registration-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-background);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* Registration header */
+  .registration-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Form Group */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  /* Accent Button for form submission */
+  button.btn-accent {
+    background-color: var(--wwg-green);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  button.btn-accent:hover {
+    opacity: 0.8;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  

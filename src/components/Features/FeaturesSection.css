@@ -1,0 +1,31 @@
+.features-section {
+  padding: 40px;
+  background: #9CD4E4; /* Adjust to your theme's background */
+}
+
+.features-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+ 
+}
+
+.feature-card {
+  padding: 20px;
+  margin: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-one {
+  /* Add any BCCA-specific styles here */
+}
+.card-two {
+  /* Add any BCCA-specific styles here */
+}
+.card-three {
+  /* Add any BCCA-specific styles here */
+}

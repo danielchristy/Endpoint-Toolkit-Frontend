@@ -1,0 +1,66 @@
+/* File: QuestionnairePage.css */
+
+.questionnaire-container {
+    min-height: 100vh;
+    background-color: #fcfafa; /* bcca background color */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .questionnaire-card {
+    background-color: #292929; /* bcca card background */
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 20px #00165a;
+  }
+  
+  .questionnaire-card h2 {
+    color: #f9f9fb; /* bcca text-accent-color */
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    color: #fff;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .radio-group label {
+    font-weight: normal;
+    color: #ccc;
+  }
+  
+  .submit-button {
+    background-color: #00165a; /* bcca accent color */
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
