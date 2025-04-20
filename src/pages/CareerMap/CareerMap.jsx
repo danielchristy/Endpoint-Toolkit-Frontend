@@ -86,7 +86,7 @@ const CareerMap = () => {
         setCurrentView('fields');
     }
 
-    const handleFieldNodeClick = (field) => {
+    const handleFieldNodeClick = async (field) => {
         console.log(`${field.label} clicked`);
         setChosenField(field.label);
         setCurrentLevel('Entry Level');
@@ -96,14 +96,31 @@ const CareerMap = () => {
         const onetCodes = fieldOnetCodes[field.label];
 
         try {
-            for(const code of onetCodes) {
-                const response = axios.get(`http://localhost:3001/occupation/${code}`);
-                console.log(`${code} response:`, response);
-            }
+            const occupationRequests = onetCodes.map((code) =>
+                axios.get(`http://localhost:3001/occupation/${code}`)
+            );
+
+            const responses = await Promise.all(occupationRequests);
+            const jobNodeData = responses.map((response, index) => {
+                const job = response.data.OccupationList[0];
+                return {
+                    id: index,
+                    title: job.OnetTitle,
+                    code: job.OnetCode,
+                    description: job.OccupationDescription,
+                };
+            });
+
+            setJobData(jobNodeData);
+            setOccupationData(responses.map(response => response.data.OccupationList[0]));
+            console.log('Job Node Data:', jobNodeData);
+            console.log('Occupation Data:', occupationData);
         } catch (err) {
             console.log('Error:', err);
+            setError(err.response?.data?.error || 'Failed to fetch occupation data');
         }
     }
+
 
     // const handleJobNodeClick = () => {
     //     // need to handle api call
@@ -176,18 +193,32 @@ const CareerMap = () => {
                     </div>
                 )}
 
-                {currentView === 'jobs' && chosenField && currentLevel && (
+                {currentView === 'jobs' && (
+                    <div className='jobs-container'>
+                        {jobData.map((job) => (
+                            <HexNode
+                                key={job.id}
+                                label={job.title}
+                                description={job.description}
+                                isCenter={false}
+                                onClick={() => setChosenJob(job)}
+                            />
+                        ))}
+                    </div>
+                )}
+
+                {/* {currentView === 'jobs' && chosenField && currentLevel && (
                     <>
                     <div className="center-node-container">
                             <HexNode
                                 label={chosenField}
                                 description={`${currentLevel} roles`}
-                                isCenter={true}
-                                // onMouseEnter={() => handleNodeHover({ label: chosenField, description: `${currentLevel} roles` })}
+                                isCenter={true} */}
+                                {/* // onMouseEnter={() => handleNodeHover({ label: chosenField, description: `${currentLevel} roles` })}
                                 // onMouseLeave={handleNodeLeave}
-                                // showDescription={hoveredNode && hoveredNode.label === chosenField}
-                            />
-                    </div>
+                                // showDescription={hoveredNode && hoveredNode.label === chosenField} */}
+                            {/* /> */}
+                    {/* </div> */}
                         {/* <div className="jobs-container">
                             {jobNodes[chosenField][currentLevel].map((job) => (
                                 <HexNode
@@ -201,8 +232,8 @@ const CareerMap = () => {
                                 />
                             ))}
                         </div> */}
-                    </>
-                )}
+                    {/* </> */}
+                {/* )} */}
             </div>
 
             {/* {currentView === 'jobs' && (
