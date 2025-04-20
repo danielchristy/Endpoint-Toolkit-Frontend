@@ -86,14 +86,8 @@
   gap: 20px;
 }
 
-/* .center-node-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* .back-button {
-  position: absolute;
+.back-button {
+  position: relative;
   top: 20px;
   left: 20px;
   padding: 16px 32px;
@@ -102,8 +96,22 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  z-index: 20;
-} */
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: var(--wwg-green);
+
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+}
 
 /* .job-level-indicator {
   position: absolute;

@@ -1,85 +1,89 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { filterJobs, getJobs, getJobDetails } from './CareerMapUtils/careerUtils';
 import HexNode from '../../components/HexNodes/HexNode';
 import './CareerMap.css';
 
 const CareerMap = () => {
-    const [occupationData, setOccupationData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [jobData, setJobData] = useState([]);
+    const [jobDetails, setJobDetails] = useState([]);
     const [currentView, setCurrentView] = useState('start');
     const [activeNode, setActiveNode] = useState(null);
-    const [chosenField, setChosenField] = useState(null);
-    const [currentLevel, setCurrentLevel] = useState(null);
-    const [chosenJob, setChosenJob] = useState(null);
 
-    // const [hoveredNode, setHoveredNode] = useState(null);
+    console.log('last active node:', activeNode);
 
     const fieldNodes = [
         // https://www.comptia.org/blog/a-taxonomy-for-technology-jobs
         // { id: 0, label: "test" },
         { id: 1, label: "Enablement",
-            description: "The complex technology ecosystem is driving demand for a wide array of workers who ensure technology activities are running smoothly, such as IT project managers, department leads and IT channel professionals."
+            description: "The complex technology ecosystem is driving demand for a wide array of workers who ensure technology activities are running smoothly, such as IT project managers, department leads and IT channel professionals.",
+            searchKeyword: 'IT project manager'
         },
         { id: 2, label: "Support",
-            description: "Even as many routine support tasks are being automated, organizations continue to invest in tech support in order to drive the highest levels of productivity and handle increasingly complex employee experience issues."
+            description: "Even as many routine support tasks are being automated, organizations continue to invest in tech support in order to drive the highest levels of productivity and handle increasingly complex employee experience issues.",
+            searchKeyword: 'IT support'
         },
         { id: 3, label: "Infrastructure",
-            description: "The most cutting-edge solutions still need to run on hardware (real or virtualized), and infrastructure professionals need to stay on top of the latest trends in cloud computing and architecture optimization."
+            description: "The most cutting-edge solutions still need to run on hardware (real or virtualized), and infrastructure professionals need to stay on top of the latest trends in cloud computing and architecture optimization.",
+            searchKeyword: 'system administrator'
         },
         { id: 4, label: "Software",
-            description: "Whether it's improving online presence or exploring the latest AI tools for strategic implementation, organizations often have internal software resources to build internal tools or to customize and automate third-party applications."
+            description: "Whether it's improving online presence or exploring the latest AI tools for strategic implementation, organizations often have internal software resources to build internal tools or to customize and automate third-party applications.",
+            searchKeyword: 'software developer'
         },
         { id: 5, label: "Cybersecurity",
-            description: "Reliance on digital operations means that cybercriminals have lots of opportunity for profit, and changes in cybersecurity such as a zero trust approach and formalized risk analysis are driving demand for multiple specializations."
+            description: "Reliance on digital operations means that cybercriminals have lots of opportunity for profit, and changes in cybersecurity such as a zero trust approach and formalized risk analysis are driving demand for multiple specializations.",
+            searchKeyword: 'cybersecurity analyst'
         },
         { id: 6, label: "Data",
-            description: "The focal point for competitive differentiation is quickly becoming the ability to manage and analyze the vast datasets sitting in different organizational silos, and data is poised to be the largest growth area in technology over the next decade."
+            description: "The focal point for competitive differentiation is quickly becoming the ability to manage and analyze the vast datasets sitting in different organizational silos, and data is poised to be the largest growth area in technology over the next decade.",
+            searchKeyword: 'data scientist'
         },
     ];
 
     // const jobLevel = ['Entry Level', 'Mid Level', 'Senior Level'];
 
-    const fieldOnetCodes = {
-        // testing for queries based on field node click
-        Enablement: ["11-3021.00", "15-1299.09", "13-1151.00"],
-        Support: ["15-1232.00", "15-1231.00", "15-1231.00"],
-        Infrastructure: ["15-1244.00", "15-1241.00", "15-1244.00"],
-        Software: ["15-1212.00", "15-1251.00", "15-1254.00"],
-        Cybersecurity: ["15-1211.00", "15-1212.00", "15-1241.00"],
-        Data: ["15-2051.00", "15-2051.01", "15-1221.00"],
-    }
+    // const fieldOnetCodes = {
+    //     // testing for queries based on field node click
+    //     Enablement: ["11-3021.00", "15-1299.09", "13-1151.00"],
+    //     Support: ["15-1232.00", "15-1231.00", "15-1231.00"],
+    //     Infrastructure: ["15-1244.00", "15-1241.00", "15-1244.00"],
+    //     Software: ["15-1212.00", "15-1251.00", "15-1254.00"],
+    //     Cybersecurity: ["15-1211.00", "15-1212.00", "15-1241.00"],
+    //     Data: ["15-2051.00", "15-2051.01", "15-1221.00"],
+    // }
 
-    const fetchSoftwareDeveloperData = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await axios.get('http://localhost:3001/occupation/software-developer');
-            console.log(response);
-            // setOccupationData(response.data.OccupationList);
-            const OccupationList = response.data.OccupationList;
+    // const fetchSoftwareDeveloperData = async () => {
+    //     setLoading(true);
+    //     setError(null);
+    //     try {
+    //         const response = await axios.get('http://localhost:3001/occupation/software-developer');
+    //         console.log(response);
+    //         // setOccupationData(response.data.OccupationList);
+    //         const OccupationList = response.data.OccupationList;
 
-            const jobNodeData = OccupationList.map((job, index) => ({
-                id: index,
-                title: job.OnetTitle,
-                code: job.OnetCode,
-                description: job.OccupationDescription,
-            }));
+    //         const jobNodeData = OccupationList.map((job, index) => ({
+    //             id: index,
+    //             title: job.OnetTitle,
+    //             code: job.OnetCode,
+    //             description: job.OccupationDescription,
+    //         }));
 
-            setOccupationData(OccupationList);
-            setJobData(jobNodeData);
-        } catch (err) {
-            console.log('Error fetching occupation data:', err);
-            setError(err.response?.data?.error || 'Failed to fetch occupation data');
-        } finally {
-            setLoading(false);
-        }
-    };
+    //         setOccupationData(OccupationList);
+    //         setJobData(jobNodeData);
+    //     } catch (err) {
+    //         console.log('Error fetching occupation data:', err);
+    //         setError(err.response?.data?.error || 'Failed to fetch occupation data');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
-    useEffect(() => {
-        fetchSoftwareDeveloperData();
-    }, []);
+    // useEffect(() => {
+    //     fetchSoftwareDeveloperData();
+    // }, []);
 
     const handleExploreClick = () => {
         console.log('starting explore');
@@ -88,63 +92,98 @@ const CareerMap = () => {
 
     const handleFieldNodeClick = async (field) => {
         console.log(`${field.label} clicked`);
-        setChosenField(field.label);
-        setCurrentLevel('Entry Level');
-        setCurrentView('jobs');
-        setActiveNode(field);
+        setLoading(true);
+        setError(null);
 
-        const onetCodes = fieldOnetCodes[field.label];
+        // setChosenField(field.label);
+        // setCurrentLevel('Entry Level');
+        // setCurrentView('jobs');
+        // setActiveNode(field);
+        // const onetCodes = fieldOnetCodes[field.label];
 
         try {
-            const occupationRequests = onetCodes.map((code) =>
-                axios.get(`http://localhost:3001/occupation/${code}`)
-            );
+            // const occupationRequests = onetCodes.map((code) =>
+            //     axios.get(`http://localhost:3001/occupation/${code}`)
+            // );
 
-            const responses = await Promise.all(occupationRequests);
-            const jobNodeData = responses.map((response, index) => {
-                const job = response.data.OccupationList[0];
-                return {
-                    id: index,
-                    title: job.OnetTitle,
-                    code: job.OnetCode,
-                    description: job.OccupationDescription,
-                };
-            });
+            const jobs = await getJobs(field.searchKeyword);
+            const filteredJobs = filterJobs(jobs, field.label);
+
+            const jobNodeData = filteredJobs.map((job, index) => ({
+                id: index,
+                title: job.OnetTitle,
+                code: job.OnetCode,
+                description: job.OccupationDescription,
+            }));
+
+            // const responses = await Promise.all(occupationRequests);
+            // const jobNodeData = responses.map((response, index) => {
+            //     const job = response.data.OccupationList[0];
+            //     return {
+            //         id: index,
+            //         title: job.OnetTitle,
+            //         code: job.OnetCode,
+            //         description: job.OccupationDescription,
+            //     };
+            // });
 
             setJobData(jobNodeData);
-            setOccupationData(responses.map(response => response.data.OccupationList[0]));
-            console.log('Job Node Data:', jobNodeData);
-            console.log('Occupation Data:', occupationData);
+            setActiveNode(field);
+            setCurrentView('jobs');
         } catch (err) {
             console.log('Error:', err);
             setError(err.response?.data?.error || 'Failed to fetch occupation data');
+        } finally {
+            setLoading(false);
         }
     }
 
 
-    // const handleJobNodeClick = () => {
-    //     // need to handle api call
-    //     const currentLevelIndex = jobLevel.indexOf(currentLevel);
-    //     if (currentLevelIndex < jobLevel.length - 1) {
-    //         setCurrentLevel(jobLevel[currentLevelIndex + 1]);
-    //     }
-    // }
+    const handleJobNodeClick = async (job) => {
+        console.log(`${job.title} clicked`);
+        setLoading(true);
+        setError(null);
 
-    // const handleBackButtonClick = () => {
-    //     if (currentView === 'jobs') {
-    //         const currentLevelIndex = jobLevel.indexOf(currentLevel);
-    //         if (currentLevelIndex > 0) {
-    //             setCurrentLevel(jobLevel[currentLevelIndex - 1]);
-    //         } else {
-    //             setCurrentView('fields');
-    //             setChosenField(null);
-    //             setCurrentLevel(null);
-    //             setChosenJob(null);
-    //         }
-    //     } else {
-    //         setCurrentView('start');
-    //     }
-    // }
+        // setChosenJob(job);
+        // setCurrentView('job-details');
+        // setActiveNode(job);
+
+        try {
+            // const response = await axios.get(`http://localhost:3001/occupation/${job.code}`);
+            // const jobDetails = response.data.OccupationList[0];
+
+            // const jobNodeDetails = {
+            //     id: job.id,
+            //     title: jobDetails.OnetTitle,
+            //     code: jobDetails.OnetCode,
+            //     description: jobDetails.OccupationDescription,
+            // };
+            // setActiveNode(jobNodeDetails);
+            const details = await getJobDetails(job.code);
+            setJobDetails(details);
+            setActiveNode(job);
+            setCurrentView('job-details');
+        }
+        catch (err) {
+            console.log('Error fetching job details:', err);
+            setError(err.response?.data?.error || 'Failed to fetch job details');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleBackButtonClick = () => {
+        if (currentView === 'fields') {
+            setCurrentView('start');
+        } else if (currentView === 'jobs') {
+            setCurrentView('fields');
+            setJobData([]);
+        } else if (currentView === 'job-details') {
+            setCurrentView('jobs');
+            setJobDetails([]);
+        }
+        setActiveNode(null);
+    }
 
     // const handleResetButtonClick = () => {
     //     setCurrentView('start');
@@ -164,11 +203,17 @@ const CareerMap = () => {
                 <h1><strong>CareerNode Explorer</strong></h1>
             </div>
 
-            {/* {currentView !== 'start' && (
-                <button className='back-button'
-                    onClick={handleBackButtonClick}>
-                </button>
-            )} */}
+            {error && (
+                <div className='error-message'>
+                    {error}
+                </div>
+            )}
+
+            {loading && (
+                <div className='loading-message'>
+                    Loading...
+                </div>
+            )}
             
             <div className={`interactive-map-container ${currentView}`}>
                 {currentView === 'start' && (
@@ -201,73 +246,92 @@ const CareerMap = () => {
                                 label={job.title}
                                 description={job.description}
                                 isCenter={false}
-                                onClick={() => setChosenJob(job)}
+                                onClick={() => handleJobNodeClick(job)}
                             />
                         ))}
                     </div>
                 )}
 
-                {/* {currentView === 'jobs' && chosenField && currentLevel && (
-                    <>
-                    <div className="center-node-container">
-                            <HexNode
-                                label={chosenField}
-                                description={`${currentLevel} roles`}
-                                isCenter={true} */}
-                                {/* // onMouseEnter={() => handleNodeHover({ label: chosenField, description: `${currentLevel} roles` })}
-                                // onMouseLeave={handleNodeLeave}
-                                // showDescription={hoveredNode && hoveredNode.label === chosenField} */}
-                            {/* /> */}
-                    {/* </div> */}
-                        {/* <div className="jobs-container">
-                            {jobNodes[chosenField][currentLevel].map((job) => (
-                                <HexNode
-                                    key={job}
-                                    label={job}
-                                    isCenter={false}
-                                    onClick={() => handleJobNodeClick()}
-                                    // onMouseEnter={() => handleNodeHover({ label: job })}
-                                    // onMouseLeave={handleNodeLeave}
-                                    // showDescription={hoveredNode && hoveredNode.label === job}
-                                />
-                            ))}
-                        </div> */}
-                    {/* </> */}
-                {/* )} */}
+                {currentView !== 'start' && (
+                    <button className='back-button'
+                        onClick={handleBackButtonClick}>
+                        Back    
+                    </button>
+                )}
+
             </div>
 
-            {/* {currentView === 'jobs' && (
-                <div className='job-level-indicator'>
-                    {jobLevel.map((level, index) => (
-                        <div
-                            key={level}
-                            className={`job-level-dot ${currentLevel === level ? 'active' : ''}`}
-                            label={level}
-                        />
-                    ))}
-                </div>
-            )} */}
 
             <div className='career-map-info-container'>
                 {currentView === 'start' && (
                     <h1><strong>Click "Start Exploring" to explore paths!</strong></h1>
                 )}
 
-                {currentView === 'fields' && !activeNode && (
-                    <h1><strong>Select a field</strong></h1>
+                {currentView === 'fields' && activeNode && (
+                    <>
+                        <h1><strong>{activeNode.label}</strong></h1>
+                        <p>{activeNode.description}</p>
+                    </>
                 )}
-                
+
                 {currentView === 'jobs' && activeNode && (
                     <>
-                    <h1><strong>{activeNode.label}</strong></h1>
+                        <h1><strong>{activeNode.label}</strong></h1>
+                        <p>Click on a job to see more details</p>
+                    </>
+                )}
+
+                {currentView === 'job-details' && activeNode && jobDetails && (
+                    <>
+                        <h1><strong>{activeNode.title}</strong></h1>
+                        <p><i>ONET Code: {activeNode.code}</i></p>
                     
-                    <div className='description'>
-                        <p>{activeNode.description}</p>
-                    </div>
-                </>
+                        <div className='job-description'>
+                            <h2>Job Description</h2>
+                            <p>{jobDetails.OccupationDescription}</p>
+                        </div>
+
+                        {jobDetails.Wages && (
+                            <div className='wages'>
+                                <h2>Wages</h2>
+                                <p>Median Annual Wage: {jobDetails.Wages.NationalWagesList?.[0]?.Median}</p>
+                                <p>Entry Level Average: {jobDetails.Wages.NationalWagesList?.[0]?.Pct10}</p>
+                                <p>High Tier Role Average: {jobDetails.Wages.NationalWagesList?.[0]?.Pct90}</p>
+                            </div>
+                        )}
+
+                        {jobDetails.Skills && jobDetails.Skills.length > 0 && (
+                            <div className='skills'>
+                                <h2>Skills</h2>
+                                <ul>
+                                    {jobDetails.Skills.map((skill, index) => (
+                                        <li key={index}>{skill.ElementName}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (
+                            <div className='employment-projections'>
+                                <h2>Employment Projections</h2>
+                                <p>Projected Growth Rate: {jobDetails.EmploymentProjections[0].ProjectedGrowthRate}</p>
+                                <p>Projected Job Openings: {jobDetails.EmploymentProjections[0].ProjectedJobOpenings}</p>
+                            </div>
+                        )}
+
+                        {jobDetails.RelatedOnetTitles && jobDetails.RelatedOnetTitles.length > 0 && (
+                            <div className='related-jobs'>
+                                <h2>Related Jobs</h2>
+                                <ul>
+                                    {jobDetails.RelatedOnetTitles.map((relatedJob, index) => (
+                                        <li key={index}>{relatedJob.OnetTitle}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
-
         </div>
     );
 };
