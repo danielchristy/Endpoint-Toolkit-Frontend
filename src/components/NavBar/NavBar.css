@@ -8,66 +8,64 @@
   align-items: center;
   justify-content: space-between;
   /* width: 100%; */
-  height: auto;
-  padding: 0 0.5rem;
+  padding: 0.5rem 1.5rem;
+  position: relative;
+  box-shadow: 0 2px 10px var(--wwg-green);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    /* display: flex;
+    align-items: center;
+    justify-content: flex-start; */
+    width: 20rem;
+    height: auto;
 }
 
 .navbar {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
+    margin: 0 auto;
 }
 
 .page-links {
     list-style: none;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
+    /* justify-content: space-evenly; */
+    /* width: 100%; */
 }
 
-.user-actions {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 20rem;
-    height: auto;
+.page-links li {
+    margin: 0 1rem;
 }
 
 .navbar a {
     color: var(--plain-white);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .navbar a:hover {
     color: var(--wwg-green);
 }
 
-.register-button {
-    background-color: var(--wwg-green);
-    color: var(--plain-white);
-    font-family: var(--font-heading);
-    /* font-size: 1rem; */
-    border: none;
-    padding: 0.75rem 1.5rem;
-    margin: 0.5rem;
-    border-radius: 5%;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
+.user-actions {
+    list-style: none;
+    display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    /* justify-content: space-between; */
 }
 
-.register-button:hover {
-    opacity: 0.8;
-}
-
+.register-button,
 .login-button {
     background-color: var(--wwg-green);
     color: var(--plain-white);
@@ -79,8 +77,11 @@
     border-radius: 5%;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
+.register-button:hover,
 .login-button:hover {
     opacity: 0.8;
 }

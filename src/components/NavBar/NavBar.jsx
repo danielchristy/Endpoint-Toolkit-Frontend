@@ -3,12 +3,14 @@ import './NavBar.css';
 import standardLogo from '../../static/bcca-logos/standard-logo-with-title-transparent.png';
 
 function NavBar() {
+
     return (
         <nav className='navbar-container'>
             <div className='logo-container'>
                 <img src={standardLogo} alt='Base Camp Coding Academy Logo' className="nav-logo" />
             </div>
-            <nav className='navbar'>
+
+            <div className={'navbar'}>
                 <ul className='page-links'>
                     <li><a href="/">Home</a></li>
                     <li><a href="/careers">Certifications</a></li>
@@ -17,13 +19,13 @@ function NavBar() {
                     <li><a href="/resume">Resume</a></li>
                     <li><a href="/calendar">Calendar</a></li>
                     {/* <li><a href="/questionnaire">Questionnaire</a></li> */}
-                    <li><a href="/user">User</a></li>
+                    <li><a href="/profile">Profile</a></li>
                 </ul>
                 <ul className='user-actions'>
-                    <li><button className="login-button">Login</button></li>
-                    <li><button className="register-button">Register</button></li>
+                    <li><button className="login-button" a href="/login">Login</button></li>
+                    <li><button className="register-button" a href="/register">Register</button></li>
                 </ul>
-            </nav>
+            </div>
         </nav>
     );
 };

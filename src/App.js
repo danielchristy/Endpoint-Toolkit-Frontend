@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Home from './pages/Home/Home';
@@ -9,9 +9,10 @@ import ResourcePage from './components/Resources/ResourcePage';
 import ResumeBuilder from './components/ResumeBuilder/ResumeBuilder';
 import CustomCalendar from './components/CustomCalendar/CustomCalendar';
 import QuestionnairePage from './components/QuestionnairePage/QuestionnairePage';
-import UserPage from './components/UserLogin/UserPage';
-import Registration from './components/Registration/Registration';
-import UserDashboard from './components/UserLogin/UserDashboard';
+import UserProfile from './pages/UserProfile/UserProfile';
+// import UserDashboard from './pages/UserProfile/UserDashboard';
+import Registration from './pages/Registration/Registration';
+
 import PrivateRoute from './components/PrivateRoute';
 import TestAPICalls from './pages/TestAPICalls/TestAPICalls';
 import TestOnetAPI from './pages/TestAPICalls/TestOnetAPI';
@@ -42,58 +43,28 @@ function App() {
           <Route path="/resume" element={<ResumeBuilder />} />
           <Route path="/calendar" element={<CustomCalendar initialEvents={upcoming} />} />
           <Route path="/questionnaire" element={<QuestionnairePage />} />
-          <Route path="/user" element={<UserPage />} />
+          {/* <Route path="/user" element={<UserPage />} /> */}
           <Route path="/register" element={<Registration />} />
           <Route path="/test" element={<TestAPICalls />} />
           <Route path="/test-onet" element={<TestOnetAPI />} />
+
+          {/* Protected routes */}
+          <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <UserProfile />
+                </PrivateRoute>
+              }
+            />
         </Routes>
       </main>
-
 
       <footer className='footer'>
         <Footer />
       </footer>
 
-      {/* Global Navigation */}
-      {/* <nav className="navbar">
-        <ul className="nav-list">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/careermap">Career Map</Link></li>
-          <li><Link to="/careers">Certifications</Link></li>
-          <li><Link to="/resources">Resources</Link></li>
-          <li><Link to="/resume">Resume Builder</Link></li>
-          <li><Link to="/calendar">Calendar</Link></li>
-          <li><Link to="/questionnaire">Questionnaire</Link></li> */}
-      {/* Show login/register only when not authenticated */}
-      {/* <li><Link to="/user">Login</Link></li>
-          <li><Link to="/register">Register</Link></li>
-        </ul>
-      </nav> */}
-
-
-      {/* Protected routes */}
-      {/* <Route
-          path="/user/dashboard"
-          element={
-            <PrivateRoute>
-              <UserDashboard />
-            </PrivateRoute>
-          }
-        /> */}
-
-      {/* example: additional protected page */}
-      {/* <Route
-          path="/user/settings"
-          element={
-            <PrivateRoute>
-              <h2>Settings</h2>
-            </PrivateRoute>
-          }
-        /> */}
-
-
-
-    </div>
+      </div>
   );
 }
 

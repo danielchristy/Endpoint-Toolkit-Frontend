@@ -3,6 +3,8 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+import '../../components/CertificationCards';
+
 export default function UserDashboard() {
   const { logout } = useContext(AuthContext);
   const navigate   = useNavigate();
