@@ -17,11 +17,11 @@ export const filterJobs = (jobs, field) => {
     const keywords = jobKeywords[field];
 
     console.log('keywords:', keywords);
-    if (!keywords) return jobs;    
+    if (!keywords) return jobs;
 
     return jobs.filter(job => {
         if (!job.OnetTitle || !job.OnetCode) return false;
-        
+
         const onetTitle = job.OnetTitle.toLowerCase();
         const onetCode = job.OnetCode;
         const description = job.OccupationDescription?.toLowerCase() || '';
@@ -30,9 +30,9 @@ export const filterJobs = (jobs, field) => {
         console.log('onetTitle:', onetTitle);
         console.log('onetCode:', onetCode);
         console.log('description:', description);
-        
-        return keywords.some(keyword => 
-            onetTitle.includes(keyword.toLowerCase()) || 
+
+        return keywords.some(keyword =>
+            onetTitle.includes(keyword.toLowerCase()) ||
             onetCode.includes(keyword.toLowerCase()) ||
             description.includes(keyword.toLowerCase())
         );
@@ -61,6 +61,7 @@ export const getJobs = async (keyword) => {
 
 // second fetch to get job details
 export const getJobDetails = async (onetCode) => {
+    console.log(`getJobDetails called with ONET code: ${onetCode}`);
     try {
         const response = await fetch(
             `http://localhost:3001/occupation/details/${onetCode}`,
@@ -72,6 +73,7 @@ export const getJobDetails = async (onetCode) => {
             }
         );
         const data = await response.json();
+        console.log('job details:', data);
         return data.OccupationDetail || null;
     } catch (error) {
         console.error('job detail fetch error:', error);

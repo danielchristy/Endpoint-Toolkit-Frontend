@@ -8,7 +8,7 @@ const CareerMap = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [jobData, setJobData] = useState([]);
-    const [jobDetails, setJobDetails] = useState([]);
+    const [jobDetails, setJobDetails] = useState(null);
     const [currentView, setCurrentView] = useState('start');
     const [activeNode, setActiveNode] = useState(null);
 
@@ -17,27 +17,33 @@ const CareerMap = () => {
     const fieldNodes = [
         // https://www.comptia.org/blog/a-taxonomy-for-technology-jobs
         // { id: 0, label: "test" },
-        { id: 1, label: "Enablement",
+        {
+            id: 1, label: "Enablement",
             description: "The complex technology ecosystem is driving demand for a wide array of workers who ensure technology activities are running smoothly, such as IT project managers, department leads and IT channel professionals.",
             searchKeyword: 'IT project manager'
         },
-        { id: 2, label: "Support",
+        {
+            id: 2, label: "Support",
             description: "Even as many routine support tasks are being automated, organizations continue to invest in tech support in order to drive the highest levels of productivity and handle increasingly complex employee experience issues.",
             searchKeyword: 'IT support'
         },
-        { id: 3, label: "Infrastructure",
+        {
+            id: 3, label: "Infrastructure",
             description: "The most cutting-edge solutions still need to run on hardware (real or virtualized), and infrastructure professionals need to stay on top of the latest trends in cloud computing and architecture optimization.",
             searchKeyword: 'system administrator'
         },
-        { id: 4, label: "Software",
+        {
+            id: 4, label: "Software",
             description: "Whether it's improving online presence or exploring the latest AI tools for strategic implementation, organizations often have internal software resources to build internal tools or to customize and automate third-party applications.",
             searchKeyword: 'software developer'
         },
-        { id: 5, label: "Cybersecurity",
+        {
+            id: 5, label: "Cybersecurity",
             description: "Reliance on digital operations means that cybercriminals have lots of opportunity for profit, and changes in cybersecurity such as a zero trust approach and formalized risk analysis are driving demand for multiple specializations.",
             searchKeyword: 'cybersecurity analyst'
         },
-        { id: 6, label: "Data",
+        {
+            id: 6, label: "Data",
             description: "The focal point for competitive differentiation is quickly becoming the ability to manage and analyze the vast datasets sitting in different organizational silos, and data is poised to be the largest growth area in technology over the next decade.",
             searchKeyword: 'data scientist'
         },
@@ -144,23 +150,19 @@ const CareerMap = () => {
         setLoading(true);
         setError(null);
 
-        // setChosenJob(job);
-        // setCurrentView('job-details');
-        // setActiveNode(job);
-
         try {
-            // const response = await axios.get(`http://localhost:3001/occupation/${job.code}`);
-            // const jobDetails = response.data.OccupationList[0];
+            const detailsArray = await getJobDetails(job.code);
+            console.log('Feteched job details:', detailsArray);
 
-            // const jobNodeDetails = {
-            //     id: job.id,
-            //     title: jobDetails.OnetTitle,
-            //     code: jobDetails.OnetCode,
-            //     description: jobDetails.OccupationDescription,
-            // };
-            // setActiveNode(jobNodeDetails);
-            const details = await getJobDetails(job.code);
+            const details = detailsArray[0] || null;
+
+            if (!details) {
+                console.log('No details found for this job');
+                setError('No details found for this job');
+                return;
+            }
             setJobDetails(details);
+            console.log('jobDetails:', jobDetails);
             setActiveNode(job);
             setCurrentView('job-details');
         }
@@ -214,7 +216,7 @@ const CareerMap = () => {
                     Loading...
                 </div>
             )}
-            
+
             <div className={`interactive-map-container ${currentView}`}>
                 {currentView === 'start' && (
                     <HexNode
@@ -227,13 +229,13 @@ const CareerMap = () => {
                 {currentView === 'fields' && (
                     <div className='fields-container'>
                         {fieldNodes.map((field) => (
-                        <HexNode
-                            key={field.id}
-                            label={field.label}
-                            description={field.description}
-                            isCenter={false}
-                            onClick={() => handleFieldNodeClick(field)}
-                        />
+                            <HexNode
+                                key={field.id}
+                                label={field.label}
+                                description={field.description}
+                                isCenter={false}
+                                onClick={() => handleFieldNodeClick(field)}
+                            />
                         ))}
                     </div>
                 )}
@@ -255,7 +257,7 @@ const CareerMap = () => {
                 {currentView !== 'start' && (
                     <button className='back-button'
                         onClick={handleBackButtonClick}>
-                        Back    
+                        Back
                     </button>
                 )}
 
@@ -285,25 +287,22 @@ const CareerMap = () => {
                     <>
                         <h1><strong>{activeNode.title}</strong></h1>
                         <p><i>ONET Code: {activeNode.code}</i></p>
-                    
+
                         <div className='job-description'>
                             <h2>Job Description</h2>
-                            <p>{activeNode.description}</p>
+                            <p>{jobDetails.OnetDescription || 'No Description available.'}</p>
                         </div>
 
                         <div className='wages'>
                             <h2>Annual Wage Estimates</h2>
-                            {console.log('activeNode:', activeNode)};
-                            {console.log('wages:', activeNode.Wages)};
-
-                            <p>Median Annual Wage: {activeNode.OccupationDetail.Wages}</p>
-                            {/* <p>Entry Level Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct10}</p>
-                            <p>High Tier Role Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct90}</p>
+                            <p>Median Annual Wage: {jobDetails.Wages.NationalWagesList[0]?.Median.toLocaleString()} </p>
+                            <p>Entry Level Average: {jobDetails.Wages.NationalWagesList[0]?.Pct10.toLocaleString()}</p>
+                            <p>High Tier Role Average: {jobDetails.Wages.NationalWagesList[0]?.Pct90.toLocaleString()}</p>
 
                             <h2>State Wage Estimates</h2>
-                            <p>Median Annual Wage: {activeNode.Wages.NationalWagesList?.[0]?.Median}</p>
-                            <p>Entry Level Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct10}</p>
-                            <p>High Tier Role Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct90}</p> */}
+                            <p>Median Annual Wage: {jobDetails.Wages.StateWagesList[1]?.Median}</p>
+                            <p>Entry Level Average: {jobDetails.Wages.StateWagesList[1]?.Pct10}</p>
+                            <p>High Tier Role Average: {jobDetails.Wages.StateWagesList[1]?.Pct90}</p>
                         </div>
 
                         {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (
