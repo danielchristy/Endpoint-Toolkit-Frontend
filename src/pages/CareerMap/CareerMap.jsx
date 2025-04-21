@@ -305,13 +305,19 @@ const CareerMap = () => {
                             <p>High Tier Role Average: {jobDetails.Wages.StateWagesList[1]?.Pct90}</p>
                         </div>
 
-                        {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (
+                        <div className='job-outlook'>
+                            <h2>Job Outlook</h2>
+                            <p>Bright Outlook: {jobDetails.BrightOutlook}</p>
+                            <p>Projected Growth Rate: {jobDetails.BrightOutlookCategory}</p>
+                        </div>
+
+                        {/* {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (
                             <div className='employment-projections'>
                                 <h2>Employment Projections</h2>
                                 <p>Projected Growth Rate: {jobDetails.EmploymentProjections[0].ProjectedGrowthRate}</p>
                                 <p>Projected Job Openings: {jobDetails.EmploymentProjections[0].ProjectedJobOpenings}</p>
                             </div>
-                        )}
+                        )} */}
 
                         {jobDetails.RelatedOnetTitles && jobDetails.RelatedOnetTitles.length > 0 && (
                             <div className='related-jobs'>
