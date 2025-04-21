@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { filterJobs, getJobs, getJobDetails } from './CareerMapUtils/careerUtils';
 import HexNode from '../../components/HexNodes/HexNode';
 import './CareerMap.css';
@@ -11,8 +10,8 @@ const CareerMap = () => {
     const [jobDetails, setJobDetails] = useState(null);
     const [currentView, setCurrentView] = useState('start');
     const [activeNode, setActiveNode] = useState(null);
-    let annualNationalWages = 0;
-    let annualStateWages = 0;
+    const [annualNationalWages, setAnnualNationalWages] = useState(0);
+    const [annualStateWages, setAnnualStateWages] = useState(0);
 
 
     console.log('last active node:', activeNode);
@@ -103,7 +102,6 @@ const CareerMap = () => {
             setJobDetails(details);
             console.log('jobDetails:', jobDetails);
             console.log('jobDetails:', details.Wages.NationalWagesList[annualNationalWages]?.Median);
-            console.log('jobDetails:', details.Wages.StateWagesList[annualStateWages]?.Median);
             setActiveNode(job);
             setCurrentView('job-details');
         }
@@ -119,18 +117,17 @@ const CareerMap = () => {
         const a = jobDetails.Wages.NationalWagesList[0];
         const b = jobDetails.Wages.StateWagesList[0];
         if (a.RateType === 'Annual') {
-            annualNationalWages = 0;
+            setAnnualNationalWages(0);
         } else {
-            annualNationalWages = 1;
+            setAnnualNationalWages(1);
         };
 
         if (b.RateType === 'Annual') {
-            annualStateWages = 0;
+            setAnnualStateWages(0);
         }
         else {
-            annualStateWages = 1;
+            setAnnualStateWages(1);
         };
-
         return;
     };
 

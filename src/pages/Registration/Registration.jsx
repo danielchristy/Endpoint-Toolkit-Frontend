@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
-import axios from 'axios'; 
-import './Registration.css'; 
+import axios from 'axios';
+import './Registration.css';
 
 function Registration() {
   const [first_name, setFirstName] = useState('');
@@ -72,7 +72,11 @@ function Registration() {
         navigate('/profile');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'failed to login.');
+      if (err.response?.status === 401) {
+        setError('Invalid email or password');
+      } else {
+        setError(err.response?.data?.message || 'failed to login.');
+      }
     }
   };
 
@@ -80,30 +84,30 @@ function Registration() {
     <div className='registration-container'>
       <div className='registration-forms'>
         <div className='toggle-container'>
-          <button className={`toggle-btn ${isLogin ? 'active' : ''}`} 
-          onClick={() => setIsLogin(true)}>Login</button>
+          <button className={`toggle-btn ${isLogin ? 'active' : ''}`}
+            onClick={() => setIsLogin(true)}>Login</button>
           <button className={`toggle-btn ${!isLogin ? 'active' : ''}`}
-          onClick={() => setIsLogin(false)}>Register</button>
+            onClick={() => setIsLogin(false)}>Register</button>
         </div>
       </div>
 
-    {error && <p className='error-message'>{error}</p>}
+      {error && <p className='error-message'>{error}</p>}
 
-    {isLogin ? (
-      <form onSubmit={handleLogin} className='login-form'>
-        <h2>Existing User Login</h2>
-        <div className='form-group'>
-          <label htmlFor='userEmail'>Email:</label>
-          <input
-            type='email'
-            id='userEmail'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder='Enter email'
-          />
-        </div>
+      {isLogin ? (
+        <form onSubmit={handleLogin} className='login-form'>
+          <h2>Existing User Login</h2>
+          <div className='form-group'>
+            <label htmlFor='userEmail'>Email:</label>
+            <input
+              type='email'
+              id='userEmail'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder='Enter email'
+            />
+          </div>
 
-        {/* <div className='form-group'>
+          {/* <div className='form-group'>
           <label htmlFor='username'>Username:</label>
           <input
             type='username'
@@ -114,18 +118,18 @@ function Registration() {
           />
         </div> */}
 
-        <div className='form-group'>
-          <label htmlFor='userPassword'>Password:</label>
-          <input
-            type='password'
-            id='userPassword'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder='Enter password'
-          />
-        </div>
-        <button type='submit' className='submit-btn'>Login</button>
-      </form>
+          <div className='form-group'>
+            <label htmlFor='userPassword'>Password:</label>
+            <input
+              type='password'
+              id='userPassword'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Enter password'
+            />
+          </div>
+          <button type='submit' className='submit-btn'>Login</button>
+        </form>
       ) : (
         <form onSubmit={handleRegister} className='register-form'>
           <h2>New User Registration</h2>

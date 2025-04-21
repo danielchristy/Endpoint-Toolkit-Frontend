@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const TestOnetAPI = () => {
@@ -45,11 +45,11 @@ const TestOnetAPI = () => {
             </form>
             {loading && <p>Loading occupation data...</p>}
             {error && <p>Error: {error}</p>}
-            {occupationData.length != 0 ?  (
-            <div>
-                <h3>{occupationData[0].OnetTitle}</h3>
-                <p>{occupationData[0].OccupationDescription}</p>
-            </div>
+            {occupationData.length !== 0 ? (
+                <div>
+                    <h3>{occupationData[0].OnetTitle}</h3>
+                    <p>{occupationData[0].OccupationDescription}</p>
+                </div>
             ) : (
                 !loading && <p>No data to display.</p>
             )}

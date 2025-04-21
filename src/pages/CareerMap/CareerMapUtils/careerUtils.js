@@ -43,7 +43,7 @@ export const filterJobs = (jobs, field) => {
 export const getJobs = async (keyword) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/occupation/${ORG_ID}/${keyword}/national/0/100`,
+            `${BASE_URL}/occupation/${ORG_ID}/${keyword}/national/0/191`,
             {
                 headers: {
                     'Accept': 'application/json',
@@ -74,6 +74,7 @@ export const getJobDetails = async (onetCode) => {
         );
         const data = await response.json();
         console.log('job details:', data);
+
         return data.OccupationDetail || null;
     } catch (error) {
         console.error('job detail fetch error:', error);
