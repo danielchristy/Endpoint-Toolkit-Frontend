@@ -11,12 +11,14 @@ const CareerMap = () => {
     const [jobDetails, setJobDetails] = useState(null);
     const [currentView, setCurrentView] = useState('start');
     const [activeNode, setActiveNode] = useState(null);
+    let annualNationalWages = 0;
+    let annualStateWages = 0;
+
 
     console.log('last active node:', activeNode);
 
     const fieldNodes = [
         // https://www.comptia.org/blog/a-taxonomy-for-technology-jobs
-        // { id: 0, label: "test" },
         {
             id: 1, label: "Enablement",
             description: "The complex technology ecosystem is driving demand for a wide array of workers who ensure technology activities are running smoothly, such as IT project managers, department leads and IT channel professionals.",
@@ -49,48 +51,6 @@ const CareerMap = () => {
         },
     ];
 
-    // const jobLevel = ['Entry Level', 'Mid Level', 'Senior Level'];
-
-    // const fieldOnetCodes = {
-    //     // testing for queries based on field node click
-    //     Enablement: ["11-3021.00", "15-1299.09", "13-1151.00"],
-    //     Support: ["15-1232.00", "15-1231.00", "15-1231.00"],
-    //     Infrastructure: ["15-1244.00", "15-1241.00", "15-1244.00"],
-    //     Software: ["15-1212.00", "15-1251.00", "15-1254.00"],
-    //     Cybersecurity: ["15-1211.00", "15-1212.00", "15-1241.00"],
-    //     Data: ["15-2051.00", "15-2051.01", "15-1221.00"],
-    // }
-
-    // const fetchSoftwareDeveloperData = async () => {
-    //     setLoading(true);
-    //     setError(null);
-    //     try {
-    //         const response = await axios.get('http://localhost:3001/occupation/software-developer');
-    //         console.log(response);
-    //         // setOccupationData(response.data.OccupationList);
-    //         const OccupationList = response.data.OccupationList;
-
-    //         const jobNodeData = OccupationList.map((job, index) => ({
-    //             id: index,
-    //             title: job.OnetTitle,
-    //             code: job.OnetCode,
-    //             description: job.OccupationDescription,
-    //         }));
-
-    //         setOccupationData(OccupationList);
-    //         setJobData(jobNodeData);
-    //     } catch (err) {
-    //         console.log('Error fetching occupation data:', err);
-    //         setError(err.response?.data?.error || 'Failed to fetch occupation data');
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchSoftwareDeveloperData();
-    // }, []);
-
     const handleExploreClick = () => {
         console.log('starting explore');
         setCurrentView('fields');
@@ -101,17 +61,7 @@ const CareerMap = () => {
         setLoading(true);
         setError(null);
 
-        // setChosenField(field.label);
-        // setCurrentLevel('Entry Level');
-        // setCurrentView('jobs');
-        // setActiveNode(field);
-        // const onetCodes = fieldOnetCodes[field.label];
-
         try {
-            // const occupationRequests = onetCodes.map((code) =>
-            //     axios.get(`http://localhost:3001/occupation/${code}`)
-            // );
-
             const jobs = await getJobs(field.searchKeyword);
             const filteredJobs = filterJobs(jobs, field.label);
 
@@ -121,17 +71,6 @@ const CareerMap = () => {
                 code: job.OnetCode,
                 description: job.OccupationDescription,
             }));
-
-            // const responses = await Promise.all(occupationRequests);
-            // const jobNodeData = responses.map((response, index) => {
-            //     const job = response.data.OccupationList[0];
-            //     return {
-            //         id: index,
-            //         title: job.OnetTitle,
-            //         code: job.OnetCode,
-            //         description: job.OccupationDescription,
-            //     };
-            // });
 
             setJobData(jobNodeData);
             setActiveNode(field);
@@ -143,7 +82,6 @@ const CareerMap = () => {
             setLoading(false);
         }
     }
-
 
     const handleJobNodeClick = async (job) => {
         console.log(`${job.title} clicked`);
@@ -161,8 +99,11 @@ const CareerMap = () => {
                 setError('No details found for this job');
                 return;
             }
+            sortingWages(details);
             setJobDetails(details);
             console.log('jobDetails:', jobDetails);
+            console.log('jobDetails:', details.Wages.NationalWagesList[annualNationalWages]?.Median);
+            console.log('jobDetails:', details.Wages.StateWagesList[annualStateWages]?.Median);
             setActiveNode(job);
             setCurrentView('job-details');
         }
@@ -172,7 +113,26 @@ const CareerMap = () => {
         } finally {
             setLoading(false);
         }
-    }
+    };
+
+    const sortingWages = (jobDetails) => {
+        const a = jobDetails.Wages.NationalWagesList[0];
+        const b = jobDetails.Wages.StateWagesList[0];
+        if (a.RateType === 'Annual') {
+            annualNationalWages = 0;
+        } else {
+            annualNationalWages = 1;
+        };
+
+        if (b.RateType === 'Annual') {
+            annualStateWages = 0;
+        }
+        else {
+            annualStateWages = 1;
+        };
+
+        return;
+    };
 
     const handleBackButtonClick = () => {
         if (currentView === 'fields') {
@@ -186,6 +146,8 @@ const CareerMap = () => {
         }
         setActiveNode(null);
     }
+
+    // const nationalWages = Number(jobDetails.Wages.NationalWagesList[0]);
 
     // const handleResetButtonClick = () => {
     //     setCurrentView('start');
@@ -295,14 +257,14 @@ const CareerMap = () => {
 
                         <div className='wages'>
                             <h2>Annual Wage Estimates</h2>
-                            <p>Median Annual Wage: {jobDetails.Wages.NationalWagesList[0]?.Median.toLocaleString()} </p>
-                            <p>Entry Level Average: {jobDetails.Wages.NationalWagesList[0]?.Pct10.toLocaleString()}</p>
-                            <p>High Tier Role Average: {jobDetails.Wages.NationalWagesList[0]?.Pct90.toLocaleString()}</p>
+                            <p>Median Annual Wage: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Median} </p>
+                            <p>Entry Level Average: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Pct10}</p>
+                            <p>High Tier Role Average: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Pct90}</p>
 
                             <h2>State Wage Estimates</h2>
-                            <p>Median Annual Wage: {jobDetails.Wages.StateWagesList[1]?.Median}</p>
-                            <p>Entry Level Average: {jobDetails.Wages.StateWagesList[1]?.Pct10}</p>
-                            <p>High Tier Role Average: {jobDetails.Wages.StateWagesList[1]?.Pct90}</p>
+                            <p>Median Annual Wage: {jobDetails.Wages.StateWagesList[annualStateWages]?.Median}</p>
+                            <p>Entry Level Average: {jobDetails.Wages.StateWagesList[annualStateWages]?.Pct10}</p>
+                            <p>High Tier Role Average: {jobDetails.Wages.StateWagesList[annualStateWages]?.Pct90}</p>
                         </div>
 
                         <div className='job-outlook'>
