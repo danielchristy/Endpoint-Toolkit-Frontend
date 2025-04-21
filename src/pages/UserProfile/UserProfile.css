@@ -1,6 +1,6 @@
 @import "../../styles/variables.css"; 
 
-.user-page {
+.user-profile {
   background-color: var(--plain-white);
   color: var(--bcca-primary-blue);
   font-family: var(--bcca-font);

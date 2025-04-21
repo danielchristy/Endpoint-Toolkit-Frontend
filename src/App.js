@@ -38,11 +38,11 @@ function App() {
           {/* Public routes */}
           <Route path="/" element={<Home />} />
           <Route path="/careermap" element={<CareerMap />} />
-          <Route path="/careers" element={<CertificationCards />} />
           <Route path="/resources" element={<ResourcePage />} />
           <Route path="/questionnaire" element={<QuestionnairePage />} />
-          {/* <Route path="/user" element={<UserPage />} /> */}
           <Route path="/register" element={<Registration />} />
+
+          <Route path="/careers" element={<CertificationCards />} />
           <Route path="/test" element={<TestAPICalls />} />
           <Route path="/test-onet" element={<TestOnetAPI />} />
 

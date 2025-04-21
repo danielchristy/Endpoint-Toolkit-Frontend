@@ -1,8 +1,10 @@
 import React from 'react';
 import './NavBar.css';
 import standardLogo from '../../static/bcca-logos/standard-logo-with-title-transparent.png';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
+    const navigate = useNavigate();
 
     return (
         <nav className='navbar-container'>
@@ -22,7 +24,7 @@ function NavBar() {
                     <li><a href="/profile">Profile</a></li>
                 </ul>
                 <ul className='user-actions'>
-                    <li><button className="login-button" onClick={() => "/login"}>Login/Register</button></li>
+                    <li><button className="login-button" onClick={() => navigate('/register')}>Login/Register</button></li>
                     {/* <li><button className="register-button" a href="/register">Register</button></li> */}
                 </ul>
             </div>

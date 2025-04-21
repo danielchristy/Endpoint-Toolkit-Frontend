@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 import axios from 'axios'; 
 import './Registration.css'; 
 
@@ -13,7 +14,6 @@ function Registration() {
   const [error, setError] = useState('');
 
   const [isLogin, setIsLogin] = useState(true);
-  
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -31,13 +31,14 @@ function Registration() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users', {
+      const response = await axios.post('http://localhost:5000/api/users/', {
         first_name,
         last_name,
         username,
         email,
         password
       });
+      console.log('response', response.data);
 
       if (response.data) {
         if (response.data.token) {
@@ -46,6 +47,7 @@ function Registration() {
         navigate('/profile');
       }
     } catch (err) {
+      console.error(err);
       setError(err.response?.data?.message || 'failed to register.');
     }
   };
@@ -60,7 +62,7 @@ function Registration() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post('http://localhost:5000/api/users/login', {
         email,
         password
       });
@@ -68,6 +70,7 @@ function Registration() {
       if (response.data) {
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
+          console.log('you logged in :)');
         }
         navigate('/profile');
       }
@@ -103,16 +106,16 @@ function Registration() {
           />
         </div>
 
-        <div className='form-group'>
+        {/* <div className='form-group'>
           <label htmlFor='username'>Username:</label>
           <input
             type='username'
             id='username'
-            value={email}
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder='Enter username'
           />
-        </div>
+        </div> */}
 
         <div className='form-group'>
           <label htmlFor='userPassword'>Password:</label>

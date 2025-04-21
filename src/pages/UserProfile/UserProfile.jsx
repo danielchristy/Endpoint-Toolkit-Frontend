@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CertificationCards from '../../components/CertificationCards/CertificationCards';
 import './UserProfile.css';
 
-const UserPage = () => {
+const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const UserPage = () => {
   };
 
   return (
-    <div className='user-page'>
+    <div className='user-profile'>
       test
       <div className='settings-btn'>
         put settings button here
@@ -47,7 +47,7 @@ const UserPage = () => {
   )
 };
 
-export default UserPage;
+export default UserProfile;
 
 
 {/* // export default function UserPage() {
