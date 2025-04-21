@@ -1,31 +1,47 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import './NavBar.css';
 import standardLogo from '../../static/bcca-logos/standard-logo-with-title-transparent.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 
 function NavBar() {
     const navigate = useNavigate();
+    const { isAuthenticated, logout } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     return (
         <nav className='navbar-container'>
             <div className='logo-container'>
-                <img src={standardLogo} alt='Base Camp Coding Academy Logo' className="nav-logo" />
+                <Link to='/'>
+                    <img src={standardLogo} alt='Base Camp Coding Academy Logo' className="nav-logo" />
+                </Link>
             </div>
 
             <div className={'navbar'}>
                 <ul className='page-links'>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/careers">Certifications</a></li>
-                    <li><a href="/careermap">Career Map</a></li>
-                    <li><a href="/resources">Resources</a></li>
-                    <li><a href="/resume">Resume</a></li>
-                    <li><a href="/calendar">Calendar</a></li>
-                    {/* <li><a href="/questionnaire">Questionnaire</a></li> */}
-                    <li><a href="/profile">Profile</a></li>
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/careermap'>Career Explorer</Link></li>
+                    <li><Link to='/resources'>Resources</Link></li>
+
+                    {isAuthenticated() && (
+                        <>
+                            <li><Link to='/resume'></Link></li>
+                            <li><Link to='/calendar'>Calendar</Link></li>
+                            <li><Link to='/profile'>Profile</Link></li>
+                        </>
+                    )}
+
                 </ul>
                 <ul className='user-actions'>
-                    <li><button className="login-button" onClick={() => navigate('/register')}>Login/Register</button></li>
-                    {/* <li><button className="register-button" a href="/register">Register</button></li> */}
+                    {isAuthenticated() ? (
+                        <li><button className="login-button" onClick={handleLogout}>Logout</button></li>
+                    ) : (
+                        <li><button className="login-button" onClick={() => navigate('/register')}>Login/Register</button></li>
+                    )}
                 </ul>
             </div>
         </nav>

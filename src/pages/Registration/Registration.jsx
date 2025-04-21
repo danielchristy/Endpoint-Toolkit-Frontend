@@ -15,6 +15,7 @@ function Registration() {
 
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -38,12 +39,10 @@ function Registration() {
         email,
         password
       });
-      console.log('response', response.data);
 
       if (response.data) {
-        if (response.data.token) {
-          localStorage.setItem('token', response.data.token);
-        }
+        const { token, ...userData } = response.data;
+        login(userData, token);
         navigate('/profile');
       }
     } catch (err) {
@@ -68,10 +67,8 @@ function Registration() {
       });
 
       if (response.data) {
-        if (response.data.token) {
-          localStorage.setItem('token', response.data.token);
-          console.log('you logged in :)');
-        }
+        const { token, ...userData } = response.data;
+        login(userData, token);
         navigate('/profile');
       }
     } catch (err) {
