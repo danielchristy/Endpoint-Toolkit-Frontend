@@ -65,7 +65,7 @@
     /* justify-content: space-between; */
 }
 
-.register-button,
+/* .register-button, */
 .login-button {
     background-color: var(--wwg-green);
     color: var(--plain-white);
@@ -81,7 +81,7 @@
     display: inline-block;
 }
 
-.register-button:hover,
+/* .register-button:hover, */
 .login-button:hover {
     opacity: 0.8;
 }

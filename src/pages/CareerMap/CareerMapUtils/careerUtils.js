@@ -63,7 +63,7 @@ export const getJobs = async (keyword) => {
 export const getJobDetails = async (onetCode) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/occupation/${ORG_ID}/${onetCode}/national/0/10`,
+            `http://localhost:3001/occupation/details/${onetCode}`,
             {
                 headers: {
                     'Accept': 'application/json',

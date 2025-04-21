@@ -1,7 +1,28 @@
-/* src/components/UserPage/UserPage.css */
-@import "../../styles/variables.css"; /* Import your theme variables */
+@import "../../styles/variables.css"; 
 
 .user-page {
+  background-color: var(--plain-white);
+  color: var(--bcca-primary-blue);
+  font-family: var(--bcca-font);
+  margin: 0 auto;
+}
+
+.user-info {
+  background-color: var(--wwg-light-biege);
+  color: var(--bcca-primary-blue);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.dashboard {
+  background-color: var(--wwg-light-biege);
+  color: var(--wwg-green);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+
+/* .user-page {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--font-family);
@@ -50,7 +71,7 @@
 }
 
 .edit-btn:hover {
-  background-color: #092b6a; /* A slightly darker shade for hover */
+  background-color: #092b6a; 
 }
 
 .settings-btn {
@@ -59,5 +80,5 @@
 }
 
 .settings-btn:hover {
-  background-color: #e6c02c; /* A slight variation for hover */
-}
+  background-color: #e6c02c; 
+} */

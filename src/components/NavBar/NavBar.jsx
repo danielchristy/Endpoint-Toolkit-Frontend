@@ -22,8 +22,8 @@ function NavBar() {
                     <li><a href="/profile">Profile</a></li>
                 </ul>
                 <ul className='user-actions'>
-                    <li><button className="login-button" a href="/login">Login</button></li>
-                    <li><button className="register-button" a href="/register">Register</button></li>
+                    <li><button className="login-button" onClick={() => "/login"}>Login/Register</button></li>
+                    {/* <li><button className="register-button" a href="/register">Register</button></li> */}
                 </ul>
             </div>
         </nav>

@@ -270,14 +270,14 @@ const CareerMap = () => {
                 {currentView === 'fields' && activeNode && (
                     <>
                         <h1><strong>{activeNode.label}</strong></h1>
-                        <p>{activeNode.description}</p>
                     </>
                 )}
 
                 {currentView === 'jobs' && activeNode && (
                     <>
+                        <p>*Click on a job to see more details*</p>
                         <h1><strong>{activeNode.label}</strong></h1>
-                        <p>Click on a job to see more details</p>
+                        <p>{activeNode.description}</p>
                     </>
                 )}
 
@@ -288,28 +288,23 @@ const CareerMap = () => {
                     
                         <div className='job-description'>
                             <h2>Job Description</h2>
-                            <p>{jobDetails.OccupationDescription}</p>
+                            <p>{activeNode.description}</p>
                         </div>
 
-                        {jobDetails.Wages && (
-                            <div className='wages'>
-                                <h2>Wages</h2>
-                                <p>Median Annual Wage: {jobDetails.Wages.NationalWagesList?.[0]?.Median}</p>
-                                <p>Entry Level Average: {jobDetails.Wages.NationalWagesList?.[0]?.Pct10}</p>
-                                <p>High Tier Role Average: {jobDetails.Wages.NationalWagesList?.[0]?.Pct90}</p>
-                            </div>
-                        )}
+                        <div className='wages'>
+                            <h2>Annual Wage Estimates</h2>
+                            {console.log('activeNode:', activeNode)};
+                            {console.log('wages:', activeNode.Wages)};
 
-                        {jobDetails.Skills && jobDetails.Skills.length > 0 && (
-                            <div className='skills'>
-                                <h2>Skills</h2>
-                                <ul>
-                                    {jobDetails.Skills.map((skill, index) => (
-                                        <li key={index}>{skill.ElementName}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                            <p>Median Annual Wage: {activeNode.OccupationDetail.Wages}</p>
+                            {/* <p>Entry Level Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct10}</p>
+                            <p>High Tier Role Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct90}</p>
+
+                            <h2>State Wage Estimates</h2>
+                            <p>Median Annual Wage: {activeNode.Wages.NationalWagesList?.[0]?.Median}</p>
+                            <p>Entry Level Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct10}</p>
+                            <p>High Tier Role Average: {activeNode.Wages.NationalWagesList?.[0]?.Pct90}</p> */}
+                        </div>
 
                         {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (
                             <div className='employment-projections'>

@@ -40,8 +40,6 @@ function App() {
           <Route path="/careermap" element={<CareerMap />} />
           <Route path="/careers" element={<CertificationCards />} />
           <Route path="/resources" element={<ResourcePage />} />
-          <Route path="/resume" element={<ResumeBuilder />} />
-          <Route path="/calendar" element={<CustomCalendar initialEvents={upcoming} />} />
           <Route path="/questionnaire" element={<QuestionnairePage />} />
           {/* <Route path="/user" element={<UserPage />} /> */}
           <Route path="/register" element={<Registration />} />
@@ -50,13 +48,24 @@ function App() {
 
           {/* Protected routes */}
           <Route
-              path="/profile"
-              element={
-                <PrivateRoute>
-                  <UserProfile />
-                </PrivateRoute>
-              }
-            />
+            path="/profile"
+            element={
+            <PrivateRoute>
+              <UserProfile />
+            </PrivateRoute>}
+          />
+          <Route path="/resume" 
+            element={
+            <PrivateRoute>
+              <ResumeBuilder />
+            </PrivateRoute>} 
+          />
+          <Route path="/calendar" 
+            element={
+            <PrivateRoute>
+              <CustomCalendar initialEvents={upcoming} />
+            </PrivateRoute>}
+          />
         </Routes>
       </main>
 
