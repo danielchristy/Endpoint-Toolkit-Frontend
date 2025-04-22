@@ -1,31 +1,32 @@
 .features-section {
-  padding: 40px;
-  background: #9CD4E4; /* Adjust to your theme's background */
+  padding: 2rem 1rem;
+  background-color: var(--bcca-primary-blue);
+  text-align: center;
 }
 
 .features-container {
   display: flex;
+  flex-wrap: wrap; 
+  gap: 1rem;
   justify-content: center;
-  align-items: center;
-  position: relative;
- 
+  margin-bottom: 2rem;
 }
 
 .feature-card {
-  padding: 20px;
-  margin: 10px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 250px; 
+  padding: 2rem 1rem;
+  border-radius: 5%;
+  box-shadow: 0 4px 20px var(--bcca-secondary-blue);
+  background-color: var(--color-background);
 }
 
-.card-one {
-  /* Add any BCCA-specific styles here */
+.feature-card h4 {
+  color: var(--wwg-green);
+  margin-bottom: 1rem;
 }
-.card-two {
-  /* Add any BCCA-specific styles here */
-}
-.card-three {
-  /* Add any BCCA-specific styles here */
+
+.feature-card p {
+  color: var(--bcca-primary-blue);
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }

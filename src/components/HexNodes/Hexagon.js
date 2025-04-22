@@ -46,7 +46,7 @@ const Hexagon = ({ label, description, onClick, isCenter }) => {
                             dominantBaseline="middle"
                             textAnchor="middle"
                             className="hexagon-text"
-                            fontFamily='var(--wwg-font)'
+                            fontFamily='var(--font-body)'
                             fill="var(--plain-white)"
                             fontWeight="bold"
                             fontSize=".75em"
@@ -55,20 +55,20 @@ const Hexagon = ({ label, description, onClick, isCenter }) => {
                         </text>
                     );
                 })}
-                {description && (
+                {/* {description && (
                     <text
                         x="50"
                         y="80"
                         dominantBaseline="middle"
                         textAnchor="middle"
                         className="hexagon-description"
-                        fontFamily='var(--wwg-font)'
+                        fontFamily='var(--font-body)'
                         fill="var(--plain-white)"
                         fontSize=".75em"
                     >
                         {description}
                     </text>
-                )}
+                )} */}
             </g>
         </svg>
     );
