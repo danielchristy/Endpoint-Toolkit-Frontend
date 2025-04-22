@@ -8,6 +8,7 @@
 
 .nav {
   width: 100%;
+  height: auto;
   position: sticky;
   top: 0;
   z-index: 100;

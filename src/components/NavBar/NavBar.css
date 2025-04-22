@@ -1,49 +1,55 @@
 @import '../../styles/variables.css';
 
 .navbar-container {
-  background-color: var(--bcca-primary-blue);
-  font-family: var(--font-heading);
-  font-size: 1rem;
+  background-color: var(--bcca-secondary-blue);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  /* width: 100%; */
-  padding: 0.5rem 1.5rem;
-  position: relative;
+  align-items: center;
+  padding: 0 2rem;
   box-shadow: 0 2px 10px var(--wwg-green);
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-
-.nav-logo {
-    /* display: flex;
-    align-items: center;
-    justify-content: flex-start; */
-    width: 20rem;
-    height: auto;
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
-    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.nav-logo-container {
+    display: flex;
+    flex: 1;
+    flex-shrink: 0;
+}
+
+.nav-logo {
+    width: 192px;
+    height: 140px;
+    transform: scale(1.6);
+    transform-origin: center;
 }
 
 .page-links {
     list-style: none;
     display: flex;
-    /* flex-direction: row; */
     align-items: center;
-    /* justify-content: space-evenly; */
-    /* width: 100%; */
+    margin-left: 1.5rem;
+    padding: 0;
+    flex: 1;
 }
 
-.page-links li {
+.user-actions {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0;
+}
+
+.page-links li,
+.user-actions li {
+    font-family: var(--font-heading);
+    font-size: 1rem;
     margin: 0 1rem;
 }
 
@@ -55,14 +61,6 @@
 
 .navbar a:hover {
     color: var(--wwg-green);
-}
-
-.user-actions {
-    list-style: none;
-    display: flex;
-    /* flex-direction: row; */
-    align-items: center;
-    /* justify-content: space-between; */
 }
 
 /* .register-button, */

@@ -1,6 +1,6 @@
 import React, { useContext} from 'react';
 import './NavBar.css';
-import standardLogo from '../../static/bcca-logos/standard-logo-with-title-transparent.png';
+import devWaypointLogo from '../../static/devwaypoint-logos/devWaypoint.svg';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -15,10 +15,8 @@ function NavBar() {
 
     return (
         <nav className='navbar-container'>
-            <div className='logo-container'>
-                <Link to='/'>
-                    <img src={standardLogo} alt='Base Camp Coding Academy Logo' className="nav-logo" />
-                </Link>
+            <div className='nav-logo-container'>
+                    <img src={devWaypointLogo} alt='devWaypointLogo' className="nav-logo" />
             </div>
 
             <div className={'navbar'}>
@@ -27,21 +25,19 @@ function NavBar() {
                     <li><Link to='/careermap'>Career Explorer</Link></li>
                     <li><Link to='/resources'>Resources</Link></li>
 
-                    {isAuthenticated() && (
-                        <>
-                            <li><Link to='/resume'></Link></li>
-                            <li><Link to='/calendar'>Calendar</Link></li>
-                            <li><Link to='/profile'>Profile</Link></li>
-                        </>
-                    )}
-
                 </ul>
                 <ul className='user-actions'>
-                    {isAuthenticated() ? (
+                    {isAuthenticated() ?
+                        <>
+                        <li><Link to='/resume'>Resume</Link></li>
+                        <li><Link to='/calendar'>Calendar</Link></li>
+                        <li><Link to='/profile'>Profile</Link></li>
+                    
                         <li><button className="login-button" onClick={handleLogout}>Logout</button></li>
-                    ) : (
+                        </>
+                        :
                         <li><button className="login-button" onClick={() => navigate('/register')}>Login/Register</button></li>
-                    )}
+                    }
                 </ul>
             </div>
         </nav>
