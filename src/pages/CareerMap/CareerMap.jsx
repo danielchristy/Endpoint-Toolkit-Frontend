@@ -290,7 +290,7 @@ const CareerMap = () => {
                         <div className='job-outlook'>
                             <h4>Job Outlook</h4>
                             <p>Bright Outlook: {jobDetails.BrightOutlook}</p>
-                            <p>Projected Growth Rate: {jobDetails.BrightOutlookCategory}</p>
+                            <p>Projected Growth Rate: {jobDetails.BrightOutlookCategory ? jobDetails.BrightOutlookCategory : 'N/A'}</p>
                         </div>
 
                         {/* {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (

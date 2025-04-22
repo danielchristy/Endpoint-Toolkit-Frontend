@@ -12,7 +12,7 @@ const jobKeywords = {
 };
 
 const jobExclusionKeywords = {
-    Software: ['nurse', 'doctor', 'physician', 'healthcare', 'medical'],
+    Software: ['nurse', 'doctor', 'physician', 'healthcare', 'medical', 'photographer', 'materials',],
     Infrastructure: ['nurse', 'doctor', 'physician', 'healthcare', 'medical', 'education', 'health', 'business', 'clerks', 'general', 'facilities', 'plumbers', 'conveyor'],
     Cybersecurity: ['nurse', 'doctor', 'physician', 'healthcare', 'medical', 'plumbers'],
     Data: ['nurse', 'doctor', 'physician', 'healthcare', 'medical'],
