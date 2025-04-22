@@ -101,7 +101,6 @@ const CareerMap = () => {
             sortingWages(details);
             setJobDetails(details);
             console.log('jobDetails:', jobDetails);
-            console.log('jobDetails:', details.Wages.NationalWagesList[annualNationalWages]?.Median);
             setActiveNode(job);
             setCurrentView('job-details');
         }
@@ -114,21 +113,21 @@ const CareerMap = () => {
     };
 
     const sortingWages = (jobDetails) => {
-        const a = jobDetails.Wages.NationalWagesList[0];
-        const b = jobDetails.Wages.StateWagesList[0];
-        if (a.RateType === 'Annual') {
+        const nationalWage = jobDetails.Wages.NationalWagesList[0] || null;
+        const stateWage = jobDetails.Wages.StateWagesList[0] || null;
+
+        if (nationalWage && nationalWage.RateType === 'Annual') {
             setAnnualNationalWages(0);
-        } else {
+        } else if (nationalWage) {
             setAnnualNationalWages(1);
         };
 
-        if (b.RateType === 'Annual') {
+        if (stateWage && stateWage.RateType === 'Annual') {
             setAnnualStateWages(0);
         }
-        else {
+        else if (stateWage) {
             setAnnualStateWages(1);
-        };
-        return;
+        }
     };
 
     const handleBackButtonClick = () => {
@@ -248,24 +247,48 @@ const CareerMap = () => {
                         <p><i>ONET Code: {activeNode.code}</i></p>
 
                         <div className='job-description'>
-                            <h2>Job Description</h2>
+                            <h4>Job Description</h4>
                             <p>{jobDetails.OnetDescription || 'No Description available.'}</p>
                         </div>
 
                         <div className='wages'>
-                            <h2>Annual Wage Estimates</h2>
-                            <p>Median Annual Wage: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Median} </p>
-                            <p>Entry Level Average: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Pct10}</p>
-                            <p>High Tier Role Average: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Pct90}</p>
+                            <h4>Annual Wage Estimates</h4>
+                            <p>
+                                Entry Level Average: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Pct10
+                                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct10))
+                                    : 'N/A'}
+                            </p>
+                            <p>
+                                Median Annual Wage: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Median
+                                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Median))
+                                    : 'N/A'}
+                            </p>
+                            <p>
+                                High Tier Role Average: {jobDetails.Wages.NationalWagesList[annualNationalWages]?.Pct90
+                                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct90))
+                                    : 'N/A'}
+                            </p>
 
-                            <h2>State Wage Estimates</h2>
-                            <p>Median Annual Wage: {jobDetails.Wages.StateWagesList[annualStateWages]?.Median}</p>
-                            <p>Entry Level Average: {jobDetails.Wages.StateWagesList[annualStateWages]?.Pct10}</p>
-                            <p>High Tier Role Average: {jobDetails.Wages.StateWagesList[annualStateWages]?.Pct90}</p>
+                            <h4>State Wage Estimates</h4>
+                            <p>
+                                Entry Level Average: {jobDetails.Wages.StateWagesList[annualStateWages]?.Pct10
+                                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.StateWagesList[annualStateWages].Pct10))
+                                    : 'N/A'}
+                            </p>
+                            <p>
+                                Median Annual Wage: {jobDetails.Wages.StateWagesList[annualStateWages]?.Median
+                                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.StateWagesList[annualStateWages].Median))
+                                    : 'N/A'}
+                            </p>
+                            <p>
+                                High Tier Role Average: {jobDetails.Wages.StateWagesList[annualStateWages]?.Pct90
+                                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.StateWagesList[annualStateWages].Pct90))
+                                    : 'N/A'}
+                            </p>
                         </div>
 
                         <div className='job-outlook'>
-                            <h2>Job Outlook</h2>
+                            <h4>Job Outlook</h4>
                             <p>Bright Outlook: {jobDetails.BrightOutlook}</p>
                             <p>Projected Growth Rate: {jobDetails.BrightOutlookCategory}</p>
                         </div>

@@ -4,17 +4,27 @@ const BASE_URL = 'https://api.careeronestop.org/v1';
 
 const jobKeywords = {
     Software: ['developer', 'engineer', 'programmer', 'software', 'web', 'application', 'frontend', 'backend', 'full stack', 'mobile', 'cloud', 'devops'],
-    Infrastructure: ['system', 'network', 'cloud', 'infrastructure', 'administrator', 'architect', 'operations', 'devops', 'platform'],
+    Infrastructure: ['system', 'network', 'cloud', 'infrastructure', 'administrator', 'architect', 'operations', 'devops', 'platform',],
     Cybersecurity: ['security', 'cyber', 'information security', 'cryptograph', 'penetration', 'analyst', 'forensic'],
     Data: ['data', 'analyst', 'scientist', 'analytics', 'database', 'machine learning', 'ai', 'artificial intelligence', 'business intelligence'],
     Support: ['support', 'help desk', 'technical support', 'service desk', 'it support', 'desktop support'],
     Enablement: ['project manager', 'product manager', 'scrum master', 'agile', 'delivery manager', 'it manager']
 };
 
+const jobExclusionKeywords = {
+    Software: ['nurse', 'doctor', 'physician', 'healthcare', 'medical'],
+    Infrastructure: ['nurse', 'doctor', 'physician', 'healthcare', 'medical', 'education', 'health', 'business', 'clerks', 'general', 'facilities', 'plumbers', 'conveyor'],
+    Cybersecurity: ['nurse', 'doctor', 'physician', 'healthcare', 'medical', 'plumbers'],
+    Data: ['nurse', 'doctor', 'physician', 'healthcare', 'medical'],
+    Support: ['nurse', 'doctor', 'physician', 'healthcare', 'medical', 'workers', 'tutor', 'legal', 'nursing', 'agricultural', 'personal care', 'roof', 'Secretaries', 'teaching', 'nannies'],
+    Enablement: ['nurse', 'doctor', 'physician', 'healthcare', 'medical']
+};
+
 // filter jobs based on keywords to ignore irrelevant jobs (hopefully?)
 export const filterJobs = (jobs, field) => {
     console.table('intial jobs:', jobs);
     const keywords = jobKeywords[field];
+    const exclusionKeywords = jobExclusionKeywords[field];
 
     console.log('keywords:', keywords);
     if (!keywords) return jobs;
@@ -31,11 +41,18 @@ export const filterJobs = (jobs, field) => {
         console.log('onetCode:', onetCode);
         console.log('description:', description);
 
-        return keywords.some(keyword =>
+        const matchesInclusion = keywords.some(keyword =>
             onetTitle.includes(keyword.toLowerCase()) ||
             onetCode.includes(keyword.toLowerCase()) ||
             description.includes(keyword.toLowerCase())
         );
+
+        const matchesExclusion = exclusionKeywords.some(keyword =>
+            onetTitle.includes(keyword.toLowerCase()) ||
+            description.includes(keyword.toLowerCase())
+        );
+
+        return matchesInclusion && !matchesExclusion;
     });
 };
 
@@ -82,4 +99,9 @@ export const getJobDetails = async (onetCode) => {
     }
 };
 
-export default { getJobs, getJobDetails, filterJobs };
+const careerUtils = {
+    getJobs,
+    getJobDetails,
+    filterJobs
+};
+export default careerUtils;
