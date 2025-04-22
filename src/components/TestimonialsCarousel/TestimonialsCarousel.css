@@ -1,73 +1,101 @@
-/* TestimonialsCarousel.css */
+.testimonials-carousel {
+  width: 100%;
+  padding: 1rem;
+  background: var(--wwg-light-biege);
+  border-radius: 5%;
+  box-shadow: 6px 4px 10px var(--wwg-green);
+}
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .modal.testimonials-carousel-modal {
-    background-color: var(--bcca-bg-color, #ffffff);
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    text-align: center;
-  }
-  
-  .carousel-content {
-    position: relative;
-    margin: 1rem 0;
-  }
-  
-  .carousel-item {
-    display: none;
-  }
-  
-  .carousel-item.active {
-    display: block;
-  }
-  
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(108, 99, 255, 0.8); /* Use a theme color (adjust as needed) */
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 10;
-  }
-  
-  .carousel-button.left {
-    left: -30px;  /* Adjust position to not overlap the modal content */
-  }
-  
-  .carousel-button.right {
-    right: -30px;
-  }
-  
-  .carousel-button:hover {
-    background-color: rgba(108, 99, 255, 1);
-  }
-  
-  .close-button {
-    background-color: var(--bcca-text-accent-color, #6c63ff);
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
-  
+.testimonials-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  /* align-items: stretch; */
+  padding: 2rem;
+  gap: 1.5rem;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.testimonial-image {
+  width: 12rem;
+  height: 20rem;
+  border-radius: 5%;
+  object-fit: cover;
+  border: 3px solid var(--bcca-primary-blue);
+  margin: 0;
+  transform: scale(1.3);
+  align-self: center;
+}
+
+.grad-name {
+  font-style: normal;
+}
+
+.grad-info {
+  position: relative;
+  top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.grad-year {
+  margin-left: 1rem;
+  font-style: italic;
+}
+
+.testimonial-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  margin-left: 2rem;
+  min-height: 30rem;
+  font-style: italic;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--wwg-green);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.carousel-indicator {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.indicator-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--bcca-secondary-blue);
+  opacity: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.indicator-dot.active {
+  background: var(--bcca-primary-blue);
+  opacity: 100%;
+}

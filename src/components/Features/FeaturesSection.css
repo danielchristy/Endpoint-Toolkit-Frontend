@@ -1,26 +1,24 @@
 .features-section {
-  padding: 2rem 1rem;
+  padding: 4rem 2rem;
   background-color: var(--bcca-primary-blue);
   text-align: center;
 }
 
 .features-container {
-  display: flex;
-  flex-wrap: wrap; 
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
 .feature-card {
-  flex: 1 1 250px; 
-  padding: 2rem 1rem;
+  background: var(--wwg-light-biege);
+  padding: 2rem;
   border-radius: 5%;
-  box-shadow: 0 4px 20px var(--bcca-secondary-blue);
-  background-color: var(--color-background);
+  box-shadow: 6px 4px 10px var(--wwg-green);
 }
 
-.feature-card h4 {
+.feature-card h4,
+.testimonials-section h4 {
   color: var(--wwg-green);
   margin-bottom: 1rem;
 }
@@ -28,5 +26,9 @@
 .feature-card p {
   color: var(--bcca-primary-blue);
   margin-bottom: 1rem;
-  line-height: 1.6;
+  line-height: 1.8rem;
+}
+
+.testimonials-section {
+  margin: 4rem 3rem;
 }
