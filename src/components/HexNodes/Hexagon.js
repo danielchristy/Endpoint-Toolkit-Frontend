@@ -1,8 +1,7 @@
 import React from 'react';
 import '../../styles/variables.css';
 
-const adaptivelyWrapText = (text, maxChars = 50, maxLineLength = 9, maxLines = 3) => {
-    // Step 1: Hard cap the total character count
+const adaptivelyWrapText = (text, maxChars = 50, maxLineLength = 13, maxLines = 3) => {
     const cappedText = text.length > maxChars ? text.slice(0, maxChars - 3) + '...' : text;
     const words = cappedText.split(' ');
     const lines = [];
@@ -19,7 +18,6 @@ const adaptivelyWrapText = (text, maxChars = 50, maxLineLength = 9, maxLines = 3
     }
 
     if (currentLine) lines.push(currentLine);
-    // If still too long, truncate the last line
     if (lines.length === maxLines && words.join(' ').length > lines.join(' ').length) {
         lines[maxLines - 1] = lines[maxLines - 1].slice(0, maxLineLength - 3) + '...';
     }
@@ -29,15 +27,15 @@ const adaptivelyWrapText = (text, maxChars = 50, maxLineLength = 9, maxLines = 3
 
 
 const Hexagon = ({ label, description, onClick, isCenter }) => {
-    const lines = label.split(' ');
+    const lines = adaptivelyWrapText(label);
 
     return (
         <svg
             onClick={onClick}
             // className={`hexagon ${isCenter ? 'center' : ''}`}
             viewBox="0 0 100 100"
-        // width="100%"
-        // height="100%"
+            width="100%"
+            height="100%"
         >
             <path
                 d="
@@ -76,27 +74,13 @@ const Hexagon = ({ label, description, onClick, isCenter }) => {
                             fontFamily='var(--font-body)'
                             fill="var(--plain-white)"
                             fontWeight="bold"
-                            fontSize={`${Math.max(0.75 - (lines.length - 2) * 0.1, 0.5)}em`}
+                            fontSize={`${Math.max(0.67 - (lines.length - 2) * 0.1, 0.5)}em`}
 
                         >
                             {line}
                         </text>
                     );
                 })}
-                {/* {description && (
-                    <text
-                        x="50"
-                        y="80"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        className="hexagon-description"
-                        fontFamily='var(--font-body)'
-                        fill="var(--plain-white)"
-                        fontSize=".75em"
-                    >
-                        {description}
-                    </text>
-                )} */}
             </g>
         </svg>
     );

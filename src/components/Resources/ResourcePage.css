@@ -24,7 +24,7 @@
   .resource-controls select {
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #651e1e;
     border-radius: 4px;
     font-family: var(--font-body);
   }

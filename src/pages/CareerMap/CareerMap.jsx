@@ -293,14 +293,6 @@ const CareerMap = () => {
                             <p>Projected Growth Rate: {jobDetails.BrightOutlookCategory ? jobDetails.BrightOutlookCategory : 'N/A'}</p>
                         </div>
 
-                        {/* {jobDetails.EmploymentProjections && jobDetails.EmploymentProjections.length > 0 && (
-                            <div className='employment-projections'>
-                                <h2>Employment Projections</h2>
-                                <p>Projected Growth Rate: {jobDetails.EmploymentProjections[0].ProjectedGrowthRate}</p>
-                                <p>Projected Job Openings: {jobDetails.EmploymentProjections[0].ProjectedJobOpenings}</p>
-                            </div>
-                        )} */}
-
                         {jobDetails.RelatedOnetTitles && jobDetails.RelatedOnetTitles.length > 0 && (
                             <div className='related-jobs'>
                                 <h2>Related Jobs</h2>
@@ -311,6 +303,15 @@ const CareerMap = () => {
                                 </ul>
                             </div>
                         )}
+                        <div className='linkedin-search' style={{ marginTop: '50px' }}>
+                            <a
+                                href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(activeNode.title)}&location=Mississippi`}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                            >
+                                Search for "{activeNode.title}" jobs in Mississippi on LinkedIn
+                            </a>
+                        </div>
                     </>
                 )}
             </div>
