@@ -7,12 +7,16 @@
 }
 
 .testimonials-card {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 200px 1fr;
   align-items: center;
-  /* align-items: stretch; */
-  padding: 2rem;
+  padding: 0.5rem 1rem;
   gap: 1.5rem;
+  transition: opacity 0.3s ease;
+  opacity: 1; */
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
   transition: opacity 0.3s ease;
   opacity: 1;
 }
@@ -26,41 +30,70 @@
 }
 
 .testimonial-image {
-  width: 12rem;
+  /* width: 12rem;
   height: 20rem;
   border-radius: 5%;
   object-fit: cover;
   border: 3px solid var(--bcca-primary-blue);
   margin: 0;
-  transform: scale(1.3);
-  align-self: center;
+  transform: scale(1);
+  align-self: center; */
+  width: 200px;
+  height: 300px;
+  border-radius: 5%;
+  object-fit: cover;
+  border: 3px solid var(--bcca-primary-blue);
+  flex-shrink: 0;
 }
 
 .grad-name {
+  /* font-style: normal; */
   font-style: normal;
+  font-weight: bold;
+  margin: 0;
 }
 
 .grad-info {
-  position: relative;
+  /* position: relative;
   top: 2rem;
   display: flex;
   gap: 0.5rem;
+  align-items: baseline; */
+  display: flex;
   align-items: baseline;
+  margin-bottom: 1.5rem;
 }
 
 .grad-year {
+  /* margin-left: 1rem;
+  font-style: italic; */
   margin-left: 1rem;
   font-style: italic;
+  margin: 0;
 }
 
 .testimonial-text {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  margin-left: 2rem;
   min-height: 30rem;
+  font-style: italic; */
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  position: relative;
+  flex: 1;
+  text-align: left;
+}
+
+.testimonial-text p:last-child {
+  flex: 1;
+  display: flex;
+  align-items: center;
   font-style: italic;
+  margin: 0;
+  line-height: 1.6;
 }
 
 .carousel-controls {

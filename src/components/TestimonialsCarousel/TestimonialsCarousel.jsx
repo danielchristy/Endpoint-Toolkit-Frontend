@@ -38,7 +38,7 @@ const TestimonialsCarousel = ({ testimonials }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       goToNextCard();
-    }, 50000);
+    }, 25000);
 
     return () => clearInterval(interval);
   }, [currentCard]);

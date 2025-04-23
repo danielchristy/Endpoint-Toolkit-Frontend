@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { filterJobs, getJobs, getJobDetails } from './CareerMapUtils/careerUtils';
+import { getJobs, getJobDetails, filterJobs} from './CareerMapUtils/careerUtils';
 import HexNode from '../../components/HexNodes/HexNode';
 import './CareerMap.css';
 
@@ -61,8 +61,9 @@ const CareerMap = () => {
         setError(null);
 
         try {
-            const jobs = await getJobs(field.searchKeyword);
-            const filteredJobs = filterJobs(jobs, field.label);
+            const jobData = await getJobs(field.searchKeyword);
+            console.log('HERE:', jobData);
+            const filteredJobs = filterJobs(jobData, field.label);
 
             const jobNodeData = filteredJobs.map((job, index) => ({
                 id: index,
@@ -141,7 +142,7 @@ const CareerMap = () => {
             setJobDetails([]);
         }
         setActiveNode(null);
-    }
+    };
 
     // const nationalWages = Number(jobDetails.Wages.NationalWagesList[0]);
 
