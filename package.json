@@ -1,7 +1,7 @@
 {
   "name": "devwapoint-frontend",
   "version": "1.0.0",
-  "homepage": "https://devwaypoint.github.io/react-gh-pages",
+  "homepage": "https://devwaypoint.github.io/devWaypoint-Frontend",
   "private": true,
   "main": "src/index.js",
   "scripts": {
