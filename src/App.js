@@ -16,6 +16,7 @@ import Registration from './pages/Registration/Registration';
 import PrivateRoute from './components/PrivateRoute';
 import TestAPICalls from './pages/TestAPICalls/TestAPICalls';
 import TestOnetAPI from './pages/TestAPICalls/TestOnetAPI';
+import TestMap from './pages/CareerMap/TestCareerMap';
 
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/careers" element={<CertificationCards />} />
           <Route path="/test" element={<TestAPICalls />} />
           <Route path="/test-onet" element={<TestOnetAPI />} />
+          <Route path="/test-map" element={<TestMap />} />
 
           {/* Protected routes */}
           <Route

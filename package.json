@@ -29,6 +29,7 @@
     "react-big-calendar": "^1.18.0",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.0.0",
+    "react-hexgrid": "^2.0.1",
     "react-router-dom": "^6.30.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4"

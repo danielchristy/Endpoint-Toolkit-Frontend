@@ -34,8 +34,8 @@ const Hexagon = ({ label, description, onClick, isCenter }) => {
             onClick={onClick}
             // className={`hexagon ${isCenter ? 'center' : ''}`}
             viewBox="0 0 100 100"
-            width="100%"
-            height="100%"
+            // width="100%"
+            // height="100%"
         >
             <path
                 d="
@@ -60,8 +60,9 @@ const Hexagon = ({ label, description, onClick, isCenter }) => {
             <g className="hexagon-content">
                 {lines.map((line, index) => {
                     const lineHeight = 14;
-                    const totalHeight = (lines.length - 1) * lineHeight;
-                    const y = description ? 40 - totalHeight / 2 + index * lineHeight : 50 - totalHeight / 2 + index * lineHeight;
+                    const totalHeight = lines.length * lineHeight; 
+                    const baseY = 50;
+                    const y = baseY - totalHeight / 2 + lineHeight / 2 + index * lineHeight;
 
                     return (
                         <text
@@ -71,11 +72,10 @@ const Hexagon = ({ label, description, onClick, isCenter }) => {
                             dominantBaseline="middle"
                             textAnchor="middle"
                             className="hexagon-text"
-                            fontFamily='var(--font-body)'
+                            fontFamily="var(--font-body)"
                             fill="var(--plain-white)"
                             fontWeight="bold"
                             fontSize={`${Math.max(0.67 - (lines.length - 2) * 0.1, 0.5)}em`}
-
                         >
                             {line}
                         </text>
