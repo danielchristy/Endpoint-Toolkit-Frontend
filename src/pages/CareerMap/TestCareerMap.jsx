@@ -270,9 +270,41 @@ const HexMap = () => {
             </a>
           </div>
 
-          <button onClick={handleBackClick} style={{ marginTop: '20px' }}>Back to Jobs</button>
+          <button
+            onClick={handleBackClick}
+            style={{
+              marginTop: "20px",
+              padding: "10px 20px",
+              fontSize: "16px",
+              backgroundColor: "#4A90E2",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Back to Jobs
+          </button>
         </div>
       )}
+      {stage > 1 && stage < 3 && (
+  <button
+    onClick={handleBackClick}
+    style={{
+      marginTop: "20px",
+      padding: "10px 20px",
+      fontSize: "16px",
+      backgroundColor: "#4A90E2",
+      color: "white",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+    }}
+  >
+    Back
+  </button>
+)}
+
       {stage !== 3 && (
         <div className="description-container">
           <p>{selectedDescription || "Click on a field to see its description here."}</p>
