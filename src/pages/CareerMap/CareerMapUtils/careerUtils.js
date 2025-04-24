@@ -19,12 +19,12 @@ const jobExclusionKeywords = {
 };
 
 export const getJobs = async (keyword) => {
-    const response = await axios.get(`http://api.devwaypoint.xyz/occupation/${keyword}`);
+    const response = await axios.get(`https://api.devwaypoint.xyz/occupation/${keyword}`);
     return response.data.OccupationList;
 };
 
 export const getJobDetails = async (jobCode) => {
-    const response = await axios.get(`http://api.devwaypoint.xyz/occupation/details/${jobCode}`);
+    const response = await axios.get(`https://api.devwaypoint.xyz/occupation/details/${jobCode}`);
     return response.data.OccupationDetail || [];
     
 };
