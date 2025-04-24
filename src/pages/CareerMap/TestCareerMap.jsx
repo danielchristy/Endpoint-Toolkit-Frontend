@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HexGrid, Layout, Hexagon, Text } from "react-hexgrid";
+import { HexGrid, Layout, Hexagon, Text, Pattern } from "react-hexgrid";
 import { filterJobs, getJobs, getJobDetails } from './CareerMapUtils/careerUtils';
 import './TestCareerMap.css';
 
@@ -60,8 +60,11 @@ const HexMap = () => {
   const [jobDetails, setJobDetails] = useState(null);
   const [activeField, setActiveField] = useState(null);
   const [fieldHexes, setFieldHexes] = useState(fieldNodes);
+  const [hoveredHex, setHoveredHex] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFieldClick = async (field) => {
+    setLoading(true);
     setActiveField(field);
     setSelectedDescription(field.description);
     setCenterLabel(field.label);
@@ -82,10 +85,13 @@ const HexMap = () => {
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setJobData([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleJobClick = async (job) => {
+    setLoading(true);
     try {
       const detailsArray = await getJobDetails(job.code);
       const details = detailsArray[0] || null;
@@ -101,6 +107,8 @@ const HexMap = () => {
       setStage(3);
     } catch (error) {
       console.error("Error fetching job details:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,6 +128,52 @@ const HexMap = () => {
     }
   };
 
+  // Create a more balanced flower-like pattern for hexagons
+  const createBalancedPositions = (count) => {
+    if (count <= 1) return [{ q: 0, r: 0, s: 0 }];
+    
+    const positions = [{ q: 0, r: 0, s: 0 }]; // Center
+    
+    // Define a more compact arrangement
+    // First ring (6 positions around center)
+    const firstRing = [
+      { q: 1, r: -1, s: 0 },
+      { q: 0, r: -1, s: 1 },
+      { q: -1, r: 0, s: 1 },
+      { q: -1, r: 1, s: 0 },
+      { q: 0, r: 1, s: -1 },
+      { q: 1, r: 0, s: -1 }
+    ];
+    
+    // Second ring (12 positions)
+    const secondRing = [
+      { q: 2, r: -2, s: 0 },
+      { q: 1, r: -2, s: 1 },
+      { q: 0, r: -2, s: 2 },
+      { q: -1, r: -1, s: 2 },
+      { q: -2, r: 0, s: 2 },
+      { q: -2, r: 1, s: 1 },
+      { q: -2, r: 2, s: 0 },
+      { q: -1, r: 2, s: -1 },
+      { q: 0, r: 2, s: -2 },
+      { q: 1, r: 1, s: -2 },
+      { q: 2, r: 0, s: -2 },
+      { q: 2, r: -1, s: -1 }
+    ];
+    
+    // Add positions in a balanced way - prioritize filling the inner ring first
+    for (let i = 0; i < firstRing.length && positions.length < count; i++) {
+      positions.push(firstRing[i]);
+    }
+    
+    // Add positions from the second ring if needed
+    for (let i = 0; i < secondRing.length && positions.length < count; i++) {
+      positions.push(secondRing[i]);
+    }
+    
+    return positions;
+  };
+
   const getVisibleHexes = () => {
     if (stage === 0) {
       return [{ pos: { q: 0, r: 0, s: 0 }, label: centerLabel }];
@@ -130,7 +184,7 @@ const HexMap = () => {
       return [
         { pos: { q: 0, r: 0, s: 0 }, label: centerLabel }, // Center hex for job details
         {
-          pos: { q: -1, r: 1, s: 0 }, // Position for the active field node
+          pos: { q: 1, r: -1, s: 0 }, // Position for the active field node (top-right)
           label: activeField?.label || "Field",
           field: activeField,
         },
@@ -139,30 +193,34 @@ const HexMap = () => {
 
     if (stage === 2) {
       const jobCount = Math.min(jobData.length, 20);
-      const dynamicHexes = [{ pos: { q: 0, r: 0, s: 0 }, label: centerLabel }];
-
-      let radius = 1;
-      let hexCount = 0;
-
-      while (hexCount < jobCount) {
-        for (let q = -radius; q <= radius; q++) {
-          for (let r = Math.max(-radius, -q - radius); r <= Math.min(radius, -q + radius); r++) {
-            const s = -q - r;
-            if (hexCount >= jobCount) break;
-            dynamicHexes.push({
-              pos: { q, r, s },
-              label: jobData[hexCount].title,
-              job: jobData[hexCount],
-            });
-            hexCount++;
-          }
+      
+      // Get balanced positions for all hexes
+      const positions = createBalancedPositions(jobCount + 1);
+      
+      // Create hexes using the calculated positions
+      const dynamicHexes = [];
+      
+      // Center hex
+      dynamicHexes.push({ 
+        pos: positions[0],
+        label: centerLabel
+      });
+      
+      // Job hexes
+      for (let i = 0; i < jobCount; i++) {
+        if (i + 1 < positions.length) {
+          dynamicHexes.push({
+            pos: positions[i + 1],
+            label: jobData[i].title,
+            job: jobData[i],
+          });
         }
-        radius++;
       }
-
+      
       return dynamicHexes;
     }
 
+    // Stage 1: Field hexes around center
     return directions.map((d, i) => ({
       pos: d,
       label: i === 0 ? centerLabel : fieldHexes[i - 1]?.label,
@@ -170,144 +228,211 @@ const HexMap = () => {
     }));
   };
 
-  return (
-    <div className="w-full h-screen flex flex-col justify-between items-center bg-gray-100">
-      {stage !== 3 ? (
-        <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <HexGrid width={800} height={600} viewBox="-50 -50 100 100">
-            <Layout size={{ x: 10, y: 10 }} flat={false} spacing={1.3} origin={{ x: 0, y: 0 }}>
-              {getVisibleHexes().map((hex, index) => (
-                <Hexagon
-                  key={`hex-${index}`}
-                  q={hex.pos.q}
-                  r={hex.pos.r}
-                  s={hex.pos.s}
-                  onClick={() => {
-                    if (stage === 0 && index === 0) {
-                      setCenterLabel("Pick a Field");
-                      setFieldHexes(fieldNodes);
-                      setStage(1);
-                    } else if (stage === 1 && hex.field) {
-                      handleFieldClick(hex.field);
-                    } else if (stage === 2 && hex.job) {
-                      handleJobClick(hex.job);
-                    } else if ((stage === 1 || stage === 2) && index === 0) {
-                      setCenterLabel("Pick a Field");
-                      setFieldHexes(fieldNodes);
-                      setStage(1);
-                    }
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <Text
-                    style={{
-                      fontSize: hex.label?.length > 15 ? 1.5 : 2,
-                      textAnchor: "middle",
-                      dominantBaseline: "central",
-                      fill: "white",
-                    }}
-                  >
-                    {hex.label?.length > 20 ? `${hex.label.slice(0, 17)}...` : hex.label}
-                  </Text>
-                </Hexagon>
-              ))}
-            </Layout>
-          </HexGrid>
+  const renderJobDetails = () => {
+    if (!jobDetails) return <div>Loading job details...</div>;
+    
+    return (
+      <div className="job-details-container bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
+        <h1 className="text-2xl font-bold mb-2">{jobDetails?.OnetTitle || "Job Details"}</h1>
+        <p className="text-sm text-gray-500 mb-6"><i>ONET Code: {jobDetails?.OnetCode || "N/A"}</i></p>
+
+        <div className="job-description mb-6">
+          <h4 className="text-lg font-semibold mb-2">Job Description</h4>
+          <p>{jobDetails?.OnetDescription || "No Description available."}</p>
         </div>
-      ) : (
-        <div className="job-details-container">
-          <h1><strong>{jobDetails?.OnetTitle || "Job Details"}</strong></h1>
-          <p><i>ONET Code: {jobDetails?.OnetCode || "N/A"}</i></p>
 
-          <div className="job-description">
-            <h4>Job Description</h4>
-            <p>{jobDetails?.OnetDescription || "No Description available."}</p>
-          </div>
-
-          <div className="wages">
-            <h4>Annual Wage Estimates</h4>
-            <p>
-              Entry Level Average: {jobDetails?.Wages?.NationalWagesList?.[0]?.Pct10
-                ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.NationalWagesList[0].Pct10))
-                : 'N/A'}
-            </p>
-            <p>
-              Median Annual Wage: {jobDetails?.Wages?.NationalWagesList?.[0]?.Median
-                ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.NationalWagesList[0].Median))
-                : 'N/A'}
-            </p>
-            <p>
-              High Tier Role Average: {jobDetails?.Wages?.NationalWagesList?.[0]?.Pct90
-                ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(jobDetails.Wages.NationalWagesList[0].Pct90))
-                : 'N/A'}
-            </p>
-          </div>
-
-          <div className="job-outlook">
-            <h4>Job Outlook</h4>
-            <p>Bright Outlook: {jobDetails?.BrightOutlook || "N/A"}</p>
-            <p>Projected Growth Rate: {jobDetails?.BrightOutlookCategory || "N/A"}</p>
-          </div>
-
-          {jobDetails?.RelatedOnetTitles?.length > 0 && (
-            <div className="related-jobs">
-              <h2>Related Jobs</h2>
-              <ul>
-                {jobDetails.RelatedOnetTitles.map((relatedJob, index) => (
-                  <li key={index}>{relatedJob.OnetTitle}</li>
-                ))}
-              </ul>
+        <div className="wages bg-blue-50 p-4 rounded-md mb-6">
+          <h4 className="text-lg font-semibold mb-2">Annual Wage Estimates</h4>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="text-center">
+              <p className="text-sm text-gray-500">Entry Level</p>
+              <p className="text-lg font-bold text-green-600">
+                {jobDetails?.Wages?.NationalWagesList?.[0]?.Pct10
+                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[0].Pct10))
+                  : 'N/A'}
+              </p>
             </div>
-          )}
-
-          <div className="linkedin-search" style={{ marginTop: '50px' }}>
-            <a
-              href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(jobDetails?.OnetTitle || '')}&location=Mississippi`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Search for "{jobDetails?.OnetTitle}" jobs in Mississippi on LinkedIn
-            </a>
+            <div className="text-center">
+              <p className="text-sm text-gray-500">Median</p>
+              <p className="text-xl font-bold text-green-700">
+                {jobDetails?.Wages?.NationalWagesList?.[0]?.Median
+                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[0].Median))
+                  : 'N/A'}
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-gray-500">High Tier</p>
+              <p className="text-lg font-bold text-green-800">
+                {jobDetails?.Wages?.NationalWagesList?.[0]?.Pct90
+                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[0].Pct90))
+                  : 'N/A'}
+              </p>
+            </div>
           </div>
+        </div>
 
-          <button
-            onClick={handleBackClick}
-            style={{
-              marginTop: "20px",
-              padding: "10px 20px",
-              fontSize: "16px",
-              backgroundColor: "#4A90E2",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
+        <div className="job-outlook bg-yellow-50 p-4 rounded-md mb-6">
+          <h4 className="text-lg font-semibold mb-2">Job Outlook</h4>
+          <div className="flex items-center mb-2">
+            <div className="w-1/2">
+              <p className="text-gray-600">Bright Outlook:</p>
+            </div>
+            <div className="w-1/2">
+              <p className="font-medium">{jobDetails?.BrightOutlook ? "Yes ✓" : "No"}</p>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/2">
+              <p className="text-gray-600">Projected Growth Rate:</p>
+            </div>
+            <div className="w-1/2">
+              <p className="font-medium">{jobDetails?.BrightOutlookCategory || "N/A"}</p>
+            </div>
+          </div>
+        </div>
+
+        {jobDetails?.RelatedOnetTitles?.length > 0 && (
+          <div className="related-jobs mb-6">
+            <h2 className="text-lg font-semibold mb-2">Related Jobs</h2>
+            <ul className="list-disc pl-5 text-gray-600">
+              {jobDetails.RelatedOnetTitles.slice(0, 5).map((relatedJob, index) => (
+                <li key={index} className="mb-1">{relatedJob.OnetTitle}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="linkedin-search mb-6">
+          <a
+            href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(jobDetails?.OnetTitle || '')}&location=Mississippi`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
-            Back to Jobs
-          </button>
+            Search for "{jobDetails?.OnetTitle}" jobs in Mississippi on LinkedIn
+          </a>
+        </div>
+
+        <button
+          onClick={handleBackClick}
+          className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+        >
+          Back to Jobs
+        </button>
+      </div>
+    );
+  };
+
+  return (
+    <div className="w-full min-h-screen flex flex-col justify-between items-center bg-gray-100">
+      {loading && (
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="loader"></div>
+            <p className="mt-4 text-center">Loading...</p>
+          </div>
         </div>
       )}
-      {stage > 1 && stage < 3 && (
-  <button
-    onClick={handleBackClick}
-    style={{
-      marginTop: "20px",
-      padding: "10px 20px",
-      fontSize: "16px",
-      backgroundColor: "#4A90E2",
-      color: "white",
-      border: "none",
-      borderRadius: "8px",
-      cursor: "pointer",
-    }}
-  >
-    Back
-  </button>
-)}
 
-      {stage !== 3 && (
-        <div className="description-container">
-          <p>{selectedDescription || "Click on a field to see its description here."}</p>
+      {stage !== 3 ? (
+        <div className="flex-1 flex flex-col items-center justify-center p-4 w-full">
+          <div className="hex-grid-container">
+            <HexGrid width={800} height={600} viewBox="-30 -30 60 60">
+              <Layout size={{ x: 7, y: 7 }} flat={false} spacing={1.04} origin={{ x: 0, y: 0 }}>
+                {getVisibleHexes().map((hex, index) => {
+                  const isHovered = hoveredHex === index;
+                  const isCenter = index === 0;
+                  const hexId = `hex-${index}`;
+                  
+                  return (
+                    <g
+                      key={hexId}
+                      className={`hexagon-wrapper ${isHovered ? 'hexagon-hovered' : ''} ${index === 0 ? 'hexagon-center' : ''}`}
+                      onMouseEnter={() => {
+                        setHoveredHex(index);
+                        if (!isCenter && hex.field) {
+                          setSelectedDescription(hex.field.description);
+                        } else if (!isCenter && hex.job) {
+                          setSelectedDescription(hex.job.description || "");
+                        }
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredHex(null);
+                        if (stage === 1 && !isCenter) {
+                          setSelectedDescription("");
+                        }
+                      }}
+                    >
+                      <Hexagon
+                        q={hex.pos.q}
+                        r={hex.pos.r}
+                        s={hex.pos.s}
+                        className={`${hoveredHex === index ? 'hexagon-hovered' : ''} ${isCenter ? 'hexagon-center' : ''}`}
+                        onClick={() => {
+                          if (stage === 0 && index === 0) {
+                            setCenterLabel("Pick a Field");
+                            setFieldHexes(fieldNodes);
+                            setStage(1);
+                          } else if (stage === 1 && hex.field) {
+                            handleFieldClick(hex.field);
+                          } else if (stage === 2 && hex.job) {
+                            handleJobClick(hex.job);
+                          } else if ((stage === 1 || stage === 2) && index === 0) {
+                            // Reset to field selection if center is clicked
+                            setCenterLabel("Pick a Field");
+                            setFieldHexes(fieldNodes);
+                            setStage(1);
+                          }
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: hex.label?.length > 15 ? 1.2 : 1.6,
+                            textAnchor: "middle",
+                            dominantBaseline: "central",
+                            fontWeight: "bold"
+                          }}
+                        >
+                          {hex.label?.length > 20 ? `${hex.label.slice(0, 17)}...` : hex.label}
+                        </Text>
+                      </Hexagon>
+                      <Pattern
+                        id={hexId}
+                        link=""
+                        size={{ x: 10, y: 10 }}
+                        className={`hex-pattern ${isHovered ? 'hex-hovered' : ''}`}
+                      >
+                        <path className="hex-pattern" d="M50 7 Q52 7 54 8 L92 27 ..." />
+                      </Pattern>
+                    </g>
+                  );
+                })}
+              </Layout>
+            </HexGrid>
+          </div>
+          
+          {stage === 1 && (
+            <div className="description-container bg-white p-4 mt-6 rounded-lg shadow-md max-w-xl">
+              <p className="text-gray-700">{selectedDescription || "Hover over a field to see its description."}</p>
+            </div>
+          )}
+          
+          {stage === 2 && (
+            <div className="description-container bg-white p-4 mt-6 rounded-lg shadow-md max-w-xl">
+              <p className="text-gray-700">{selectedDescription || "Click on a job to see details."}</p>
+              
+              <button
+                onClick={handleBackClick}
+                className="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+              >
+                Back to Fields
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="flex-1 w-full flex flex-col items-center justify-center p-4">
+          {renderJobDetails()}
         </div>
       )}
     </div>
