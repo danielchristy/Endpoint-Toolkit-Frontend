@@ -1,7 +1,7 @@
 {
   "name": "devwapoint-frontend",
   "version": "1.0.0",
-  "homepage": "https://devwaypoint.github.io/devWaypoint-Frontend",
+  "homepage": "https://devwaypoint.xyz",
   "private": true,
   "main": "src/index.js",
   "scripts": {

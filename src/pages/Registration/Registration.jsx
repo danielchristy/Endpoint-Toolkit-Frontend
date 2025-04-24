@@ -7,7 +7,7 @@ import './Registration.css';
 function Registration() {
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,7 +21,7 @@ function Registration() {
     e.preventDefault();
     setError('');
 
-    if (!first_name || !last_name || !username || !email || !password || !confirmPassword) {
+    if (!first_name || !last_name || !email || !password || !confirmPassword) {
       setError('Please fill out all fields');
       return;
     }
@@ -35,7 +35,7 @@ function Registration() {
       const response = await axios.post('http://localhost:5000/api/users/', {
         first_name,
         last_name,
-        username,
+        // username,
         email,
         password
       });
@@ -153,7 +153,7 @@ function Registration() {
               placeholder='Enter last name'
             />
           </div>
-          <div className='form-group'>
+          {/* <div className='form-group'>
             <label htmlFor='username'>Username:</label>
             <input
               type='username'
@@ -162,7 +162,7 @@ function Registration() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder='Enter Username'
             />
-          </div>
+          </div> */}
           <div className='form-group'>
             <label htmlFor='email'>Email:</label>
             <input
