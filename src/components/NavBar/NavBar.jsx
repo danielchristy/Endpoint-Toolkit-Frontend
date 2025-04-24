@@ -21,17 +21,17 @@ function NavBar() {
 
             <div className={'navbar'}>
                 <ul className='page-links'>
-                    <li><Link to='/'>Home</Link></li>
-                    <li><Link to='/careermap'>Career Explorer</Link></li>
-                    <li><Link to='/resources'>Resources</Link></li>
+                    <li><Link to='/' className="nav-link-item">Home</Link></li>
+                    <li><Link to='/careermap' className="nav-link-item">Career Explorer</Link></li>
+                    <li><Link to='/resources' className="nav-link-item">Resources</Link></li>
 
                 </ul>
                 <ul className='user-actions'>
                     {isAuthenticated() ?
                         <>
-                        <li><Link to='/resume'>Resume</Link></li>
-                        <li><Link to='/calendar'>Calendar</Link></li>
-                        <li><Link to='/profile'>Profile</Link></li>
+                        <li><Link to='/resume' className="nav-link-item">Resume</Link></li>
+                        <li><Link to='/calendar' className="nav-link-item">Calendar</Link></li>
+                        <li><Link to='/profile' className="nav-link-item">Profile</Link></li>
                     
                         <li><button className="login-button" onClick={handleLogout}>Logout</button></li>
                         </>

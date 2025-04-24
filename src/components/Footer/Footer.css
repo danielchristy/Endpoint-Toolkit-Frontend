@@ -1,7 +1,7 @@
 @import '../../styles/variables.css';
 
 .footer-container {
-  background-color: var(--bcca-primary-blue);
+  background-color: var(--bcca-secondary-blue);
   font-family: var(--font-body);
   font-size: 1rem;
   display: flex;
@@ -36,7 +36,7 @@
 }
 
 .bcca-details {
-  color: var(--plain-white);
+  color: var(--plain-black);
   font-family: var(--font-body);
   /* font-weight: 700; */
   font-size: .8rem;
@@ -44,7 +44,7 @@
 }
 
 .project-details {
-  color: var(--plain-white);
+  color: var(--plain-black);
   font-family: var(--font-body);
   font-size: .8rem;
   /* font-style: italic; */

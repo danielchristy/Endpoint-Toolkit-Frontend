@@ -32,7 +32,7 @@ function Registration() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/', {
+      const response = await axios.post('https://api.devwaypoint.xyz/api/users/', {
         first_name,
         last_name,
         // username,
@@ -61,7 +61,7 @@ function Registration() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post('https://api.devwaypoint.xyz/api/users/login', {
         email,
         password
       });
