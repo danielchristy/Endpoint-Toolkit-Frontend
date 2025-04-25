@@ -62,6 +62,8 @@ const HexMap = () => {
   const [fieldHexes, setFieldHexes] = useState(fieldNodes);
   const [hoveredHex, setHoveredHex] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [annualNationalWages, setAnnualNationalWages] = useState(0);
+  const [annualStateWages, setAnnualStateWages] = useState(0);
 
   const handleFieldClick = async (field) => {
     setLoading(true);
@@ -95,13 +97,36 @@ const HexMap = () => {
     try {
       const detailsArray = await getJobDetails(job.code);
       const details = detailsArray[0] || null;
-
+  
       if (!details) {
         console.error("No details found for this job");
         setJobDetails(null);
         return;
       }
-
+  
+      // Sort wages to find annual rates
+      const sortingWages = (jobDetails) => {
+        const nationalWage = jobDetails.Wages?.NationalWagesList?.[0] || null;
+        const stateWage = jobDetails.Wages?.StateWagesList?.[0] || null;
+  
+        if (nationalWage && nationalWage.RateType === 'Annual') {
+          setAnnualNationalWages(0);
+        } else if (nationalWage) {
+          setAnnualNationalWages(1);
+        }
+  
+        if (stateWage && stateWage.RateType === 'Annual') {
+          setAnnualStateWages(0);
+        }
+        else if (stateWage) {
+          setAnnualStateWages(1);
+        }
+      };
+  
+      // Call the sorting function with the job details
+      sortingWages(details);
+      
+      // Set job details and update UI
       setJobDetails(details);
       setCenterLabel(job.title);
       setStage(3);
@@ -111,6 +136,8 @@ const HexMap = () => {
       setLoading(false);
     }
   };
+
+  
 
   const handleBackClick = () => {
     if (stage === 3) {
@@ -247,24 +274,24 @@ const HexMap = () => {
             <div className="text-center">
               <p className="text-sm text-gray-500">Entry Level</p>
               <p className="text-lg font-bold text-green-600">
-                {jobDetails?.Wages?.NationalWagesList?.[0]?.Pct10
-                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[0].Pct10))
+                {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Pct10
+                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct10))
                   : 'N/A'}
               </p>
             </div>
             <div className="text-center">
               <p className="text-sm text-gray-500">Median</p>
               <p className="text-xl font-bold text-green-700">
-                {jobDetails?.Wages?.NationalWagesList?.[0]?.Median
-                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[0].Median))
+                {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Median
+                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Median))
                   : 'N/A'}
               </p>
             </div>
             <div className="text-center">
               <p className="text-sm text-gray-500">High Tier</p>
               <p className="text-lg font-bold text-green-800">
-                {jobDetails?.Wages?.NationalWagesList?.[0]?.Pct90
-                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[0].Pct90))
+                {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Pct90
+                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct90))
                   : 'N/A'}
               </p>
             </div>

@@ -51,6 +51,8 @@
   margin: 20px auto;
   text-align: center;
   min-height: 80px;
+  display: block;
+  align-content: center;
 }
 
 /* Job details container */
@@ -62,18 +64,24 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
+  display: block;
+  align-content: center;
 }
 
 .job-details-container h1 {
   font-size: 24px;
   margin-bottom: 10px;
   color: var(--bcca-primary-blue);
+  display: block;
+  align-content: center;
 }
 
 .job-details-container h2 {
   font-size: 20px;
   margin: 20px 0 10px;
   color: #555;
+  display: block;
+  align-content: center;
 }
 
 .job-details-container h4 {
@@ -83,15 +91,20 @@
   color: var(--bcca-primary-blue);
   border-bottom: 1px solid #eee;
   padding-bottom: 5px;
+  display: block;
+  align-content: center;
 }
 
 .job-details-container p {
   margin-bottom: 10px;
   line-height: 1.5;
+  display: block;
+  align-content: center;
 }
 
 .job-description, .wages, .job-outlook, .related-jobs {
   margin-bottom: 20px;
+  align-content: center;
 }
 
 .related-jobs ul {
