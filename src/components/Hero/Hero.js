@@ -1,15 +1,61 @@
 import React from 'react';
 import './Hero.css';
+import bccaLogo from '../../static/bcca-logos/standard-logo-with-title-transparent.png';
+import wwgLogo from '../../static/wwg-logos/wwg-logo.png';
 
 function Hero() {
   return (
-    <section className="hero-container">
-      <h1>Code the Future, Empower the Workforce</h1>
-      <p>
-      At Base Camp, we nurture aspiring coders and fuel the careers of our graduates. Partnering with visionary organizations, we craft agile software solutions that drive real-world results and unlock the potential of America’s next generation of tech innovators.
+    <section className='hero-container'>
+      <h4>devWaypoint was made possible thanks to the support of:</h4>
 
+      <div className='sponsors'>
+        <div className='sponsor-section'>
+          <div className='bcca-content'>
+            <img src={bccaLogo} alt='basecamp-logo' className='basecamp-logo' />
+            <a href='https://basecampcodingacademy.org/' 
+            target='_blank'
+            rel='noopener noreferrer'
+            className='sponsor-link'>Check Out Base Camp Coding Academy Here!</a>
+          </div>
+          <div className='bcca-about'>
+            <p>Base Camp Coding Academy is a non-profit organization that enable recent high school graduates 
+              and adults who are working towards a career transition, or want to learn new skills.</p>
+            <p>As of 2025, Base Camp has graduated six classes of recent high school graduates,
+              three classes of adults, and has hosted 50+ current high school junior and senior females
+              through their annual, two-day Pioneer Program.
+            </p>
+            <></>
+            <p>Their network of 150+ graduates have connections at top companies like <b>CoreLogic</b>, <b>ADSi</b>,
+              <b>C Spire</b>, <b>FedEx</b>, <b>Trustmark Bank</b>, <b>Tallahatchie Valley Electric Power Association</b>, and many more!
+            </p>
+            <></>
+            <p>Due to their generous sponsors, all students recieve a <strong>100% scholarship</strong></p>
+          </div>
+        </div>
+          
+        <div className='sponsor-section'>
+          <div className='wwg-content'>
+            <img src={wwgLogo} alt='wherewego-logo' className='wherewego-logo' />
+            <a href='https://wherewego.org/' 
+            target='_blank'
+            rel='noopener noreferrer'
+            className='sponsor-link'>Check Out WhereWeGo Here!</a>
+          </div>
+          <div className='wwg-about'>
+            <p>WhereWeGo is a non-profit organization that enable recent high school graduates 
+              and adults who are working towards a career transition, or want to learn new skills.</p>
+            <p>As of 2025, Base Camp has graduated six classes of recent high school graduates,
+              three classes of adults, and has hosted 50+ current high school junior and senior females
+              through their annual, two-day Pioneer Program.
+            </p>
+            <p>Their network of 150+ graduates have connections at top companies like <b>CoreLogic</b>, <b>ADSi</b>,
+              <b>C Spire</b>, <b>FedEx</b>, <b>Trustmark Bank</b>, <b>Tallahatchie Valley Electric Power Association</b>, and many more!
+            </p>
+            <p>Due to their generous sponsors, all students recieve a <strong>100% scholarship</strong></p>
+          </div>
 
-      </p>
+        </div>
+      </div>
     </section>
   );
 }

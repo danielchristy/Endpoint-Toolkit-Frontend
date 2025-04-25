@@ -2,104 +2,55 @@
 
 .header-container {
   text-align: center;
-  background-color: var(--bcca-primary-blue);
-  padding: 0.5rem;
+  background-color: var(--wwg-light-beige);
+  padding: 2rem 0.5rem;
 }
 
 .logo-container {
   display:flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* width: 100%; */
+  width: 100%;
   height: auto;
+  margin: 1.5rem 0;
 }
 
 .logo-image {
-  width: 20vw;
-  min-width: 12em;
+  width: 8rem;
+  min-width: 5rem;
   height: auto;
-  
+  margin: 1.5rem;
 }
 
 .tagline {
   font-style: italic;
-  font-size: 1.10rem;
+  font-size: 3rem;
   color: var(--wwg-green);
   font-family: var(--font-heading);
 }
 
-
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.devwaypoint-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
-body {
-  font-family: var(--font-body);
+.feature-card {
+  background: var(--wwg-light-biege);
+  padding: 2rem;
+  border-radius: 5%;
+  box-shadow: 6px 4px 10px var(--wwg-green);
 }
 
-.site-header {
-  width: 100%;
-  border-top: 4px solid var(--color-primary);
-  margin-bottom: 1rem; 
+.feature-card h4,
+.testimonials-section h4 {
+  color: var(--wwg-green);
+  margin-bottom: 1rem;
 }
 
-.top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--color-primary);
-  padding: 0.75rem 2rem;
+.feature-card p {
+  color: var(--bcca-primary-blue);
+  margin-bottom: 1rem;
+  line-height: 1.8rem;
 }
-
-.top-nav .nav-left a {
-  color: var(--color-text);
-  text-decoration: none;
-  margin-right: 1.5rem;
-  font-weight: 500;
-}
-
-.top-nav .nav-left a:hover {
-  text-decoration: underline;
-}
-
-.top-nav .nav-right button {
-  background-color: var(--color-accent);
-  border: none;
-  color: var(--color-text);
-  padding: 0.5rem 1rem;
-  margin-left: 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: opacity 0.3s ease;
-}
-
-.top-nav .nav-right button:hover {
-  opacity: 0.8;
-}
-
-.brand-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--color-primary);
-  padding: 0.75rem 2rem;
-  color: var(--color-text);
-}
-
-.brand-bar .tagline {
-  background-color: var(--color-primary);
-  padding: 0.5rem 1rem;
-  font-style: italic;
-  font-size: 1rem;
-  border-radius: 4px;
-}
-
-.brand-bar .brand-name {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: bold;
-} */

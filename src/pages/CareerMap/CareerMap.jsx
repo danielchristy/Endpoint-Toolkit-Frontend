@@ -144,20 +144,6 @@ const CareerMap = () => {
         setActiveNode(null);
     };
 
-    // const nationalWages = Number(jobDetails.Wages.NationalWagesList[0]);
-
-    // const handleResetButtonClick = () => {
-    //     setCurrentView('start');
-    // }
-
-    // const handleNodeHover = (node) => {
-    //     setHoveredNode(node);
-    // }
-
-    // const handleNodeExit = () => {
-    //     setHoveredNode(null);
-    // }
-
     return (
         <div className='career-map'>
             <div className="career-map-header">

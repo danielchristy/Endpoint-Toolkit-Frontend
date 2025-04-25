@@ -1,5 +1,23 @@
+.testimonials  {
+  margin: 1.5rem;
+  padding: 0.25rem 2rem;
+  background-color: var(--bcca-primary-blue);
+  text-align: center;
+  border-radius: 5%;
+  
+}
+
+.testimonials-section {
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 75%;
+}
+
 .testimonials-carousel {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  min-height: 38rem;
   padding: 1rem;
   background: var(--wwg-light-biege);
   border-radius: 5%;
@@ -7,15 +25,8 @@
 }
 
 .testimonials-card {
-  /* display: grid;
-  grid-template-columns: 200px 1fr;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  gap: 1.5rem;
-  transition: opacity 0.3s ease;
-  opacity: 1; */
   display: flex;
-  padding: 2rem;
+  padding: 0.5rem;
   gap: 2rem;
   transition: opacity 0.3s ease;
   opacity: 1;
@@ -30,16 +41,8 @@
 }
 
 .testimonial-image {
-  /* width: 12rem;
-  height: 20rem;
-  border-radius: 5%;
-  object-fit: cover;
-  border: 3px solid var(--bcca-primary-blue);
-  margin: 0;
-  transform: scale(1);
-  align-self: center; */
-  width: 200px;
-  height: 300px;
+  width: 13rem;
+  height: 25rem;
   border-radius: 5%;
   object-fit: cover;
   border: 3px solid var(--bcca-primary-blue);
@@ -47,38 +50,24 @@
 }
 
 .grad-name {
-  /* font-style: normal; */
   font-style: normal;
   font-weight: bold;
   margin: 0;
 }
 
 .grad-info {
-  /* position: relative;
-  top: 2rem;
-  display: flex;
-  gap: 0.5rem;
-  align-items: baseline; */
   display: flex;
   align-items: baseline;
   margin-bottom: 1.5rem;
 }
 
 .grad-year {
-  /* margin-left: 1rem;
-  font-style: italic; */
   margin-left: 1rem;
   font-style: italic;
   margin: 0;
 }
 
 .testimonial-text {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  min-height: 30rem;
-  font-style: italic; */
   display: flex;
   flex-direction: column;
   min-height: 300px;
@@ -101,6 +90,7 @@
   justify-content: center;
   align-items: center;
   gap: .75rem;
+  margin-top: auto
 }
 
 .carousel-btn {

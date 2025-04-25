@@ -1,12 +1,9 @@
-// src/components/Features/FeaturesSection.js
-import React from 'react';
-import './FeaturesSection.css';
-import '../TestimonialsCarousel/TestimonialsCarousel';
-import TestimonialsCarousel from '../TestimonialsCarousel/TestimonialsCarousel';
+import React, { useState, useEffect } from 'react';
+import './TestimonialsSection.css';
 
 import { gradImages } from '../../static/people/grad-testimonials/gradImages';
 
-function FeaturesSection() {
+function TestimonialsSection() {
   const testimonials = [
     { 
       name: 'Ryan Ramola',
@@ -22,44 +19,91 @@ function FeaturesSection() {
     }
   ];
 
+
+  const [currentCard, setCurrentCard] = useState(0);
+  const [fadeEffect, setFadeEffect] = useState("fade-in");
+
+  const goToCard = (index) => {
+    setFadeEffect('fade-out');
+    setTimeout(() => {
+      setCurrentCard(index);
+      setFadeEffect('fade-in');
+    }, 300);
+  };
+
+  const goToPreviousCard = () => {
+    setFadeEffect('fade-out');
+    setTimeout(() => {
+      setCurrentCard((prevCard) =>
+        prevCard === 0 ? testimonials.length - 1 : prevCard - 1
+      );
+      setFadeEffect('fade-in');
+    }, 300);
+  };
+
+  const goToNextCard = () => {
+    setFadeEffect('fade-out');
+    setTimeout(() => {
+      setCurrentCard((prevCard) =>
+        prevCard === testimonials.length - 1 ? 0 : prevCard + 1
+      );
+      setFadeEffect('fade-in');
+    }, 300);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goToNextCard();
+    }, 25000);
+    return () => clearInterval(interval);
+  }, [currentCard]);
+
+
   return (
-    <section className="features-section">
-      <div className="features-container">
-        <div className="feature-card">
-          <h4>Enduring Partnerships</h4>
-          <p>
-            Imagine us in the trenches with you offering warm, rigorous,
-            and ambitious collaboration for your high-stakes mission.
-          </p>
-        </div>
-
-        <div className="feature-card">
-          <h4>Domain Expertise</h4>
-          <p>
-            We can’t predict what you need next, but we can bring our years
-            of workforce technology insights to help you uncover elegant
-            solutions that last.
-          </p>
-        </div>
-
-        <div className="feature-card">
-          <h4>Full-Stack Solutions</h4>
-          <p>
-            A 12-person powerhouse skilled to discover, design, develop,
-            and deploy transformative user experiences with emerging
-            technologies—on time, every time.
-          </p>
-        </div>
-      </div>
-
-      <div className='testimonials-section'>
+    <section className="testimonials">
+      <div className="testimonials-section">
         <h4>What BCCA Grads Have To Say</h4>
-        <TestimonialsCarousel testimonials={testimonials} />
+        <div className="testimonials-carousel">
+          <div className="testimonials-container">
+            <div className={`testimonials-card ${fadeEffect}`}>
+              <img
+                src={testimonials[currentCard].image}
+                alt={testimonials[currentCard].name}
+                className="testimonial-image"
+              />
+              <div className="testimonial-text">
+                <div className="grad-info">
+                  <h4 className="grad-name">{testimonials[currentCard].name}</h4>
+                  <p className="grad-year">Class of {testimonials[currentCard].gradYear}</p>
+                </div>
+                <p>{testimonials[currentCard].text}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="carousel-controls">
+            <button className="carousel-btn back" onClick={goToPreviousCard}>
+              &#8249;
+            </button>
+
+            <div className="carousel-indicator">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  className={`indicator-dot ${currentCard === index ? 'active' : ''}`}
+                  onClick={() => goToCard(index)}
+                />
+              ))}
+            </div>
+
+            <button className="carousel-btn next" onClick={goToNextCard}>
+              &#8250;
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
- 
- export default FeaturesSection;
 
-
+export default TestimonialsSection;
