@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Home from './pages/Home/Home';
@@ -10,7 +10,6 @@ import ResumeBuilder from './components/ResumeBuilder/ResumeBuilder';
 import CustomCalendar from './components/CustomCalendar/CustomCalendar';
 import QuestionnairePage from './components/QuestionnairePage/QuestionnairePage';
 import UserProfile from './pages/UserProfile/UserProfile';
-// import UserDashboard from './pages/UserProfile/UserDashboard';
 import Registration from './pages/Registration/Registration';
 
 import PrivateRoute from './components/PrivateRoute';
@@ -28,55 +27,35 @@ const upcoming = [
 
 function App() {
   return (
+    <Router>
+      <div className="app-wrapper">
+        <nav className='nav'>
+          <NavBar />
+        </nav>
 
-    <div className="app-wrapper">
-      <nav className='nav'>
-        <NavBar />
-      </nav>
+        <main className='content'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/careermap" element={<CareerMap />} />
+            <Route path="/resources" element={<ResourcePage />} />
+            <Route path="/questionnaire" element={<QuestionnairePage />} />
+            <Route path="/register" element={<Registration />} />
+            <Route path="/careers" element={<CertificationCards />} />
+            <Route path="/test" element={<TestAPICalls />} />
+            <Route path="/test-onet" element={<TestOnetAPI />} />
+            <Route path="/test-map" element={<TestMap />} />
+            <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+            <Route path="/resume" element={<PrivateRoute><ResumeBuilder /></PrivateRoute>} />
+            <Route path="/calendar" element={<PrivateRoute><CustomCalendar initialEvents={upcoming} /></PrivateRoute>} />
+          </Routes>
+        </main>
 
-      <main className='content'>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/careermap" element={<CareerMap />} />
-          <Route path="/resources" element={<ResourcePage />} />
-          <Route path="/questionnaire" element={<QuestionnairePage />} />
-          <Route path="/register" element={<Registration />} />
-
-          <Route path="/careers" element={<CertificationCards />} />
-          <Route path="/test" element={<TestAPICalls />} />
-          <Route path="/test-onet" element={<TestOnetAPI />} />
-          <Route path="/test-map" element={<TestMap />} />
-
-          {/* Protected routes */}
-          <Route
-            path="/profile"
-            element={
-            <PrivateRoute>
-              <UserProfile />
-            </PrivateRoute>}
-          />
-          <Route path="/resume" 
-            element={
-            <PrivateRoute>
-              <ResumeBuilder />
-            </PrivateRoute>} 
-          />
-          <Route path="/calendar" 
-            element={
-            <PrivateRoute>
-              <CustomCalendar initialEvents={upcoming} />
-            </PrivateRoute>}
-          />
-        </Routes>
-      </main>
-
-      <footer className='footer'>
-        <Footer />
-      </footer>
-
+        <footer className='footer'>
+          <Footer />
+        </footer>
       </div>
+    </Router>
   );
 }
 
