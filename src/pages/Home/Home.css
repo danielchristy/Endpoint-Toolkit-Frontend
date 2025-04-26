@@ -1,13 +1,4 @@
 @import '../../styles/variables.css';
-
-/* :root {
-  --color-background: #ffffff;  
-  --color-text: #333333;        
-  --color-heading: #2f4d8c;     
-  --color-accent: #00a37f;      
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Playfair Display', serif;
-} */
   
 body {
   margin: 0;
@@ -16,66 +7,6 @@ body {
   font-family: var(--font-body);
 }
   
-/* h1, h2, h3, .heading {
-  color: var(--color-heading);
-  font-family: var(--font-heading);
-  margin-top: 0;
-} */
-  
-/* .navbar {
-  background-color: var(--color-heading);
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-}
-.navbar ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-.navbar li {
-  margin: 0 1rem;
-}
-
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-} */
-
-/* Push the login button to the right */
-/* .navbar .login-nav {
-  margin-left: auto;
-} */
-
-/* Login Button */
-/* .login-button {
-  background-color: var(--color-accent);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-} */
-
-/* .login-button:hover {
-  opacity: 0.8;
-} */
-
-/* Accent Button for other elements */
-/* .btn-accent {
-  background-color: var(--color-accent);
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-} */
 
 /* Modal Overlay */
 .modal-overlay {
@@ -133,25 +64,6 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
-/* .register-button {
-  background-color: var(--color-accent);
-  color: var(--color-background);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-} */
-
-/* .register-button:hover {
-  opacity: 0.8;
-} */
-
-/* Optional: If you want to align it similarly to the login button */
-/* .register-nav {
-  margin-left: 1rem; /* Adjust spacing as needed */
-/* } */ 
 
 .cta-section {
   text-align: center;

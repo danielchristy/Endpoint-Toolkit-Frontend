@@ -1,73 +1,172 @@
 /* ResourcePage.css */
 .resource-page {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    color: var(--bcca-text-color);
-  }
-  
-  .resource-page h2 {
-    font-family: var(--font-heading);
-    color: var(--bcca-text-accent-color);
-    margin-bottom: 1rem;
-    text-align: center;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: var(--bcca-text-color);
+}
+
+.resource-page h2 {
+  font-family: var(--font-heading);
+  color: var(--wwg-green);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.resource-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.resource-controls input {
+  width: 100%;
+  max-width: 500px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--bcca-primary-blue);
+  border-radius: 8px;
+  font-family: var(--font-body);
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.category-tab {
+  background-color: var(--wwg-light-biege);
+  color: var(--bcca-primary-blue);
+  border: 1px solid var(--bcca-primary-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.3s ease;
+}
+
+.category-tab:hover {
+  background-color: var(--bcca-primary-blue);
+  color: white;
+}
+
+.category-tab.active {
+  background-color: var(--bcca-primary-blue);
+  color: white;
+}
+
+.resource-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.resource-category-section {
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  font-family: var(--font-heading);
+  color: var(--bcca-text-accent-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--bcca-primary-blue);
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.resource-card {
+  background-color: var(--bcca-card-bg-color);
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--bcca-text-color);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.resource-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.resource-card h3 a {
+  color: var(--bcca-text-accent-color);
+  text-decoration: none;
+}
+
+.resource-card h3 a:hover {
+  text-decoration: underline;
+}
+
+.resource-desc {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: var(--bcca-text-muted-color);
+  line-height: 1.5;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--bcca-text-muted-color);
+  margin: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resource-page {
+    margin: 1.5rem auto;
   }
   
   .resource-controls {
-    display: flex;
-    justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
   }
   
-  .resource-controls input,
-  .resource-controls select {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: 1px solid #651e1e;
-    border-radius: 4px;
-    font-family: var(--font-body);
+  .category-tabs {
+    gap: 0.4rem;
+  }
+  
+  .category-tab {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
   
   .resource-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resource-page {
+    margin: 1rem auto;
   }
   
   .resource-card {
-    background-color: var(--bcca-card-bg-color);
     padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 5px 10px #00165a;
-    color: var(--bcca-text-color);
-    display: flex;
-    flex-direction: column;
   }
   
   .resource-card h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .resource-card h3 a {
-    color: var(--bcca-text-accent-color);
-    text-decoration: none;
-  }
-  
-  .resource-card h3 a:hover {
-    text-decoration: underline;
-  }
-  
-  .resource-category {
-    font-size: 0.85rem;
-    color: var(--bcca-text-secondary-color);
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
   }
   
   .resource-desc {
-    flex-grow: 1;
-    font-size: 0.95rem;
-    color: var(--bcca-text-muted-color);
+    font-size: 0.9rem;
   }
-  
+}

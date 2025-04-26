@@ -5,17 +5,18 @@
   font-family: var(--font-body);
   font-size: 1rem;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.5rem;
-  margin-top: 2rem;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .logos-container {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 0 0 375px;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
 }
 
 .small-logo {
@@ -23,16 +24,15 @@
   height: auto;
 }
 
-.wwg-logo {
-  width: auto;
-  height: auto;
-}
-
 .details-container {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: right;
+  justify-content: flex-end;
   text-wrap: nowrap;
+  flex: 1;
+  min-width: 0;
+  padding-left: 1rem;
 }
 
 .bcca-details {
@@ -49,4 +49,72 @@
   font-size: .8rem;
   /* font-style: italic; */
   margin: 0;
+}
+
+.back-to-top-btn {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  padding: 0 1rem;
+}
+
+.back-to-top {
+  background-color: var(--wwg-green);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  transition: background-color 0.3s ease;
+  margin: 0 auto;
+  display: block;
+  width: fit-content;
+  flex: 1;
+}
+
+.back-to-top:hover {
+  background-color: #007358;
+}
+
+@media (max-width: 599px) {
+  .footer-container {
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .logos-container {
+    flex: 0 0 auto; 
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    min-width: 100%;
+  }
+
+  .details-container {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    padding-left: 0;
+    margin-bottom: 1rem;
+  }
+
+  .back-to-top-btn {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .small-logo {
+    width: 4em;
+    max-width: 100px;
+  }
+
+  .bcca-details,
+  .project-details {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
 }

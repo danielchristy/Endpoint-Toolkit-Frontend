@@ -6,8 +6,8 @@ import Home from './pages/Home/Home';
 import CareerMap from './pages/CareerMap/CareerMap';
 import CertificationCards from './components/CertificationCards/CertificationCards';
 import ResourcePage from './components/Resources/ResourcePage';
-import ResumeBuilder from './components/ResumeBuilder/ResumeBuilder';
-import CustomCalendar from './components/CustomCalendar/CustomCalendar';
+// import ResumeBuilder from './components/ResumeBuilder/ResumeBuilder';
+// import CustomCalendar from './components/CustomCalendar/CustomCalendar';
 import QuestionnairePage from './components/QuestionnairePage/QuestionnairePage';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Registration from './pages/Registration/Registration';
@@ -20,10 +20,10 @@ import TestMap from './pages/CareerMap/TestCareerMap';
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
-const upcoming = [
-  { title: 'BCCA Workshop', start: new Date(2025, 3, 10, 14, 0), end: new Date(2025, 3, 10, 16, 0) },
-  { title: 'Interview Prep', start: new Date(2025, 3, 12, 10, 0), end: new Date(2025, 3, 12, 11, 0) },
-];
+// const upcoming = [
+//   { title: 'BCCA Workshop', start: new Date(2025, 3, 10, 14, 0), end: new Date(2025, 3, 10, 16, 0) },
+//   { title: 'Interview Prep', start: new Date(2025, 3, 12, 10, 0), end: new Date(2025, 3, 12, 11, 0) },
+// ];
 
 function App() {
   return (
@@ -46,8 +46,8 @@ function App() {
             <Route path="/test-onet" element={<TestOnetAPI />} />
             <Route path="/test-map" element={<TestMap />} />
             <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
-            <Route path="/resume" element={<PrivateRoute><ResumeBuilder /></PrivateRoute>} />
-            <Route path="/calendar" element={<PrivateRoute><CustomCalendar initialEvents={upcoming} /></PrivateRoute>} />
+            {/* <Route path="/resume" element={<PrivateRoute><ResumeBuilder /></PrivateRoute>} /> */}
+            {/* <Route path="/calendar" element={<PrivateRoute><CustomCalendar initialEvents={upcoming} /></PrivateRoute>} /> */}
           </Routes>
         </main>
 

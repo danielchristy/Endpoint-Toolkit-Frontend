@@ -77,10 +77,10 @@ const RESOURCES = [
   description: 'A modern introduction to JavaScript, available to read online.'
 },
 {
-  title: 'You Don’t Know JS (book series)',
+  title: "You Don't Know JS (book series)",
   url: 'https://github.com/getify/You-Dont-Know-JS',
   category: 'Books',
-  description: 'In‑depth book series on JavaScript’s core mechanisms.'
+  description: "In‑depth book series on JavaScript's core mechanisms."
 },
 {
   title: 'Traversy Media',
@@ -130,18 +130,25 @@ const RESOURCES = [
 
 export default function ResourcePage() {
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('All');
 
-  // Filter resources by search and category
-  const filtered = RESOURCES.filter(r => {
-    const matchesSearch =
-      r.title.toLowerCase().includes(search.toLowerCase()) ||
-      r.description.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory = filter === 'All' || r.category === filter;
-    return matchesSearch && matchesCategory;
-  });
+  // Filter resources by search
+  const filteredBySearch = RESOURCES.filter(r => 
+    r.title.toLowerCase().includes(search.toLowerCase()) ||
+    r.description.toLowerCase().includes(search.toLowerCase())
+  );
 
-  // Derive unique categories
+  // Group resources by category
+  const resourcesByCategory = filteredBySearch.reduce((acc, resource) => {
+    const category = resource.category;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(resource);
+    return acc;
+  }, {});
+
+  // Get all categories
   const categories = ['All', ...new Set(RESOURCES.map(r => r.category))];
 
   return (
@@ -156,24 +163,52 @@ export default function ResourcePage() {
           onChange={e => setSearch(e.target.value)}
         />
 
-        <select value={filter} onChange={e => setFilter(e.target.value)}>
+        <div className="category-tabs">
           {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+            <button 
+              key={cat} 
+              className={`category-tab ${activeCategory === cat ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat)}
+            >
+              {cat}
+            </button>
           ))}
-        </select>
+        </div>
       </div>
 
-      <div className="resource-grid">
-        {filtered.map((r, i) => (
-          <div className="resource-card" key={i}>
-            <h3><a href={r.url} target="_blank" rel="noreferrer">{r.title}</a></h3>
-            <p className="resource-category">{r.category}</p>
-            <p className="resource-desc">{r.description}</p>
+      {activeCategory === 'All' ? (
+        // Show all categories
+        <div className="resource-categories">
+          {Object.entries(resourcesByCategory).map(([category, resources]) => (
+            <div className="resource-category-section" key={category}>
+              <h3 className="category-title">{category}</h3>
+              <div className="resource-grid">
+                {resources.map((r, i) => (
+                  <div className="resource-card" key={i}>
+                    <h3><a href={r.url} target="_blank" rel="noreferrer">{r.title}</a></h3>
+                    <p className="resource-desc">{r.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        // Show only the selected category
+        <div className="resource-category-section">
+          <h3 className="category-title">{activeCategory}</h3>
+          <div className="resource-grid">
+            {resourcesByCategory[activeCategory]?.map((r, i) => (
+              <div className="resource-card" key={i}>
+                <h3><a href={r.url} target="_blank" rel="noreferrer">{r.title}</a></h3>
+                <p className="resource-desc">{r.description}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+      )}
 
-        {filtered.length === 0 && <p>No resources found.</p>}
-      </div>
+      {filteredBySearch.length === 0 && <p className="no-results">No resources found.</p>}
     </div>
   );
 }
