@@ -41,7 +41,7 @@ function App() {
             <Route path="/resources" element={<ResourcePage />} />
             <Route path="/questionnaire" element={<QuestionnairePage />} />
             <Route path="/register" element={<Registration />} />
-            <Route path="/careers" element={<CertificationCards />} />
+            {/* <Route path="/careers" element={<CertificationCards />} /> */}
             <Route path="/test" element={<TestAPICalls />} />
             <Route path="/test-onet" element={<TestOnetAPI />} />
             <Route path="/test-map" element={<TestMap />} />
