@@ -4,7 +4,7 @@ import { filterJobs, getJobs, getJobDetails } from './CareerMapUtils/careerUtils
 import './TestCareerMap.css';
 
 const directions = [
-  { q: 0, r: 0, s: 0 }, // center
+  { q: 0, r: 0, s: 0 },
   { q: 1, r: -1, s: 0 },
   { q: 1, r: 0, s: -1 },
   { q: 0, r: 1, s: -1 },
@@ -74,6 +74,7 @@ const HexMap = () => {
     try {
       const jobs = await getJobs(field.searchKeyword);
       const filteredJobs = filterJobs(jobs, field.label);
+      console.log("Filtered Jobs:", filteredJobs);
 
       const jobNodeData = filteredJobs.map((job, index) => ({
         id: index,
@@ -83,6 +84,8 @@ const HexMap = () => {
       }));
 
       setJobData(jobNodeData);
+      console.log("Job Data:", jobNodeData);
+      console.log(setJobData(jobNodeData))
       setStage(2);
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -97,24 +100,23 @@ const HexMap = () => {
     try {
       const detailsArray = await getJobDetails(job.code);
       const details = detailsArray[0] || null;
-  
+
       if (!details) {
         console.error("No details found for this job");
         setJobDetails(null);
         return;
       }
-  
-      // Sort wages to find annual rates
+
       const sortingWages = (jobDetails) => {
         const nationalWage = jobDetails.Wages?.NationalWagesList?.[0] || null;
         const stateWage = jobDetails.Wages?.StateWagesList?.[0] || null;
-  
+
         if (nationalWage && nationalWage.RateType === 'Annual') {
           setAnnualNationalWages(0);
         } else if (nationalWage) {
           setAnnualNationalWages(1);
         }
-  
+
         if (stateWage && stateWage.RateType === 'Annual') {
           setAnnualStateWages(0);
         }
@@ -122,12 +124,12 @@ const HexMap = () => {
           setAnnualStateWages(1);
         }
       };
-  
-      // Call the sorting function with the job details
+
       sortingWages(details);
-      
-      // Set job details and update UI
+
       setJobDetails(details);
+      console.log("Job Details:", details);
+      console.log("Job Details:", details);
       setCenterLabel(job.title);
       setStage(3);
     } catch (error) {
@@ -137,7 +139,7 @@ const HexMap = () => {
     }
   };
 
-  
+
 
   const handleBackClick = () => {
     if (stage === 3) {
@@ -155,14 +157,11 @@ const HexMap = () => {
     }
   };
 
-  // Create a more balanced flower-like pattern for hexagons
   const createBalancedPositions = (count) => {
     if (count <= 1) return [{ q: 0, r: 0, s: 0 }];
-    
-    const positions = [{ q: 0, r: 0, s: 0 }]; // Center
-    
-    // Define a more compact arrangement
-    // First ring (6 positions around center)
+
+    const positions = [{ q: 0, r: 0, s: 0 }];
+
     const firstRing = [
       { q: 1, r: -1, s: 0 },
       { q: 0, r: -1, s: 1 },
@@ -171,8 +170,7 @@ const HexMap = () => {
       { q: 0, r: 1, s: -1 },
       { q: 1, r: 0, s: -1 }
     ];
-    
-    // Second ring (12 positions)
+
     const secondRing = [
       { q: 2, r: -2, s: 0 },
       { q: 1, r: -2, s: 1 },
@@ -187,17 +185,45 @@ const HexMap = () => {
       { q: 2, r: 0, s: -2 },
       { q: 2, r: -1, s: -1 }
     ];
-    
-    // Add positions in a balanced way - prioritize filling the inner ring first
+
+    const thirdRing = [
+      { q: 3, r: -3, s: 0 },
+      { q: 2, r: -3, s: 1 },
+      { q: 1, r: -3, s: 2 },
+      { q: 0, r: -3, s: 3 },
+      { q: -1, r: -2, s: 3 },
+      { q: -2, r: -1, s: 3 },
+      { q: -3, r: 0, s: 3 },
+      { q: -3, r: 1, s: 2 },
+      { q: -3, r: 2, s: 1 },
+      { q: -3, r: 3, s: 0 },
+      { q: -2, r: 3, s: -1 },
+      { q: -1, r: 3, s: -2 },
+      { q: 0, r: 3, s: -3 },
+      { q: 1, r: 2, s: -3 },
+      { q: 2, r: 1, s: -3 },
+      { q: 3, r: 0, s: -3 },
+      { q: 3, r: -1, s: -2 },
+      { q: 3, r: -2, s: -1 }
+
+    ];
+
+
+
+
     for (let i = 0; i < firstRing.length && positions.length < count; i++) {
       positions.push(firstRing[i]);
     }
-    
-    // Add positions from the second ring if needed
+
     for (let i = 0; i < secondRing.length && positions.length < count; i++) {
       positions.push(secondRing[i]);
     }
-    
+
+    for (let i = 0; i < thirdRing.length && positions.length < count; i++) {
+      positions.push(thirdRing[i]);
+    }
+
+
     return positions;
   };
 
@@ -207,11 +233,10 @@ const HexMap = () => {
     }
 
     if (stage === 3) {
-      // Include the active field node along with the job details
       return [
-        { pos: { q: 0, r: 0, s: 0 }, label: centerLabel }, // Center hex for job details
+        { pos: { q: 0, r: 0, s: 0 }, label: centerLabel },
         {
-          pos: { q: 1, r: -1, s: 0 }, // Position for the active field node (top-right)
+          pos: { q: 1, r: -1, s: 0 },
           label: activeField?.label || "Field",
           field: activeField,
         },
@@ -219,21 +244,17 @@ const HexMap = () => {
     }
 
     if (stage === 2) {
-      const jobCount = Math.min(jobData.length, 20);
-      
-      // Get balanced positions for all hexes
+      const jobCount = Math.min(jobData.length, 37);
+
       const positions = createBalancedPositions(jobCount + 1);
-      
-      // Create hexes using the calculated positions
+
       const dynamicHexes = [];
-      
-      // Center hex
-      dynamicHexes.push({ 
+
+      dynamicHexes.push({
         pos: positions[0],
         label: centerLabel
       });
-      
-      // Job hexes
+
       for (let i = 0; i < jobCount; i++) {
         if (i + 1 < positions.length) {
           dynamicHexes.push({
@@ -243,11 +264,10 @@ const HexMap = () => {
           });
         }
       }
-      
+
       return dynamicHexes;
     }
 
-    // Stage 1: Field hexes around center
     return directions.map((d, i) => ({
       pos: d,
       label: i === 0 ? centerLabel : fieldHexes[i - 1]?.label,
@@ -257,7 +277,7 @@ const HexMap = () => {
 
   const renderJobDetails = () => {
     if (!jobDetails) return <div>Loading job details...</div>;
-    
+
     return (
       <div className="job-details-container bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
         <h1 className="text-2xl font-bold mb-2">{jobDetails?.OnetTitle || "Job Details"}</h1>
@@ -268,49 +288,71 @@ const HexMap = () => {
           <p>{jobDetails?.OnetDescription || "No Description available."}</p>
         </div>
 
-        <div className="wages bg-blue-50 p-4 rounded-md mb-6">
-          <h4 className="text-lg font-semibold mb-2">Annual Wage Estimates</h4>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="text-center">
-              <p className="text-sm text-gray-500">Entry Level</p>
-              <p className="text-lg font-bold text-green-600">
-                {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Pct10
-                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct10))
-                  : 'N/A'}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-500">Median</p>
-              <p className="text-xl font-bold text-green-700">
-                {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Median
-                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Median))
-                  : 'N/A'}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-500">High Tier</p>
-              <p className="text-lg font-bold text-green-800">
-                {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Pct90
-                  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct90))
-                  : 'N/A'}
-              </p>
-            </div>
-          </div>
+        {/* New Wage Comparison Section */}
+        <div className="wage-comparison">
+          <h4 className="wage-comparison-header">Wage Comparison</h4>
+          <table className="wage-comparison-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Entry Level</th>
+                <th>Median</th>
+                <th>High Tier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="row-title">National</td>
+                <td>
+                  {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Pct10
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct10))
+                    : 'N/A'}
+                </td>
+                <td>
+                  {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Median
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Median))
+                    : 'N/A'}
+                </td>
+                <td>
+                  {jobDetails?.Wages?.NationalWagesList?.[annualNationalWages]?.Pct90
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.NationalWagesList[annualNationalWages].Pct90))
+                    : 'N/A'}
+                </td>
+              </tr>
+              <tr>
+                <td className="row-title">Mississippi</td>
+                <td>
+                  {jobDetails?.Wages?.StateWagesList?.[annualStateWages]?.Pct10
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.StateWagesList[annualStateWages].Pct10))
+                    : 'N/A'}
+                </td>
+                <td>
+                  {jobDetails?.Wages?.StateWagesList?.[annualStateWages]?.Median
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.StateWagesList[annualStateWages].Median))
+                    : 'N/A'}
+                </td>
+                <td>
+                  {jobDetails?.Wages?.StateWagesList?.[annualStateWages]?.Pct90
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(jobDetails.Wages.StateWagesList[annualStateWages].Pct90))
+                    : 'N/A'}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className="job-outlook bg-yellow-50 p-4 rounded-md mb-6">
-          <h4 className="text-lg font-semibold mb-2">Job Outlook</h4>
           <div className="flex items-center mb-2">
-            <div className="w-1/2">
-              <p className="text-gray-600">Bright Outlook:</p>
+            <div className="bright-outlook">
+              <p className="bright-outlook-header">Bright Outlook:</p>
             </div>
             <div className="w-1/2">
-              <p className="font-medium">{jobDetails?.BrightOutlook ? "Yes ✓" : "No"}</p>
+              <p className="font-medium">{jobDetails?.BrightOutlook ? jobDetails.BrightOutlook : "No"}</p>
             </div>
           </div>
           <div className="flex items-center">
-            <div className="w-1/2">
-              <p className="text-gray-600">Projected Growth Rate:</p>
+            <div className="bright-outlook">
+              <p className="bright-outlook-header">Projected Growth Rate:</p>
             </div>
             <div className="w-1/2">
               <p className="font-medium">{jobDetails?.BrightOutlookCategory || "N/A"}</p>
@@ -351,7 +393,7 @@ const HexMap = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col justify-between items-center bg-gray-100">
+    <div className="w-full min-h-screen flex flex-col items-center bg-gray-100">
       {loading && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -364,13 +406,13 @@ const HexMap = () => {
       {stage !== 3 ? (
         <div className="flex-1 flex flex-col items-center justify-center p-4 w-full">
           <div className="hex-grid-container">
-            <HexGrid width={800} height={600} viewBox="-30 -30 60 60">
-              <Layout size={{ x: 7, y: 7 }} flat={false} spacing={1.04} origin={{ x: 0, y: 0 }}>
+            <HexGrid width={800} height={500} viewBox="-40 -40 80 80">
+              <Layout size={{ x: 9, y: 7.1 }} flat={false} spacing={1.03} origin={{ x: 0, y: 0 }}>
                 {getVisibleHexes().map((hex, index) => {
                   const isHovered = hoveredHex === index;
                   const isCenter = index === 0;
                   const hexId = `hex-${index}`;
-                  
+
                   return (
                     <g
                       key={hexId}
@@ -414,7 +456,7 @@ const HexMap = () => {
                       >
                         <Text
                           style={{
-                            fontSize: hex.label?.length > 15 ? 1.2 : 1.6,
+                            fontSize: hex.label?.length > 16 ? 1.5 : 2,
                             textAnchor: "middle",
                             dominantBaseline: "central",
                             fontWeight: "bold"
@@ -437,17 +479,17 @@ const HexMap = () => {
               </Layout>
             </HexGrid>
           </div>
-          
+
           {stage === 1 && (
             <div className="description-container bg-white p-4 mt-6 rounded-lg shadow-md max-w-xl">
               <p className="text-gray-700">{selectedDescription || "Hover over a field to see its description."}</p>
             </div>
           )}
-          
+
           {stage === 2 && (
             <div className="description-container bg-white p-4 mt-6 rounded-lg shadow-md max-w-xl">
               <p className="text-gray-700">{selectedDescription || "Click on a job to see details."}</p>
-              
+
               <button
                 onClick={handleBackClick}
                 className="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
