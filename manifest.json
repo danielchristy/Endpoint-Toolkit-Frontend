@@ -1,0 +1,21 @@
+{
+    "short_name": "devWaypoint",
+    "name": "devWaypoint",
+    "description": "Career resources and exploration application for aspiring developers",
+    "start_url": "./index.html",
+    "display": "browser",
+    "background_color": "#00165a",
+    "theme_color": "#2caa85",
+    "icons": [
+      {
+        "src": "devWaypoint-icon192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "devWaypoint-icon512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+}

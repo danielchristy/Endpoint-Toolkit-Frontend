@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.027ecfdc.css",
+    "main.js": "/static/js/main.0cfe6a76.js",
+    "static/js/977.99943894.chunk.js": "/static/js/977.99943894.chunk.js",
+    "static/js/455.306b57b7.chunk.js": "/static/js/455.306b57b7.chunk.js",
+    "static/js/488.3e6241dd.chunk.js": "/static/js/488.3e6241dd.chunk.js",
+    "static/media/basic-transparent.png": "/static/media/basic-transparent.14f97a251e9c66ad49d7.png",
+    "static/media/ryan-ramola2024.jpg": "/static/media/ryan-ramola2024.5473d245dad739b1984c.jpg",
+    "static/media/ashley-glasz2023.png": "/static/media/ashley-glasz2023.7a9c8496183f62945320.png",
+    "static/media/standard-logo-with-title-transparent.png": "/static/media/standard-logo-with-title-transparent.3d46c9d6b7c37cdcc890.png",
+    "static/media/trophy.png": "/static/media/trophy.1a4b2d4a3ec5c0dab597.png",
+    "static/media/devWaypoint.svg": "/static/media/devWaypoint.8587807709865a260c00fb6c4f78cfaa.svg",
+    "index.html": "/index.html",
+    "main.027ecfdc.css.map": "/static/css/main.027ecfdc.css.map",
+    "main.0cfe6a76.js.map": "/static/js/main.0cfe6a76.js.map",
+    "977.99943894.chunk.js.map": "/static/js/977.99943894.chunk.js.map",
+    "455.306b57b7.chunk.js.map": "/static/js/455.306b57b7.chunk.js.map",
+    "488.3e6241dd.chunk.js.map": "/static/js/488.3e6241dd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.027ecfdc.css",
+    "static/js/main.0cfe6a76.js"
+  ]
+}
