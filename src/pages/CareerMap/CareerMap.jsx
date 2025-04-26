@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getJobs, getJobDetails, filterJobs} from './CareerMapUtils/careerUtils';
+import { getJobs, getJobDetails, filterJobs} from './CareerMapUtils/careerUtils.js';
 import HexNode from '../../components/HexNodes/HexNode';
 import './CareerMap.css';
 

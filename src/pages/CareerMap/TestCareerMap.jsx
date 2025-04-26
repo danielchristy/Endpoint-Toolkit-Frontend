@@ -64,6 +64,7 @@ const HexMap = () => {
   const [loading, setLoading] = useState(false);
   const [annualNationalWages, setAnnualNationalWages] = useState(0);
   const [annualStateWages, setAnnualStateWages] = useState(0);
+  const [hoveredTitle, setHoveredTitle] = useState("");
 
   const handleFieldClick = async (field) => {
     setLoading(true);
@@ -288,7 +289,6 @@ const HexMap = () => {
           <p>{jobDetails?.OnetDescription || "No Description available."}</p>
         </div>
 
-        {/* New Wage Comparison Section */}
         <div className="wage-comparison">
           <h4 className="wage-comparison-header">Wage Comparison</h4>
           <table className="wage-comparison-table">
@@ -406,8 +406,8 @@ const HexMap = () => {
       {stage !== 3 ? (
         <div className="flex-1 flex flex-col items-center justify-center p-4 w-full">
           <div className="hex-grid-container">
-            <HexGrid width={800} height={500} viewBox="-40 -40 80 80">
-              <Layout size={{ x: 9, y: 7.1 }} flat={false} spacing={1.03} origin={{ x: 0, y: 0 }}>
+            <HexGrid width={2000} height={600} viewBox="-50 -50 100 100">
+              <Layout size={{ x: 10, y: 8.8 }} flat={false} spacing={1.03} origin={{ x: 0, y: 0 }}>
                 {getVisibleHexes().map((hex, index) => {
                   const isHovered = hoveredHex === index;
                   const isCenter = index === 0;
@@ -420,14 +420,17 @@ const HexMap = () => {
                       onMouseEnter={() => {
                         setHoveredHex(index);
                         if (!isCenter && hex.field) {
+                          setHoveredTitle(hex.field.label);
                           setSelectedDescription(hex.field.description);
                         } else if (!isCenter && hex.job) {
+                          setHoveredTitle(hex.job.title || "");
                           setSelectedDescription(hex.job.description || "");
                         }
                       }}
                       onMouseLeave={() => {
                         setHoveredHex(null);
                         if (stage === 1 && !isCenter) {
+                          setHoveredTitle("");
                           setSelectedDescription("");
                         }
                       }}
@@ -456,9 +459,8 @@ const HexMap = () => {
                       >
                         <Text
                           style={{
-                            fontSize: hex.label?.length > 16 ? 1.5 : 2,
+                            fontSize: hex.label?.length > 16 ? 1.6 : 1.7,
                             textAnchor: "middle",
-                            dominantBaseline: "central",
                             fontWeight: "bold"
                           }}
                         >
@@ -481,13 +483,15 @@ const HexMap = () => {
           </div>
 
           {stage === 1 && (
-            <div className="description-container bg-white p-4 mt-6 rounded-lg shadow-md max-w-xl">
+            <div className="description-container bg-white p-4 mt-3 rounded-lg shadow-md max-w-xl">
+              {hoveredTitle && <h3 className="text-lg font-bold mb-2">{hoveredTitle}</h3>}
               <p className="text-gray-700">{selectedDescription || "Hover over a field to see its description."}</p>
             </div>
           )}
 
           {stage === 2 && (
-            <div className="description-container bg-white p-4 mt-6 rounded-lg shadow-md max-w-xl">
+            <div className="description-container bg-white p-4 mt-3 rounded-lg shadow-md max-w-xl">
+                  {hoveredTitle && <h3 className="text-lg font-bold mb-2">{hoveredTitle}</h3>}
               <p className="text-gray-700">{selectedDescription || "Click on a job to see details."}</p>
 
               <button
