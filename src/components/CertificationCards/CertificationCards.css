@@ -1,16 +1,5 @@
 @import '../../styles/variables.css';
 
-/* :root {
-  --bcca-bg-color: #ffffff;
-  --bcca-card-bg-color: #4b4a4a;
-  --bcca-text-color: #ffffff;
-  --bcca-text-muted-color: #aaaaaa;
-  --bcca-text-accent-color: #6c63ff;
-  --bcca-text-secondary-color: #9cd4e4;
-  --bcca-progress-bg: #333333;
-  --bcca-progress-fill: #002699;
-} */
-
 /* Container */
 .cert-cards-container {
   display: grid;
@@ -140,6 +129,47 @@
   display: inline-flex;
   align-items: center;
   margin: 8px 0;
+}
+
+/* Add Certification Form */
+.add-cert-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--bcca-card-bg-color);
+  color: var(--bcca-text-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px #9cd4e4;
+  max-width: 500px;
+  margin: 2rem auto; /* Center the form */
+}
+
+.add-cert-form h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--bcca-text-accent-color);
+}
+
+.add-cert-form input {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.add-cert-form input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+}
+
+.add-cert-form button {
+  margin-top: 1rem;
 }
 
 

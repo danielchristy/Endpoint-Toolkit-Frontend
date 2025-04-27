@@ -15,7 +15,7 @@ function Hero() {
             <a href='https://basecampcodingacademy.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'>Check Out Base Camp Coding Academy Here!</a>
+            className='sponsor-link'><u>Check Out Base Camp Coding Academy Here!</u></a>
           </div>
           <div className='bcca-about'>
             <p>Base Camp Coding Academy is a non-profit organization that enable recent high school graduates 
@@ -39,22 +39,20 @@ function Hero() {
             <a href='https://wherewego.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'>Check Out WhereWeGo Here!</a>
+            className='sponsor-link'><u>Check Out WhereWeGo Here!</u></a>
           </div>
           <div className='wwg-about'>
             <p>WhereWeGo crafts technology solutions to advance workers and the organizations that seek to serve them.</p>
-            <p> They consist of a 12-person powerhouse that is dedicated to discovering, designing, developing, and deploying transformative user experiences with emerging technologies.
+            <p>They consist of a 12-person powerhouse that is dedicated to discovering, designing, developing, and deploying transformative user experiences with emerging technologies.
             </p>
             <p>They have partnered with organizations like <b>SkillUp</b>, <b>IREC</b>, and the <b>Greater New Orleans Regional Economic Development Inc.</b> to deliver impactful solutions for enabling and providing job resources.
             </p>
-
           </div>
-
         </div>
       </div>
     </section>
   );
-}
+};
 
 
 export default Hero;

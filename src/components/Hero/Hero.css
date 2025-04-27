@@ -22,7 +22,7 @@
 .sponsor-section {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 2rem;
   text-align: left;
   background: var(--wwg-light-biege);
@@ -35,11 +35,10 @@
 .wwg-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1.5rem;
+  justify-content: space-between;
   min-width: 250px;
 }
+
 
 .basecamp-logo,
 .wherewego-logo {
@@ -54,12 +53,13 @@
   font-size: 1.1rem;
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 2px solid var(--wwg-orange);
   transition: border-color 0.3s ease;
+  margin-top: auto;
 }
 
+
 .sponsor-link:hover {
-  border-bottom: 2px solid var(--wwg-green);
+  color: var(--wwg-green);
 }
 
 .bcca-about,
@@ -71,7 +71,7 @@
 .bcca-about p,
 .wwg-about p {
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 /* Media Queries for Responsiveness */

@@ -4,7 +4,7 @@ import './App.css';
 
 import Home from './pages/Home/Home';
 import CareerMap from './pages/CareerMap/CareerMap';
-import CertificationCards from './components/CertificationCards/CertificationCards';
+// import CertificationCards from './components/CertificationCards/CertificationCards';
 import ResourcePage from './components/Resources/ResourcePage';
 // import ResumeBuilder from './components/ResumeBuilder/ResumeBuilder';
 // import CustomCalendar from './components/CustomCalendar/CustomCalendar';
@@ -15,7 +15,7 @@ import Registration from './pages/Registration/Registration';
 import PrivateRoute from './components/PrivateRoute';
 import TestAPICalls from './pages/TestAPICalls/TestAPICalls';
 import TestOnetAPI from './pages/TestAPICalls/TestOnetAPI';
-import TestMap from './pages/CareerMap/TestCareerMap';
+// import TestMap from './pages/CareerMap/TestCareerMap';
 
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -44,7 +44,7 @@ function App() {
             {/* <Route path="/careers" element={<CertificationCards />} /> */}
             <Route path="/test" element={<TestAPICalls />} />
             <Route path="/test-onet" element={<TestOnetAPI />} />
-            <Route path="/test-map" element={<TestMap />} />
+            {/* <Route path="/test-map" element={<TestMap />} /> */}
             <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
             {/* <Route path="/resume" element={<PrivateRoute><ResumeBuilder /></PrivateRoute>} /> */}
             {/* <Route path="/calendar" element={<PrivateRoute><CustomCalendar initialEvents={upcoming} /></PrivateRoute>} /> */}

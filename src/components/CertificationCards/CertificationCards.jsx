@@ -5,60 +5,27 @@ import "./CertificationCards.css";
 
 function CertificationCards() {
   
-  const [certData, setCertData] = useState([
-    {
-      date: "Feb 02, 2021",
-      title: "HTML/CSS Certification",
-      subtitle: "Prototyping",
-      progress: 90,
-      timeLeft: "2 days left",
-    },
-    {
-      date: "Feb 05, 2021",
-      title: "JavaScript Certification",
-      subtitle: "Shopping",
-      progress: 30,
-      timeLeft: "3 weeks left",
-    },
-    {
-      date: "Mar 03, 2021",
-      title: "React Certification",
-      subtitle: "Wireframing",
-      progress: 20,
-      timeLeft: "1 month left",
-    },
-    {
-      date: "Mar 08, 2021",
-      title: "Node.js Certification",
-      subtitle: "Medical",
-      progress: 50,
-      timeLeft: "2 weeks left",
-    },
-    {
-      date: "Apr 01, 2021",
-      title: "AWS Cloud Practitioner",
-      subtitle: "Cloud Basics",
-      progress: 70,
-      timeLeft: "1 week left",
-    },
-  ]);
+  const [certData, setCertData] = useState([]);
 
-  
   const [showConfetti, setShowConfetti] = useState(false);
-
   
+  const [newCert, setNewCert] = useState({
+    date: "",
+    title: "",
+    subtitle: "",
+    progress: 0,
+    timeLeft: "",
+  });
+
   const handleDelete = (indexToDelete) => {
     const updatedCerts = certData.filter((_, index) => index !== indexToDelete);
     setCertData(updatedCerts);
   };
 
-  
   const handleUpdate = (indexToUpdate) => {
     const updatedCerts = certData.map((cert, index) => {
       if (index === indexToUpdate) {
-        
         const newProgress = Math.min(cert.progress + 10, 100);
-        
         if (newProgress === 100 && cert.progress < 100) {
           setShowConfetti(true);
           setTimeout(() => setShowConfetti(false), 6000);
@@ -70,9 +37,38 @@ function CertificationCards() {
     setCertData(updatedCerts);
   };
 
+  const handleAddCertification = (e) => {
+    e.preventDefault(); 
+    if (newCert.title && newCert.subtitle && newCert.date && newCert.timeLeft) {
+      const updatedCert = {
+        ...newCert,
+        progress: newCert.progress ? parseInt(newCert.progress, 10) : 0, 
+      };
+  
+      const updatedCerts = [...certData, updatedCert];
+      updatedCerts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+      setCertData(updatedCerts);
+      setNewCert({
+        date: "",
+        title: "",
+        subtitle: "",
+        progress: 0,
+        timeLeft: "",
+      });
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewCert((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="cert-cards-container bcca-bg">
-      {/* Render confetti overlay if triggered */}
       {showConfetti && (
         <ReactConfetti
           width={window.innerWidth}
@@ -81,6 +77,54 @@ function CertificationCards() {
           recycle={false}
         />
       )}
+
+      <form className="add-cert-form" onSubmit={handleAddCertification}>
+        <h3>Add New Certification</h3>
+        <input
+          type="text"
+          name="date"
+          placeholder="Date (e.g., Apr 25, 2025)"
+          value={newCert.date}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="title"
+          placeholder="Certification Title"
+          value={newCert.title}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="subtitle"
+          placeholder="Subtitle"
+          value={newCert.subtitle}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="number"
+          name="progress"
+          placeholder="Progress (0-100)"
+          value={newCert.progress}
+          onChange={handleInputChange}
+          min="0"
+          max="100"
+        />
+        <input
+          type="text"
+          name="timeLeft"
+          placeholder="Time Left (e.g., 2 weeks left)"
+          value={newCert.timeLeft}
+          onChange={handleInputChange}
+          required
+        />
+        <button className="btn" type="submit">
+          Add Certification
+        </button>
+      </form>
 
       {certData.map((cert, index) => (
         <div className="cert-card bcca-card" key={index}>
@@ -102,10 +146,8 @@ function CertificationCards() {
 
           <div className="time-left bcca-text-muted">{cert.timeLeft}</div>
 
-          {/* Render Completed Badge if progress reaches 100% */}
           {cert.progress === 100 && <CompletedBadge />}
 
-          {/* Themed Action Buttons */}
           <div className="card-actions">
             <button className="btn" onClick={() => handleUpdate(index)}>
               Update
@@ -118,7 +160,7 @@ function CertificationCards() {
       ))}
     </div>
   );
-}
+};
 
 export default CertificationCards;
 
