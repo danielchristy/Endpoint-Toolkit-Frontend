@@ -1,20 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.ffde0622.css",
-    "main.js": "/static/js/main.2302eea8.js",
+    "main.css": "/static/css/main.bc84a34e.css",
+    "main.js": "/static/js/main.51302624.js",
     "static/js/488.49826584.chunk.js": "/static/js/488.49826584.chunk.js",
-    "static/media/ryan-ramola2024.jpg": "/static/media/ryan-ramola2024.5473d245dad739b1984c.jpg",
-    "static/media/ashley-glasz2023.png": "/static/media/ashley-glasz2023.7a9c8496183f62945320.png",
+    "static/media/daniel-christy.png": "/static/media/daniel-christy.47f2ef14193d0a08deb9.png",
+    "static/media/trey-shelton.png": "/static/media/trey-shelton.e760ff5e1c514bcb24df.png",
+    "static/media/ashley-glasz.png": "/static/media/ashley-glasz.67cc8bb136eefc845ca4.png",
+    "static/media/ryan-ramola.png": "/static/media/ryan-ramola.f11a381b57aee4341b11.png",
+    "static/media/brittney-bean.png": "/static/media/brittney-bean.29e24f11b7298609ce3d.png",
+    "static/media/spencer-hillhouse.png": "/static/media/spencer-hillhouse.ff49f6683f800102c643.png",
     "static/media/standard-logo-with-title-transparent.png": "/static/media/standard-logo-with-title-transparent.3d46c9d6b7c37cdcc890.png",
     "static/media/trophy.png": "/static/media/trophy.1a4b2d4a3ec5c0dab597.png",
+    "static/media/wwg-logo.png": "/static/media/wwg-logo.5a02a708b754d45a8fb7.png",
     "static/media/devWaypoint.svg": "/static/media/devWaypoint.8587807709865a260c00fb6c4f78cfaa.svg",
     "index.html": "/index.html",
-    "main.ffde0622.css.map": "/static/css/main.ffde0622.css.map",
-    "main.2302eea8.js.map": "/static/js/main.2302eea8.js.map",
+    "main.bc84a34e.css.map": "/static/css/main.bc84a34e.css.map",
+    "main.51302624.js.map": "/static/js/main.51302624.js.map",
     "488.49826584.chunk.js.map": "/static/js/488.49826584.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ffde0622.css",
-    "static/js/main.2302eea8.js"
+    "static/css/main.bc84a34e.css",
+    "static/js/main.51302624.js"
   ]
 }
