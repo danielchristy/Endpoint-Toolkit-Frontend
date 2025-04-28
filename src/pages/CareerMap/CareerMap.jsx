@@ -18,37 +18,37 @@ const fieldNodes = [
     id: 1,
     label: "Enablement",
     description: "Ensure tech activities run smoothly, such as IT project managers, department leads, and IT channel professionals.",
-    searchKeyword: "IT project manager",
+    searchKeywords: ["IT project manager", "program coordinator", "digital transformation", "IT business analyst", "technical program manager"]
   },
   {
     id: 2,
     label: "Support",
     description: "Tech support drives productivity and handles increasingly complex employee experience issues.",
-    searchKeyword: "IT support",
+    searchKeywords: ["IT support", "technical support", "help desk", "service desk analyst", "desktop support"]
   },
   {
     id: 3,
     label: "Infrastructure",
     description: "Infrastructure professionals maintain systems and cloud architecture optimization.",
-    searchKeyword: "system administrator",
+    searchKeywords: ["system administrator", "cloud engineer", "network administrator", "infrastructure engineer", "DevOps"]
   },
   {
     id: 4,
     label: "Software",
     description: "Software devs build tools, customize applications, and explore AI for business strategy.",
-    searchKeyword: "software developer",
+    searchKeywords: ["software developer", "web developer", "software engineer", "front end developer", "full stack developer"]
   },
   {
     id: 5,
     label: "Cybersecurity",
     description: "Cybersecurity experts handle risks in a zero trust environment.",
-    searchKeyword: "cybersecurity analyst",
+    searchKeywords: ["cybersecurity analyst", "security engineer", "information security", "security consultant", "penetration tester"]
   },
   {
     id: 6,
     label: "Data",
     description: "Data professionals manage and analyze vast organizational datasets.",
-    searchKeyword: "data scientist",
+    searchKeywords: ["data scientist", "data analyst", "database administrator", "big data", "business intelligence analyst"]
   },
 ];
 
@@ -73,8 +73,17 @@ const HexMap = () => {
     setCenterLabel(field.label);
 
     try {
-      const jobs = await getJobs(field.searchKeyword);
-      const filteredJobs = filterJobs(jobs, field.label);
+      let allJobs = [];
+      for (const keyword of field.searchKeywords) {
+        const jobs = await getJobs(keyword);
+        allJobs = [...allJobs, ...jobs];
+      }
+
+      const uniqueJobs = Array.from(
+        new Map(allJobs.map(job => [job.OnetCode, job])).values()
+      );
+
+      const filteredJobs = filterJobs(uniqueJobs, field.label);
       console.log("Filtered Jobs:", filteredJobs);
 
       const jobNodeData = filteredJobs.map((job, index) => ({
@@ -85,8 +94,6 @@ const HexMap = () => {
       }));
 
       setJobData(jobNodeData);
-      console.log("Job Data:", jobNodeData);
-      console.log(setJobData(jobNodeData))
       setStage(2);
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -130,7 +137,6 @@ const HexMap = () => {
 
       setJobDetails(details);
       console.log("Job Details:", details);
-      console.log("Job Details:", details);
       setCenterLabel(job.title);
       setStage(3);
     } catch (error) {
@@ -139,8 +145,6 @@ const HexMap = () => {
       setLoading(false);
     }
   };
-
-
 
   const handleBackClick = () => {
     if (stage === 3) {
@@ -206,11 +210,7 @@ const HexMap = () => {
       { q: 3, r: 0, s: -3 },
       { q: 3, r: -1, s: -2 },
       { q: 3, r: -2, s: -1 }
-
     ];
-
-
-
 
     for (let i = 0; i < firstRing.length && positions.length < count; i++) {
       positions.push(firstRing[i]);
@@ -223,7 +223,6 @@ const HexMap = () => {
     for (let i = 0; i < thirdRing.length && positions.length < count; i++) {
       positions.push(thirdRing[i]);
     }
-
 
     return positions;
   };
@@ -491,7 +490,7 @@ const HexMap = () => {
 
           {stage === 2 && (
             <div className="description-container bg-white p-4 mt-3 rounded-lg shadow-md max-w-xl">
-                  {hoveredTitle && <h3 className="text-lg font-bold mb-2">{hoveredTitle}</h3>}
+              {hoveredTitle && <h3 className="text-lg font-bold mb-2">{hoveredTitle}</h3>}
               <p className="text-gray-700">{selectedDescription || "Click on a job to see details."}</p>
 
               <button
