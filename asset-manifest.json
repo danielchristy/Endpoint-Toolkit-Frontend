@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f7a7153f.css",
-    "main.js": "/static/js/main.38b42a8e.js",
+    "main.css": "/static/css/main.2dbc314c.css",
+    "main.js": "/static/js/main.3adc7b5e.js",
     "static/js/488.49826584.chunk.js": "/static/js/488.49826584.chunk.js",
     "static/media/daniel-christy.png": "/static/media/daniel-christy.47f2ef14193d0a08deb9.png",
     "static/media/trey-shelton.png": "/static/media/trey-shelton.e760ff5e1c514bcb24df.png",
@@ -14,12 +14,12 @@
     "static/media/wwg-logo.png": "/static/media/wwg-logo.5a02a708b754d45a8fb7.png",
     "static/media/devWaypoint.svg": "/static/media/devWaypoint.8587807709865a260c00fb6c4f78cfaa.svg",
     "index.html": "/index.html",
-    "main.f7a7153f.css.map": "/static/css/main.f7a7153f.css.map",
-    "main.38b42a8e.js.map": "/static/js/main.38b42a8e.js.map",
+    "main.2dbc314c.css.map": "/static/css/main.2dbc314c.css.map",
+    "main.3adc7b5e.js.map": "/static/js/main.3adc7b5e.js.map",
     "488.49826584.chunk.js.map": "/static/js/488.49826584.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f7a7153f.css",
-    "static/js/main.38b42a8e.js"
+    "static/css/main.2dbc314c.css",
+    "static/js/main.3adc7b5e.js"
   ]
 }
