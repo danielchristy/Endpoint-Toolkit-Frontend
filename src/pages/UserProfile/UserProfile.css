@@ -41,7 +41,7 @@
 
 .user-details-text {
   margin-bottom: 10px;
-  padding-right: 50px; /* Make space for the settings button */
+  padding-right: 50px; 
 }
 
 .user-details-text h2 {
@@ -115,7 +115,6 @@
   margin-top: 20px;
 }
 
-/* for-phone-only */
 @media (max-width: 599px) {
   .cta-buttons,
   .features-buttons {
@@ -154,7 +153,7 @@
   }
 }
 
-/* for-tablet-portrait-up */
+
 @media (min-width: 600px) and (max-width: 899px) {
   .cta-buttons {
     gap: 0.75rem;
@@ -172,7 +171,6 @@
   }
 }
 
-/* for-tablet-landscape-up */
 @media (min-width: 900px) {
   .cta-buttons {
     gap: 1rem;
@@ -193,7 +191,6 @@
   }
 }
 
-/* for-desktop-up */
 @media (min-width: 1200px) {
   .cta-section {
     max-width: 1200px;
@@ -206,7 +203,6 @@
   }
 }
 
-/* for-medium-desktop-up */
 @media (min-width: 1400px) {
   .cta-section {
     max-width: 1300px;
@@ -225,7 +221,6 @@
   }
 }
 
-/* for-big-desktop-up */
 @media (min-width: 1800px) {
   .cta-section {
     max-width: 1600px;
@@ -242,7 +237,6 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .user-profile {
     padding: 15px;

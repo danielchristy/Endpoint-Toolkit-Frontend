@@ -1,4 +1,3 @@
-// src/components/CustomCalendar.jsx
 import React, { useState, useMemo } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
@@ -13,13 +12,11 @@ export default function CustomCalendar({ initialEvents = [] }) {
   const [events, setEvents] = useState(initialEvents);
   const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
 
-  // Handler to add a new event
   const handleAddEvent = () => {
     setEvents(prev => [...prev, { ...newEvent, start: new Date(newEvent.start), end: new Date(newEvent.end) }]);
     setNewEvent({ title: '', start: '', end: '' });
   };
 
-  // Customize event style (e.g. color‑code based on title or time)
   const eventStyleGetter = (event) => {
     const isPast = event.end < new Date();
     const backgroundColor = isPast ? '#d3d3d3' : '#5d9cec';
@@ -35,7 +32,6 @@ export default function CustomCalendar({ initialEvents = [] }) {
 
   return (
     <div className="calendar-container" style={{ padding: '1rem', background: '#fff', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-      {/* Simple Form to Add Events */}
       <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         <input
           type="text"

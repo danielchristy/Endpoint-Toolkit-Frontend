@@ -1,4 +1,3 @@
-// src/components/UserLogin/UserDashboard.jsx
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +29,6 @@ export default function UserDashboard() {
           >
             Logout
           </button>
-          {/* add other dashboard actions here */}
         </div>
       </div>
     </div>

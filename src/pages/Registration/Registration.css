@@ -96,14 +96,12 @@
   opacity: 0.8;
 }
 
-/* Error Message */
 .error-message {
   color: red;
   margin-bottom: 1rem;
   text-align: center;
 }
 
-/* for-phone-only */
 @media (max-width: 599px) {
   .cta-buttons,
   .features-buttons {
@@ -160,7 +158,6 @@
   }
 }
 
-/* for-tablet-landscape-up */
 @media (min-width: 900px) {
   .cta-buttons {
     gap: 1rem;
@@ -181,7 +178,6 @@
   }
 }
 
-/* for-desktop-up */
 @media (min-width: 1200px) {
   .cta-section {
     max-width: 1200px;
@@ -194,7 +190,6 @@
   }
 }
 
-/* for-medium-desktop-up */
 @media (min-width: 1400px) {
   .cta-section {
     max-width: 1300px;
@@ -213,7 +208,6 @@
   }
 }
 
-/* for-big-desktop-up */
 @media (min-width: 1800px) {
   .cta-section {
     max-width: 1600px;

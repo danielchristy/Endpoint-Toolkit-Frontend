@@ -1,4 +1,3 @@
-// CompletedBadge.js
 import React from "react";
 import trophyIcon from "./trophy.png"; 
 

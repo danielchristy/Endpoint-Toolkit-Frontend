@@ -9,7 +9,6 @@ import './UserProfile.css';
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  // const [showSettings, setShowSettings] = useState(false);
   const [certData, setCertData] = useState([]);
 
   useEffect(() => {
@@ -29,10 +28,9 @@ const UserProfile = () => {
     }
   }, [user]);
 
-  // ✅ Save certifications when updated
   const saveCertifications = async (updatedCerts) => {
     try {
-      setCertData(updatedCerts); // update local state
+      setCertData(updatedCerts); 
       await axios.put(`https://api.devwaypoint.xyz/api/users/${user._id}`, {
         certifications: updatedCerts,
       });
@@ -53,34 +51,12 @@ const UserProfile = () => {
     <div className='user-profile'>
       <div className='user-info'>
         <div className='user-details-text'>
-          {/* <div className='settings-btn' onClick={toggleSettings}>
-            <span className='settings-icon'>⚙️</span>
-          </div> */}
           <h2><strong>{user.first_name} {user.last_name}</strong> </h2>
           <p className='user-email'>{user.email}</p>
         </div>
       </div>
 
-      <div className='dashboard'>
-        {/* <div className='dashboard-header'>
-            <h2 className='dashboard-title'>Your Dashboard</h2>
-            <h6>Questionnaire Status</h6>
-            {user.questionnaire_completed ? (
-              <div className='questionnaire-prompt'>
-                <p>Your questionnaire results are ready!</p>
-                <button className='view-results-btn'>View Results</button>
-              </div>
-            ) : (
-              <div className='questionnaire-prompt'>
-                <p>Complete the questionnaire to get personalized recommendations</p>
-                <button className='questionnaire-btn' onClick={showQuestionnaire}>
-                  <span className='questionnaire-icon'>📝</span>
-                  Take Questionnaire
-                </button>
-              </div>
-            )}
-          </div> */}
-        
+      <div className='dashboard'>        
           <div className='certifications-section'>
             <h3>Certification Tracker</h3>
             <div className='certification-cards'>

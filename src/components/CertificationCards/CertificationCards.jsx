@@ -262,7 +262,6 @@ function CertificationCards({ certData, setCertData, saveCertifications  }) {
                 ))}
               </ul>
 
-              {/* <div className="time-left">{calculateTimeLeft(cert.dueDate)}</div> */}
 
               {progress === 100 ? (
                 <div className="time-left">
@@ -273,9 +272,6 @@ function CertificationCards({ certData, setCertData, saveCertifications  }) {
               )}
 
               <div className="card-actions">
-                {/* <button className="btn" onClick={() => handleUpdate(index)}>
-                  Update
-                </button> */}
                 <button className="btn" onClick={() => handleDelete(index)}>
                   Delete
                 </button>

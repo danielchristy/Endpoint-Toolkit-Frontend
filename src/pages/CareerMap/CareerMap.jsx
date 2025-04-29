@@ -405,8 +405,8 @@ const HexMap = () => {
       {stage !== 3 ? (
         <div className="flex-1 flex flex-col items-center justify-center p-4 w-full">
           <div className="hex-grid-container">
-            <HexGrid width={2000} height={600} viewBox="-50 -50 100 100">
-              <Layout size={{ x: 10, y: 8.8 }} flat={true} spacing={1.03} origin={{ x: 0, y: 0 }}>
+            <HexGrid width="100%" height={600} viewBox="-50 -50 100 100">
+              <Layout size={{ x: 9, y: 8 }} flat={true} spacing={1.05} origin={{ x: 0, y: 0 }}>
                 {getVisibleHexes().map((hex, index) => {
                   const isHovered = hoveredHex === index;
                   const isCenter = index === 0;
@@ -458,18 +458,18 @@ const HexMap = () => {
                       >
                         <Text
                           style={{
-                            fontSize: hex.label?.length > 16 ? 1.6 : 1.7,
+                            fontSize: hex.label?.length > 16 ? 1.7 : 2.1,
                             textAnchor: "middle",
                             fontWeight: "bold"
                           }}
                         >
-                          {hex.label?.length > 20 ? `${hex.label.slice(0, 17)}...` : hex.label}
+                          {hex.label?.length > 19 ? `${hex.label.slice(0, 16)}...` : hex.label}
                         </Text>
                       </Hexagon>
                       <Pattern
                         id={hexId}
                         link=""
-                        size={{ x: 10, y: 10 }}
+                        size={{ x: 12, y: 12 }}
                         className={`hex-pattern ${isHovered ? 'hex-hovered' : ''}`}
                       >
                         <path className="hex-pattern" d="M50 7 Q52 7 54 8 L92 27 ..." />
@@ -492,13 +492,6 @@ const HexMap = () => {
             <div className="description-container bg-white p-4 mt-3 rounded-lg shadow-md max-w-xl">
               {hoveredTitle && <h3 className="text-lg font-bold mb-2">{hoveredTitle}</h3>}
               <p className="text-gray-700">{selectedDescription || "Click on a job to see details."}</p>
-
-              <button
-                onClick={handleBackClick}
-                className="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
-              >
-                Back to Fields
-              </button>
             </div>
           )}
         </div>

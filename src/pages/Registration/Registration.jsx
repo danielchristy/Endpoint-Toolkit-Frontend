@@ -7,7 +7,6 @@ import './Registration.css';
 function Registration() {
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
-  // const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -35,7 +34,6 @@ function Registration() {
       const response = await axios.post('https://api.devwaypoint.xyz/api/users/', {
         first_name,
         last_name,
-        // username,
         email,
         password
       });
@@ -107,17 +105,6 @@ function Registration() {
             />
           </div>
 
-          {/* <div className='form-group'>
-          <label htmlFor='username'>Username:</label>
-          <input
-            type='username'
-            id='username'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder='Enter username'
-          />
-        </div> */}
-
           <div className='form-group'>
             <label htmlFor='userPassword'>Password:</label>
             <input
@@ -153,16 +140,7 @@ function Registration() {
               placeholder='Enter last name'
             />
           </div>
-          {/* <div className='form-group'>
-            <label htmlFor='username'>Username:</label>
-            <input
-              type='username'
-              id='username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder='Enter Username'
-            />
-          </div> */}
+
           <div className='form-group'>
             <label htmlFor='email'>Email:</label>
             <input

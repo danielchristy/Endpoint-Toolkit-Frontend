@@ -92,24 +92,6 @@
   padding: 0.25rem;
 }
 
-/* @media (max-width: 899px) {
-  .navbar-container {
-    padding: 0 0.75rem;
-  }
-  
-  .nav-menu {
-    gap: 0.5rem;
-  }
-  
-  .nav-link-item {
-    padding: 0.5rem 0.75rem;
-  }
-  
-  .login-button {
-    padding: 0.5rem 0.75rem;
-  }
-} */
-
 @media (max-width: 900px) {
   .nav-logo {
     padding: 0 2.5rem;

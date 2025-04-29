@@ -51,13 +51,7 @@ function App() {
             <Route path="/resources" element={<ResourcePage />} />
             <Route path="/questionnaire" element={<QuestionnairePage />} />
             <Route path="/register" element={<Registration />} />
-            {/* <Route path="/careers" element={<CertificationCards />} /> */}
-            {/* <Route path="/test" element={<TestAPICalls />} /> */}
-            {/* <Route path="/test-onet" element={<TestOnetAPI />} /> */}
-            {/* <Route path="/test-map" element={<TestMap />} /> */}
             <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
-            {/* <Route path="/resume" element={<PrivateRoute><ResumeBuilder /></PrivateRoute>} /> */}
-            {/* <Route path="/calendar" element={<PrivateRoute><CustomCalendar initialEvents={upcoming} /></PrivateRoute>} /> */}
           </Routes>
         </main>
 

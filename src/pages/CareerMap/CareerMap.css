@@ -10,10 +10,11 @@
   height: 75vh;
   /* max-width: 1200px; */
   /* max-height: 1000px; */
-  margin: 2.5rem 0;
+  margin: 1.5rem 0;
   overflow: visible;
   /* overflow: scroll; */
   /* padding: 80px; */
+  padding-top: 20px;
 }
 
 .hexagon-wrapper {
@@ -24,7 +25,7 @@
 .hexagon-wrapper g polygon {
   fill: var(--bcca-secondary-blue);
   fill-opacity: 0.9;
-  transition: all 0.3s ease;
+  transition: all 1s ease;
 }
 
 .hexagon-hovered g polygon {
@@ -49,7 +50,7 @@
 
 .description-container {
   width: 100%;
-  max-width: 800x;
+  max-width: auto;
   max-height: 150px;
   margin: 20px auto;
   text-align: center;
@@ -65,7 +66,7 @@
 
 .description-container p {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
           line-clamp: 10;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -92,7 +93,7 @@
 }
 
 .job-details-container h2 {
-  font-size: 20px;
+  font-size: 18px;
   margin: 20px 0 10px;
   color: #555;
   text-align: center;
@@ -204,6 +205,10 @@ h4.wage-comparison-header {
   fill: var(--wwg-green);
 }
 
+.text-lg {
+  font-size: 30px;
+}
+
 .h4.wage-comparison-header {
   font-weight: bold;
   font-size: larger;
@@ -234,14 +239,16 @@ h4.wage-comparison-header {
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .hex-grid-container {
-    max-width: 90%;
+    max-width: 100%;
+    padding-top: 10%;
+    align-content: center;
+    height: 40vh;
   }
 
   .job-details-container {
-    padding: 15px;
+    padding: 0px;
   }
 
   .wage-comparison-table {

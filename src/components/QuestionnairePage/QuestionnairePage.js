@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import "./QuestionnairePage.css"; // Optional: for styling
-
+import "./QuestionnairePage.css"; 
 function QuestionnairePage() {
-  // Access the selected experience passed from the Home page
   const location = useLocation();
   const { experience } = location.state || { experience: "None" };
 
-  // State to store the user's answers
   const [answers, setAnswers] = useState({
     reason: "",
     interests: "",
@@ -16,7 +13,6 @@ function QuestionnairePage() {
     timeline: "",
   });
 
-  // Handle form changes
   const handleChange = (e) => {
     setAnswers({
       ...answers,
@@ -24,11 +20,9 @@ function QuestionnairePage() {
     });
   };
 
-  // Handle form submission (e.g., move to the next step or send to a backend)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted Answers:", answers);
-    // Navigate to another page or do something else here
   };
 
   return (
@@ -36,7 +30,6 @@ function QuestionnairePage() {
       <h1>Questionnaire Page</h1>
       <div className="questionnaire-card">
         <form onSubmit={handleSubmit}>
-          {/* 1. Reason for exploring tech */}
           <div className="form-group">
             <label htmlFor="reason">
               What is your main reason for exploring a career in tech?
@@ -51,7 +44,6 @@ function QuestionnairePage() {
             />
           </div>
 
-          {/* 2. Interests in tech fields */}
           <div className="form-group">
             <label htmlFor="interests">
               Which areas of tech interest you the most?
@@ -67,7 +59,6 @@ function QuestionnairePage() {
             />
           </div>
 
-          {/* 3. Ultimate career goal */}
           <div className="form-group">
             <label htmlFor="goal">What is your ultimate career goal?</label>
             <input
@@ -80,7 +71,6 @@ function QuestionnairePage() {
             />
           </div>
 
-          {/* 4. Preferred role (radio buttons as an example) */}
           <div className="form-group">
             <label>Which role appeals to you most?</label>
             <div className="radio-group">
@@ -117,7 +107,6 @@ function QuestionnairePage() {
             </div>
           </div>
 
-          {/* 5. Timeline (select as an example) */}
           <div className="form-group">
             <label htmlFor="timeline">
               How soon do you want to transition or advance in tech?
@@ -135,7 +124,6 @@ function QuestionnairePage() {
             </select>
           </div>
 
-          {/* Submit button */}
           <button type="submit" className="submit-button">
             Next
           </button>

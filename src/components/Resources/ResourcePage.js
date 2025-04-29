@@ -1,8 +1,6 @@
-// src/components/Resources/ResourcePage.js
 import React, { useState } from 'react';
 import './ResourcePage.css';
 
-// Sample resource data
 const RESOURCES = [
  {
   title: 'Stack Overflow',
@@ -125,20 +123,17 @@ const RESOURCES = [
   description: 'Online code editor and social development environment for front‑end.'
 },
 
-  // …add more as needed
 ];
 
 export default function ResourcePage() {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // Filter resources by search
   const filteredBySearch = RESOURCES.filter(r => 
     r.title.toLowerCase().includes(search.toLowerCase()) ||
     r.description.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Group resources by category
   const resourcesByCategory = filteredBySearch.reduce((acc, resource) => {
     const category = resource.category;
     if (!acc[category]) {
@@ -148,7 +143,6 @@ export default function ResourcePage() {
     return acc;
   }, {});
 
-  // Get all categories
   const categories = ['All', ...new Set(RESOURCES.map(r => r.category))];
 
   return (
@@ -177,7 +171,6 @@ export default function ResourcePage() {
       </div>
 
       {activeCategory === 'All' ? (
-        // Show all categories
         <div className="resource-categories">
           {Object.entries(resourcesByCategory).map(([category, resources]) => (
             <div className="resource-category-section" key={category}>
@@ -194,7 +187,6 @@ export default function ResourcePage() {
           ))}
         </div>
       ) : (
-        // Show only the selected category
         <div className="resource-category-section">
           <h3 className="category-title">{activeCategory}</h3>
           <div className="resource-grid">
