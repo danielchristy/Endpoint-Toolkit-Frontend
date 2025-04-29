@@ -15,7 +15,9 @@ function Hero() {
             <a href='https://basecampcodingacademy.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'><u>Check Out Base Camp Coding Academy Here!</u></a>
+            className='sponsor-link'
+            style={{ display: 'inline-block !important' }}>
+              <u>Check Out Base Camp Coding Academy Here!</u></a>
           </div>
           <div className='bcca-about'>
             <p>Base Camp Coding Academy is a non-profit organization that enable recent high school graduates 
@@ -39,7 +41,9 @@ function Hero() {
             <a href='https://wherewego.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'><u>Check Out WhereWeGo Here!</u></a>
+            className='sponsor-link'
+            style={{ display: 'inline-block !important' }}>
+              <u>Check Out WhereWeGo Here!</u></a>
           </div>
           <div className='wwg-about'>
             <p>WhereWeGo crafts technology solutions to advance workers and the organizations that seek to serve them.</p>

@@ -64,7 +64,7 @@
 }
 
 .add-cert-form,
-.submit-button {
+.add-cert-button {
   text-align: center;
   margin-top: 1rem;
   width: 100%;
@@ -162,9 +162,10 @@
   transition: 0.3s ease all;
 }
 
-.card-actions button:hover {
+.button:hover,
+.btn:hover {
   background-color: var(--wwg-green);
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 @media screen and (max-width: 768px) {

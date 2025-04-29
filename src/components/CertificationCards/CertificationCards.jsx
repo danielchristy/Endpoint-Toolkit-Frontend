@@ -3,7 +3,7 @@ import ReactConfetti from "react-confetti";
 import CompletedBadge from "./CompletedBadge";
 import "./CertificationCards.css";
 
-function CertificationCards({ certData, setCertData }) {
+function CertificationCards({ certData, setCertData, saveCertifications  }) {
   const [showConfetti, setShowConfetti] = useState(false);
   
   const [newCert, setNewCert] = useState({
@@ -17,6 +17,7 @@ function CertificationCards({ certData, setCertData }) {
   const handleDelete = (indexToDelete) => {
     const updatedCerts = certData.filter((_, index) => index !== indexToDelete);
     setCertData(updatedCerts);
+    saveCertifications(updatedCerts);
   };
 
   const handleUpdate = (e, index = null) => {
@@ -58,6 +59,7 @@ function CertificationCards({ certData, setCertData }) {
         (a, b) => new Date(b.dueDate) - new Date(a.dueDate)
       );
       setCertData(sorted);
+      saveCertifications(sorted);
       setNewCert({
         startDate: "",
         dueDate: "",
@@ -93,6 +95,7 @@ function CertificationCards({ certData, setCertData }) {
       return cert;
     });
     setCertData(updated);
+    saveCertifications(updated);
   };
 
   const calculateProgress = (cert) => {
@@ -206,8 +209,10 @@ function CertificationCards({ certData, setCertData }) {
           </button>
         </div>
 
-        <div className="submit-button">
-          <button className="btn" type="submit">
+        <div className="add-cert-button">
+          <button 
+            type='submit'
+            className="btn">
             Add This Cert
           </button>
         </div>
@@ -218,7 +223,7 @@ function CertificationCards({ certData, setCertData }) {
           const progress = calculateProgress(cert);
           return (
             <div className="cert-card bcca-card" key={index}>
-              <p className="cert-due-date">{cert.dueDate}</p>
+              <p className="cert-due-date">Due: {cert.dueDate}</p>
               <h3 className="cert-title">{cert.title}</h3>
               <p className="cert-subtitle">{cert.subtitle}</p>
 
