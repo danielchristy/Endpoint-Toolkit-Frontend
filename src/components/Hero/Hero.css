@@ -28,7 +28,7 @@
   background: var(--wwg-light-biege);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 6px 4px 10px var(--bcca-secondary-blue);
+  box-shadow: 0px 0px 12px var(--bcca-secondary-blue);
 }
 
 .bcca-content,
@@ -53,8 +53,9 @@
   font-size: 1.1rem;
   font-weight: 500;
   text-decoration: none;
-  transition: border-color 0.3s ease;
+  /* transition: border-color 0.3s ease; */
   margin-top: auto;
+  display: inline-block !important;
 }
 
 
@@ -126,9 +127,9 @@
     max-width: 15rem;
   }
 
-  .sponsor-link {
+  /* .sponsor-link {
     font-size: 1rem;
-  }
+  } */
 
   .bcca-about p,
   .wwg-about p {

@@ -6,10 +6,14 @@ body {
   color: var(--color-text);
   font-family: var(--font-body);
 }
-  
 
-/* Modal Overlay */
-.modal-overlay {
+.landing-page {
+  padding-bottom: 4rem;
+}
+
+
+
+/* .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,9 +25,9 @@ body {
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
-}
+} */
 
-/* Modal Container */
+/* 
 .modal {
   background-color: var(--color-background);
   padding: 2rem;
@@ -33,7 +37,7 @@ body {
   max-width: 400px;
 }
 
-/* Form Groups */
+
 .form-group {
   margin-bottom: 1rem;
 }
@@ -48,7 +52,6 @@ body {
   border-radius: 4px;
 }
 
-/* Close Button */
 .close-button {
   background-color: var(--wwg-green);
   color: #fff;
@@ -59,7 +62,6 @@ body {
   margin-top: 1rem;
 }
 
-/* Fade-in Animation */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -96,9 +98,9 @@ body {
   transform: translateY(-2px);
 }
 .accent-button {
-  background-color: var(--wwg-green);  /* Uses your accent color (#00a37f) */
-  color: #fff;                            /* White text */
-  border: none;                           /* No border */
+  background-color: var(--wwg-green);  
+  color: #fff;                            
+  border: none;                          
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-size: 1rem;
@@ -110,7 +112,7 @@ body {
 }
 
 .accent-button:hover {
-  background-color: #008f64; /* Slightly darker tone on hover; adjust as needed */
+  background-color: #008f64;
   transform: translateY(-2px);
 }
 
@@ -139,4 +141,4 @@ body {
   gap: 1rem;                  
   margin: 2rem auto;          
   flex-wrap: wrap;            
-}
+} */

@@ -88,7 +88,7 @@
   background-color: var(--bcca-card-bg-color);
   padding: 1.25rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px var(--bcca-secondary-blue);
   color: var(--bcca-text-color);
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@
 
 .resource-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px var(--wwg-green);
 }
 
 .resource-card h3 {

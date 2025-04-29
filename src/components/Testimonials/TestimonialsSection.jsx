@@ -46,6 +46,16 @@ function TestimonialsSection() {
 
   const [currentCard, setCurrentCard] = useState(0);
   const [fadeEffect, setFadeEffect] = useState("fade-in");
+  const [quoteView, setQuoteView] = useState(false);
+
+  const toggleQuoteView = () => {
+    setQuoteView((prev) => !prev);
+  };
+
+  const trimQuote = (text, limit = 350) => {
+    if (text.length <= limit || quoteView) return text;
+    return text.slice(0, limit) + '...';
+  }
 
   const goToCard = (index) => {
     setFadeEffect('fade-out');
@@ -100,7 +110,15 @@ function TestimonialsSection() {
                   <h4 className="grad-name">{testimonials[currentCard].name}</h4>
                   <p className="grad-year">Class of {testimonials[currentCard].gradYear}</p>
                 </div>
-                <p>{testimonials[currentCard].text}</p>
+                <p>{trimQuote(testimonials[currentCard].text)}</p>
+                  {testimonials[currentCard].text.length > 350 && (
+                    <p 
+                      className='show-full-quote-toggle' 
+                      onClick={toggleQuoteView}
+                      >
+                        {quoteView ? ' Show Less ' : ' Read More '}
+                    </p>
+                  )}
               </div>
             </div>
           </div>

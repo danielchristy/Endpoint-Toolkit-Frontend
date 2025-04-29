@@ -3,18 +3,15 @@ import ReactConfetti from "react-confetti";
 import CompletedBadge from "./CompletedBadge";
 import "./CertificationCards.css";
 
-function CertificationCards() {
-  
-  const [certData, setCertData] = useState([]);
-
+function CertificationCards({ certData, setCertData }) {
   const [showConfetti, setShowConfetti] = useState(false);
   
   const [newCert, setNewCert] = useState({
-    date: "",
+    startDate: "",
+    dueDate: "",
     title: "",
     subtitle: "",
-    progress: 0,
-    timeLeft: "",
+    milestones: [""],
   });
 
   const handleDelete = (indexToDelete) => {
@@ -22,149 +19,270 @@ function CertificationCards() {
     setCertData(updatedCerts);
   };
 
-  const handleUpdate = (indexToUpdate) => {
-    const updatedCerts = certData.map((cert, index) => {
-      if (index === indexToUpdate) {
-        const newProgress = Math.min(cert.progress + 10, 100);
-        if (newProgress === 100 && cert.progress < 100) {
-          setShowConfetti(true);
-          setTimeout(() => setShowConfetti(false), 6000);
-        }
-        return { ...cert, progress: newProgress };
-      }
-      return cert;
-    });
-    setCertData(updatedCerts);
+  const handleUpdate = (e, index = null) => {
+    const { name, value } = e.target;
+    
+    if (name === "milestones") {
+      const updatedMilestones = [...newCert.milestones];
+      updatedMilestones[index] = value;
+      setNewCert({ ...newCert, milestones: updatedMilestones });
+    } else {
+      setNewCert((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const addMilestoneInput = () => {
+    setNewCert((prev) => ({
+      ...prev,
+      milestones: [...prev.milestones, ""],
+    }));
   };
 
   const handleAddCertification = (e) => {
-    e.preventDefault(); 
-    if (newCert.title && newCert.subtitle && newCert.date && newCert.timeLeft) {
-      const updatedCert = {
+    e.preventDefault();
+  
+    if (
+      newCert.title &&
+      newCert.subtitle &&
+      newCert.startDate &&
+      newCert.dueDate &&
+      newCert.milestones.length &&
+      newCert.milestones.every((m) => m.trim() !== "")
+    ) {
+      const newCertification = {
         ...newCert,
-        progress: newCert.progress ? parseInt(newCert.progress, 10) : 0, 
+        completedMilestones: [],
       };
   
-      const updatedCerts = [...certData, updatedCert];
-      updatedCerts.sort((a, b) => new Date(b.date) - new Date(a.date));
-  
-      setCertData(updatedCerts);
+      const sorted = [...certData, newCertification].sort(
+        (a, b) => new Date(b.dueDate) - new Date(a.dueDate)
+      );
+      setCertData(sorted);
       setNewCert({
-        date: "",
+        startDate: "",
+        dueDate: "",
         title: "",
         subtitle: "",
-        progress: 0,
-        timeLeft: "",
+        milestones: [""],
       });
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewCert((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const toggleMilestone = (certIndex, milestone) => {
+    const updated = certData.map((cert, index) => {
+      if (index === certIndex) {
+        const isCompleted = cert.completedMilestones.includes(milestone);
+        const updatedCompleted = isCompleted
+          ? cert.completedMilestones.filter((m) => m !== milestone)
+          : [...cert.completedMilestones, milestone];
+
+        const allComplete =
+          updatedCompleted.length === cert.milestones.length &&
+          cert.milestones.length > 0;
+
+        if (allComplete && cert.completedMilestones.length !== cert.milestones.length) {
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 5000);
+        }
+
+        return {
+          ...cert,
+          completedMilestones: updatedCompleted,
+        };
+      }
+      return cert;
+    });
+    setCertData(updated);
+  };
+
+  const calculateProgress = (cert) => {
+    if (!cert.milestones.length) return 0;
+    return Math.round((cert.completedMilestones.length / cert.milestones.length) * 100);
+  };
+
+  const calculateTimeLeft = (dueDate, completedDate = null) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+
+    if (completedDate) {
+      const completed = new Date(completedDate);
+      const diff = Math.ceil((completed - due) / (1000 * 60 * 60 * 24));
+      const formattedDate = completed.toLocaleDateString();
+  
+      if (diff === 0) {
+        return `Completed on ${formattedDate} (on time)`;
+      } else {
+        return `Completed on ${formattedDate} (late by ${diff} day${diff !== 1 ? 's' : ''})`;
+      }
+    }
+
+      const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+
+      if (diffDays > 1) {
+        return `Due in ${diffDays} days`;
+      } else if (diffDays === 0) {
+        return "Due today";
+      } else {
+        return `Overdue by ${Math.abs(diffDays)} day${Math.abs(diffDays) !== 1 ? 's' : ''}`;
+      }
   };
 
   return (
-    <div className="cert-cards-container bcca-bg">
+    <div className="cert-cards-container">
       {showConfetti && (
         <ReactConfetti
           width={window.innerWidth}
           height={window.innerHeight}
-          numberOfPieces={300}
+          numberOfPieces={250}
           recycle={false}
         />
       )}
 
       <form className="add-cert-form" onSubmit={handleAddCertification}>
         <h3>Add New Certification</h3>
-        <input
-          type="text"
-          name="date"
-          placeholder="Date (e.g., Apr 25, 2025)"
-          value={newCert.date}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="title"
-          placeholder="Certification Title"
-          value={newCert.title}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="subtitle"
-          placeholder="Subtitle"
-          value={newCert.subtitle}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="progress"
-          placeholder="Progress (0-100)"
-          value={newCert.progress}
-          onChange={handleInputChange}
-          min="0"
-          max="100"
-        />
-        <input
-          type="text"
-          name="timeLeft"
-          placeholder="Time Left (e.g., 2 weeks left)"
-          value={newCert.timeLeft}
-          onChange={handleInputChange}
-          required
-        />
-        <button className="btn" type="submit">
-          Add Certification
-        </button>
+
+        <div className="left-column">
+          <span>Start Date:</span>
+          <input
+            type="date"
+            name="startDate"
+            value={newCert.startDate}
+            onChange={handleUpdate}
+            required={true}
+          />
+
+          <span>Due Date:</span>
+          <input
+            type="date"
+            name="dueDate"
+            value={newCert.dueDate}
+            onChange={handleUpdate}
+            required={true}
+          />
+
+          <span>Certification Title:</span>
+          <input
+            type="text"
+            name="title"
+            placeholder="Ex. CCNP"
+            value={newCert.title}
+            onChange={handleUpdate}
+            required={true}
+          />
+
+          <span>Certification Provider:</span>
+          <input
+            type="text"
+            name="subtitle"
+            placeholder="Ex. CISCO"
+            value={newCert.subtitle}
+            onChange={handleUpdate}
+            required={true}
+          />
+        </div>
+
+        <div className="right-column">
+          <span>Progress Milestones:</span>
+          {newCert.milestones.map((milestone, index) => (
+            <input
+              key={index}
+              type="text"
+              name="milestones"
+              placeholder={`Milestone ${index + 1}`}
+              value={milestone}
+              onChange={(e) => handleUpdate(e, index)}
+              required={true}
+              />
+          ))}
+
+          <button
+            type="button"
+            className="btn"
+            onClick={addMilestoneInput}
+          >
+            Add Another Milestone
+          </button>
+        </div>
+
+        <div className="submit-button">
+          <button className="btn" type="submit">
+            Add This Cert
+          </button>
+        </div>
       </form>
 
-      {certData.map((cert, index) => (
-        <div className="cert-card bcca-card" key={index}>
-          <p className="cert-date bcca-text-muted">{cert.date}</p>
-          <h3 className="cert-title bcca-text-accent">{cert.title}</h3>
-          <p className="cert-subtitle bcca-text-secondary">{cert.subtitle}</p>
+      {certData && certData.length > 0 ? (
+        certData.map((cert, index) => {
+          const progress = calculateProgress(cert);
+          return (
+            <div className="cert-card bcca-card" key={index}>
+              <p className="cert-due-date">{cert.dueDate}</p>
+              <h3 className="cert-title">{cert.title}</h3>
+              <p className="cert-subtitle">{cert.subtitle}</p>
 
-          <div className="progress-wrapper">
-            <div className="progress-label">
-              Progress: <strong>{cert.progress}%</strong>
+              <div className="progress-wrapper">
+                <div className="progress-label">
+                  <strong>{progress}%</strong> Complete
+                </div>
+                <div className="progress-bar-bg">
+                  <div
+                    className="progress-bar-fg"
+                    style={{
+                      width: `${progress}%`,
+                      backgroundColor:
+                        progress === 100 ? '#2caa85'
+                          : progress >= 75 ? '#9cd4e4'
+                          : progress >= 50 ? '#ffe549'
+                          : progress >= 25? '#e07645'
+                          : '#F9F0E1'
+                    }}
+                  ></div>
+                </div>
+              </div>
+
+              <ul className="milestones">
+                {cert.milestones.map((milestone, i) => (
+                  <li key={i}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={cert.completedMilestones.includes(milestone)}
+                        onChange={() => toggleMilestone(index, milestone)}
+                      />
+                      {milestone}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+
+              {/* <div className="time-left">{calculateTimeLeft(cert.dueDate)}</div> */}
+
+              {progress === 100 ? (
+                <div className="time-left">
+                  <CompletedBadge />
+                </div>
+              ) : (
+                <div className="time-left">{calculateTimeLeft(cert.dueDate)}</div>
+              )}
+
+              <div className="card-actions">
+                <button className="btn" onClick={() => handleUpdate(index)}>
+                  Update
+                </button>
+                <button className="btn" onClick={() => handleDelete(index)}>
+                  Delete
+                </button>
+              </div>
             </div>
-            <div className="progress-bar-bg">
-              <div
-                className="progress-bar-fg"
-                style={{ width: `${cert.progress}%` }}
-              ></div>
-            </div>
-          </div>
-
-          <div className="time-left bcca-text-muted">{cert.timeLeft}</div>
-
-          {cert.progress === 100 && <CompletedBadge />}
-
-          <div className="card-actions">
-            <button className="btn" onClick={() => handleUpdate(index)}>
-              Update
-            </button>
-            <button className="btn" onClick={() => handleDelete(index)}>
-              Delete
-            </button>
-          </div>
-        </div>
-      ))}
+          );
+        })
+      ) : (
+        <p>No certifications found.</p>
+      )}
     </div>
   );
-};
+}
 
 export default CertificationCards;
-
-
-
-
-

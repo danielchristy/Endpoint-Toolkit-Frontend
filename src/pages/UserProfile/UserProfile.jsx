@@ -9,6 +9,7 @@ const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showSettings, setShowSettings] = useState(false);
+  const [certData, setCertData] = useState([]);
 
   const showQuestionnaire = () => {
     navigate('/questionnaire');
@@ -22,16 +23,16 @@ const UserProfile = () => {
     <div className='user-profile'>
       <div className='user-info'>
         <div className='user-details-text'>
-          <div className='settings-btn' onClick={toggleSettings}>
+          {/* <div className='settings-btn' onClick={toggleSettings}>
             <span className='settings-icon'>⚙️</span>
-          </div>
+          </div> */}
           <h2><strong>{user.first_name} {user.last_name}</strong> </h2>
           <p className='user-email'>{user.email}</p>
         </div>
       </div>
 
       <div className='dashboard'>
-        <div className='dashboard-header'>
+        {/* <div className='dashboard-header'>
             <h2 className='dashboard-title'>Your Dashboard</h2>
             <h6>Questionnaire Status</h6>
             {user.questionnaire_completed ? (
@@ -48,12 +49,12 @@ const UserProfile = () => {
                 </button>
               </div>
             )}
-          </div>
+          </div> */}
         
           <div className='certifications-section'>
-            <h3>Your Certifications</h3>
+            <h3>Certification Tracker</h3>
             <div className='certification-cards'>
-              <CertificationCards />
+            <CertificationCards certData={certData} setCertData={setCertData} />
             </div>
           </div>
         </div>

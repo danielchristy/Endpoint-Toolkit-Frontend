@@ -1,7 +1,7 @@
 .testimonials  {
   margin: 1.5rem 4.5rem;
   padding: 0.25rem 1rem;
-  background-color: var(--bcca-primary-blue);
+  /* background-color: var(--bcca-primary-blue); */
   text-align: center;
   border-radius: 5%;
 }
@@ -21,17 +21,18 @@
   padding: 1rem;
   background: var(--wwg-light-biege);
   border-radius: 5%;
-  box-shadow: 6px 4px 10px var(--wwg-green);
+  box-shadow: 0px 0px 12px var(--bcca-secondary-blue);
 }
 
 .testimonials-card {
   display: flex;
+  align-items: flex-start;
   padding: 0.5rem;
   gap: 2rem;
   transition: opacity 0.3s ease;
   opacity: 1;
-  max-height: 14.5rem;
-  overflow: hidden;
+  /* max-height: 14.5rem;
+  overflow: hidden; */
 }
 
 .fade-out {
@@ -44,9 +45,10 @@
 
 .testimonial-image {
   width: 12rem;
-  height: auto;
+  height: 18rem;
   border-radius: 5%;
   object-fit: cover;
+  margin-top: -4rem;
 }
 
 .grad-name {
@@ -74,21 +76,10 @@
 .testimonial-text {
   display: flex;
   flex-direction: column;
-  min-height: 250px;
+  /* min-height: 250px; */
   /* position: relative; */
   flex: 1;
   text-align: left;
-}
-
-.testimonial-text p:last-child {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-  /* align-items: center; */
-  font-style: italic;
-  margin: 0;
-  line-height: 1.6;
-  font-size: 0.95rem;
 }
 
 .carousel-controls {
@@ -129,6 +120,13 @@
   opacity: 100%;
 }
 
+.show-full-quote-toggle {
+  color: var(--bcca-brown);
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
   .testimonials-section {
@@ -150,11 +148,12 @@
   .testimonial-image {
     width: 8rem;
     height: 16rem;
+    margin: 0 0.5rem 1rem 0.5rem;
   }
 
   .testimonial-text {
     min-height: auto;
-    text-align: left;
+    align-items: left;
   }
 
   .grad-info {

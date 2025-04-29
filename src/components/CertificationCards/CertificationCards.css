@@ -1,175 +1,184 @@
 @import '../../styles/variables.css';
 
-/* Container */
 .cert-cards-container {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: var(--bcca-bg-color);
-  color: var(--bcca-text-color);
-}
-
-/* Individual Card */
-.bcca-card {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--bcca-card-bg-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px #9cd4e4;
-  padding: 1.5rem;
-  max-width: 300px;
-  min-height: 200px;
-}
-
-/* Gradient corner accent */
-.bcca-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #5C3D1C, #0072ff);
-  border-bottom-left-radius: 100px;
-  z-index: 0;
-  opacity: 0.3;
-}
-
-.bcca-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Date, Title, Subtitle */
-.cert-date {
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  color: var(--bcca-text-muted-color);
-}
-
-.cert-title {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  color: var(--bcca-text-accent-color);
-}
-
-.cert-subtitle {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  color: var(--bcca-text-secondary-color);
-}
-
-/* Progress */
-.progress-wrapper {
-  margin-bottom: 1rem;
-}
-
-.progress-label {
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-  color: #999999;
-}
-
-.progress-bar-bg {
-  width: 100%;
-  height: 6px;
-  background: var(--bcca-progress-bg);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-bar-fg {
-  height: 6px;
-  background: var(--bcca-progress-fill);
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-/* Time left */
-.time-left {
-  font-size: 0.85rem;
-  color: var(--bcca-text-muted-color);
-}
-
-/* Button Styles */
-.btn {
-  background-color: #6c63ff;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #5b55cc;
-}
-
-.btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px #000000;
-}
-
-/* Card Actions: Spacing for Update and Delete buttons */
-.card-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.completed-badge {
-  padding: 4px 8px;
-  background-color: #e0f7fa;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  margin: 8px 0;
-}
-
-/* Add Certification Form */
-.add-cert-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background-color: var(--bcca-card-bg-color);
-  color: var(--bcca-text-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px #9cd4e4;
-  max-width: 500px;
-  margin: 2rem auto; /* Center the form */
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-around;
+  padding: 1rem;
 }
 
 .add-cert-form h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  width: 100%;
   text-align: center;
-  color: var(--bcca-text-accent-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.add-cert-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.add-cert-form .left-column {
+  width: 48%;
+}
+
+.add-cert-form .right-column {
+  width: 48%;
+}
+
+.add-cert-form span {
+  color: var(--wwg-green);
+  display: block;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: left;
+  margin-top: 0.5rem;
 }
 
 .add-cert-form input {
-  padding: 0.7rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  width: 100%;
+  padding: 0.75rem;
   font-size: 1rem;
-  background-color: #f9f9f9;
-  color: #333;
-}
-
-.add-cert-form input:focus {
-  outline: none;
-  border-color: #6c63ff;
-  box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+  border: 1px solid var(--bcca-primary-blue);
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
 }
 
 .add-cert-form button {
   margin-top: 1rem;
+  padding: 0.25rem;
+  background-color: var(--bcca-primary-blue);
+  color: var(--plain-white);
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
+.add-cert-form,
+.submit-button {
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+}
 
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 20rem;
+  height: 100%;
+  min-height: 26rem;
+  background-color: var(--plain-white);
+  border-radius: 8px;
+  box-shadow: 0 0 12px var(--bcca-secondary-blue);
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.cert-card .cert-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--bcca-primary-blue);
+}
+
+.cert-card .cert-subtitle {
+  font-size: 1rem;
+  color: var(--bcca-primary-blue);
+}
+
+.cert-card .cert-date {
+  font-size: 0.875rem;
+  color: var(--wwg-dark-biege);
+}
+
+.cert-card .progress-wrapper {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8%;
+}
+
+.cert-card .progress-label {
+  font-weight: bold;
+}
+
+.cert-card .progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background-color: var(--wwg-light-biege);
+  border-radius: 8%;  margin: 0.5rem 0;
+}
+
+.cert-card .progress-bar-fg {
+  height: 100%;
+  border-radius: 8%;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.cert-card .milestones {
+  text-align: left;
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+.cert-card .time-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  font-weight: bold;
+  margin-top: auto;
+  color: var(--bcca-primary-blue);
+}
+
+.cert-card .card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card-actions button {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  background-color: var(--bcca-primary-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+
+.card-actions button:hover {
+  background-color: var(--wwg-green);
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .add-cert-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .add-cert-form .left-column,
+  .add-cert-form .right-column {
+    width: 100%;
+  }
+
+  .add-cert-form input {
+    width: 100%;
+  }
+}

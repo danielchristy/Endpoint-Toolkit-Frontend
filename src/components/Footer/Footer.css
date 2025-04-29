@@ -10,6 +10,7 @@
   justify-content: space-between;
   padding: 0.5rem 0.5rem;
   margin-top: 0.5rem;
+  box-shadow: 0 -2px 12px var(--wwg-green);
 }
 
 .logos-container {
@@ -79,7 +80,7 @@
   background-color: #007358;
 }
 
-@media (max-width: 599px) {
+@media (max-width: 700px) {
   .footer-container {
     padding: 1rem;
     flex-direction: column;
