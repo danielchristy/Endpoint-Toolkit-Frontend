@@ -273,9 +273,9 @@ function CertificationCards({ certData, setCertData, saveCertifications  }) {
               )}
 
               <div className="card-actions">
-                <button className="btn" onClick={() => handleUpdate(index)}>
+                {/* <button className="btn" onClick={() => handleUpdate(index)}>
                   Update
-                </button>
+                </button> */}
                 <button className="btn" onClick={() => handleDelete(index)}>
                   Delete
                 </button>

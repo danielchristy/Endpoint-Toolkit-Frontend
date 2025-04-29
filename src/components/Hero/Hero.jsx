@@ -15,7 +15,7 @@ function Hero() {
             <a href='https://basecampcodingacademy.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'>
+            className='bcca-link'>
               <u>Check Out Base Camp Coding Academy Here!</u></a>
           </div>
           <div className='bcca-about'>
@@ -40,7 +40,7 @@ function Hero() {
             <a href='https://wherewego.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'
+            className='wwg-link'
             style={{ display: 'inline-block !important' }}>
               <u>Check Out WhereWeGo Here!</u></a>
           </div>

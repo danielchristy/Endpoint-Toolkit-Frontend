@@ -48,7 +48,8 @@
   object-fit: contain;
 }
 
-.sponsor-link {
+.bcca-link,
+.wwg-link {
   color: var(--bcca-brown);
   font-size: 1.1rem;
   font-weight: 500;
@@ -57,8 +58,8 @@
   margin-top: auto;
 }
 
-
-.sponsor-link:hover {
+.bcca-link:hover,
+.wwg-link:hover {
   color: var(--wwg-green);
 }
 
