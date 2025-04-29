@@ -15,8 +15,7 @@ function Hero() {
             <a href='https://basecampcodingacademy.org/' 
             target='_blank'
             rel='noopener noreferrer'
-            className='sponsor-link'
-            style={{ display: 'inline-block !important' }}>
+            className='sponsor-link'>
               <u>Check Out Base Camp Coding Academy Here!</u></a>
           </div>
           <div className='bcca-about'>

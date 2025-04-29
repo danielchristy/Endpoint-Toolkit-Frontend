@@ -15,7 +15,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchCertifications = async () => {
       try {
-        const res = await axios.get(`https://api.devwaypoint.xyz/api/users/${user.id}`);
+        const res = await axios.get(`https://api.devwaypoint.xyz/api/users/${user._id}`);
         if (res.data.certifications) {
           setCertData(res.data.certifications);
         }
@@ -33,7 +33,7 @@ const UserProfile = () => {
   const saveCertifications = async (updatedCerts) => {
     try {
       setCertData(updatedCerts); // update local state
-      await axios.put(`https://api.devwaypoint.xyz/api/users/${user.id}`, {
+      await axios.put(`https://api.devwaypoint.xyz/api/users/${user._id}`, {
         certifications: updatedCerts,
       });
     } catch (err) {
